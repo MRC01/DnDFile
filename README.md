@@ -7,7 +7,7 @@ and how they were different from C++ templates.
 Also, since most of my Java experience was server-side,
 I wanted to learn some new areas like the Swing and Printing classes.
 And, having been an avid Dungeon Master since I was a kid,
-I wanted to write a program to manage all the characters I had build and campaigned over the years.
+I wanted to write a program to manage all the characters I had built and campaigned over the years.
 
 The character equipment list is a drag & drop tree,
 so you can indicate which items are contained within other items.
@@ -19,3 +19,9 @@ It's easy to import into Eclipse and set up to use its Ant builder.
 This program uses 2 fonts when printing: Garamond and DejaVu Sans.
 Both are freely available.
 If you don't have them installed, the printouts won't look right.
+
+The app has 1 command-line parameter: -font N.
+N is an integer that adjusts relative font size, positive or negative.
+Java Swing was made back when monitors were lower res with less DPI than they have today.
+Thus, its default font sizes are too small for modern monitors.
+Typically, "-font +4" works well, but you can use any size adjustment.
