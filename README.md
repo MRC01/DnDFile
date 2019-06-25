@@ -31,4 +31,5 @@ It looks for an env var JUNIT_HOME for the directory to find it.
 Thus: export JUNIT_HOME=/apps/junit
 
 Example build: ant clean all
+
 Example run: java -jar DnD.jar -font +4
