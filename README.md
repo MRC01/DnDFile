@@ -31,7 +31,8 @@ Typically, "-font +4" works well, but you can use any size adjustment.
 
 The build requires Junit 4.8.2 (file junit-4.8.2.jar).
 It looks for an env var JUNIT_HOME for the directory to find it.
-Thus: export JUNIT_HOME=/apps/junit
+
+Thus: export JUNIT_HOME=/apps/junit (or wherever you put it in your local filesystem).
 
 Example build: ant clean all
 
