@@ -9,6 +9,9 @@ I wanted to learn some new areas like the Swing and Printing classes.
 And, having been an avid Dungeon Master since I was a kid,
 I wanted to write a program to manage all the characters I had built and campaigned over the years.
 
+The complex structure of a D&D character was the perfect opportunity to
+model with java.util classes to really learn how to combine them and use Generics.
+
 The character equipment list is a drag & drop tree,
 so you can indicate which items are contained within other items.
 
