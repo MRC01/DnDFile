@@ -25,3 +25,10 @@ N is an integer that adjusts relative font size, positive or negative.
 Java Swing was made back when monitors were lower res with less DPI than they have today.
 Thus, its default font sizes are too small for modern monitors.
 Typically, "-font +4" works well, but you can use any size adjustment.
+
+The build requires Junit 4.8.2 (file junit-4.8.2.jar).
+It looks for an env var JUNIT_HOME for the directory to find it.
+Thus: export JUNIT_HOME=/apps/junit
+
+Example build: ant clean all
+Example run: java -jar DnD.jar -font +4
