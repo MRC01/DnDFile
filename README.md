@@ -15,6 +15,17 @@ model with java.util classes to really learn how to combine them and use Generic
 The character equipment list is a drag & drop tree,
 so you can indicate which items are contained within other items.
 
+There is 1 sample character file for testing this program: test1.dnd.
+It is a character from a campaign back in the 1980s when I was in college.
+You can load, save, edit, etc.
+
+One area still remaining to develop is generating new characters.
+I plan for this to be a full one-click experience for characters of any type,
+including full equipment lists appropriate to the race & class,
+intelligently randomized.
+This feature would greatly reduce my workload as a dungeon master,
+having to generate NPCs.
+
 I wrote this program long ago, back when Ant was commonly used.
 So it's built with Ant, not Maven.
 It's easy to import into Eclipse and set up to use its Ant builder.
