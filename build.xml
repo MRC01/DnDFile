@@ -1,0 +1,55 @@
+<project default="all">
+	<property environment="env"/>
+	<property name="bin.dir" value="bin"/>
+	<property name="cp" value="${bin.dir}"/>
+	<property name="junit" value="${env.JUNIT_HOME}"/>
+	<target name="dirs">
+		<mkdir dir="${bin.dir}"/>
+		<copy todir="${bin.dir}">
+			<fileset dir="." includes="*.dat"/>
+		</copy>
+	</target>
+
+	<target name="all" depends="main,test,jar"/>
+
+	<target name="util" depends="dirs">
+		<javac includeantruntime="false" classpath="${cp}" debug="on" srcdir="util" destdir="${bin.dir}">
+			<compilerarg value="-Xlint:all"/>
+		</javac>
+	</target>
+
+	<target name="model" depends="util">
+		<javac includeantruntime="false" classpath="${cp}" debug="on" srcdir="model" destdir="${bin.dir}">
+			<compilerarg value="-Xlint:all"/>
+		</javac>
+	</target>
+
+	<target name="gui" depends="model, util">
+		<javac includeantruntime="false" classpath="${cp}" debug="on" srcdir="gui" destdir="${bin.dir}">
+			<compilerarg value="-Xlint:all"/>
+		</javac>
+	</target>
+
+	<target name="main" depends="gui, util">
+		<javac includeantruntime="false" classpath="${cp}" debug="on" srcdir="main" destdir="${bin.dir}">
+			<compilerarg value="-Xlint:all"/>
+		</javac>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin.dir}"/>
+		<delete file="DnD.jar"/>
+	</target>
+
+	<target name="jar">
+		<jar destfile="DnD.jar" basedir="bin" manifest="manifest.txt">
+		</jar>
+	</target>
+	
+	<target name="test">
+		<javac includeantruntime="false" classpath="${cp};${junit}/junit-4.8.2.jar" debug="on" srcdir="test" destdir="${bin.dir}">
+			<compilerarg value="-Xlint:all"/>
+		</javac>
+	</target>
+		
+</project>
