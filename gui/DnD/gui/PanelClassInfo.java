@@ -10,15 +10,15 @@ import DnD.model.ClassInfo;
 /** This is the base class for all specific class info panels (Fighter, etc.).
  *
  *  Every specific class panel has 3 classes:
- *	itself:			a subclass of this class (PanelClassInfo)
+ *		itself:				a subclass of this class (PanelClassInfo)
  *  	PanelClassInfo:		its base class (this class)
  *  	PanelClassBasic:	GUI for common ClassInfo fields (Level, XPoints, etc.)
- *  				owned by this class
+ *  						owned by this class
  *
  *   Here is what PanelClassInfo (this class) does:
  *	1. manages the ClassInfo object from the data model:
  *		creating a working copy when necessary
- *   		adding or removing it from the Character when necessary
+ *   	adding or removing it from the Character when necessary
  *	2. creates & displays the GUI for common ClassInfo
  *		calls the specific subclass to add its GUI elements to the screen
  *	3. handles apply & revert

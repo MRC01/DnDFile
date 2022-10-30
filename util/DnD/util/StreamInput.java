@@ -198,9 +198,9 @@ public class StreamInput
 		{
 			case Util.TYPE_STRING:	val = readUTF();
 				break;
-			case Util.TYPE_INTEGER: val = new Integer(readInt());
+			case Util.TYPE_INTEGER: val = Integer.valueOf(readInt());
 				break;
-			case Util.TYPE_LONG: val = new Long(readLong());
+			case Util.TYPE_LONG: val = Long.valueOf(readLong());
 				break;
 			default:
 				throw new Exception("readItem(): unsupported type");
@@ -217,7 +217,7 @@ public class StreamInput
 	public <T> List<T> readList(Class<? extends List<T>> typeList, Class<T> typeItem)
 			throws Exception
 	{
-		List<T>	theList = typeList.newInstance();
+		List<T>	theList = typeList.getDeclaredConstructor().newInstance();
 		return readList(theList, typeItem);
 	}
 

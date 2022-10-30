@@ -85,7 +85,7 @@ public class AbilScore implements Comparable<AbilScore>
 
 	public void genRandom()
 	{
-		itsVal = new Integer(getRandomScore()).toString();
+		itsVal = Integer.valueOf(getRandomScore()).toString();
 		setAdjust();
 	}
 	

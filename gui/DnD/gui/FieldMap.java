@@ -10,7 +10,7 @@ import DnD.util.Util;
  */
 public class FieldMap
 {
-	protected static Integer	INTEGER_ZERO = new Integer(0);
+	protected static Integer	INTEGER_ZERO = Integer.valueOf(0);
 
 	public JTextField	itsTF;
 	public Field		itsData;

@@ -74,7 +74,7 @@ public class CharactrPrinter implements Printable
 	// Called by the Java print system - PrinterJob::print()
 	public int print(Graphics g, PageFormat pFmt, int pagIdx) throws PrinterException
 	{
-		Integer		page = new Integer(pagIdx);
+		Integer		page = Integer.valueOf(pagIdx);
 
 		if(pagIdx == 0)
 		{

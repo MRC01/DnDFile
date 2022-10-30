@@ -177,8 +177,9 @@ public class MainGui extends Container implements ActionListener
 		{
 			msgBox("About",
 				"D&D Character App\n" +
-				"An app exploring javax.swing, java.awt.print, and java.util.\n" +
-				"Copyright 2009, 2019\n" +
+				"An app to create, manage and print D&D characters.\n" +
+				"Uses javax.swing, java.awt.print, and java.util.\n" +
+				"Copyright 2009, 2022\n" +
 				"See README.TXT for instructions & details.\n" +
 				"by Michael R. Clements\n" +
 				"mrc@mclements.net\n" +

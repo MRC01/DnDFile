@@ -94,9 +94,9 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		pl = new PrintLine(pi);
 		cPrint.itsPrinter.add(pl);
 
-		txt = new Integer(itsXPoints).toString();
+		txt = Integer.valueOf(itsXPoints).toString();
 		cPrint.textWithLabel("XPoints", txt);
-		txt = new Integer(itsXPBonus).toString() + "%";
+		txt = Integer.valueOf(itsXPBonus).toString() + "%";
 		cPrint.textWithLabel("XP Bonus", txt);
 		cPrint.textList("Class Abilities", itsAbils);
 

@@ -5,6 +5,8 @@ package DnD.model;
 
 import java.util.*;
 
+import DnD.util.NameManager;
+
 public class Charactr
 {
 	public static final int	NUM_SAV_THROWS	= 5;
@@ -56,10 +58,24 @@ public class Charactr
 		return null;
 	}
 	
+	// Create and return a new Character, generated randomly
 	public static Charactr newRandom()
 	{
 		Charactr	newChar = new Charactr();
 		
+		// Determine gender & name (must be done before Race)
+		double g = Math.random();
+		if(g < 0.5)
+		{
+			newChar.itsGender = "Male";
+			newChar.itsName = NameManager.getNameRandomMale();
+		}
+		else
+		{
+			newChar.itsGender = "Female";
+			newChar.itsName = NameManager.getNameRandomFemale();
+		}
+
 		// Generate ability scores
 		newChar.itsAbilScores.genRandom();
 
@@ -67,9 +83,38 @@ public class Charactr
 		newChar.itsClasses.add(genClass(newChar));
 
 		// Pick race based on scores & class
-		;
+		newChar.itsRace = newChar.genRace();
 
 		return newChar;
+	}
+
+	protected Race genRace() {
+		Race	rc = null;
+		double	d = Math.random();
+
+		// Of the 7 races, Humans are most common making up half of all characters,
+		// and having no class or ability score restrictions
+		if(d < 0.5)
+			rc = new Race(Race.Type.HUMAN.toString());
+		// The remaining 6 races equally make up the other half
+		// That's 8.3% each
+		else if(d < 0.5833 && Race.canBeDwarf(this))
+			rc = new Race(Race.Type.DWARF.toString());
+		else if(d < 0.6667 && Race.canBeElf(this))
+			rc = new Race(Race.Type.ELF.toString());
+		else if(d < 0.75 && Race.canBeGnome(this))
+			rc = new Race(Race.Type.GNOME.toString());
+		else if(d < 0.8333 && Race.canBeHalfElf(this))
+			rc = new Race(Race.Type.HALFELF.toString());
+		else if(d < 0.9167 && Race.canBeHalfling(this))
+			rc = new Race(Race.Type.HALFLING.toString());
+		else if(Race.canBeHalfOrc(this))
+			rc = new Race(Race.Type.HALFORC.toString());
+		else
+			// If we get here, the character doesn't qualify for any other race
+			rc = new Race(Race.Type.HUMAN.toString());
+		rc.setAbils(this, true);
+		return rc;
 	}
 
 	protected static ClassInfo genClass(Charactr genChar) {

@@ -54,7 +54,7 @@ public class PrintBatch extends ArrayList<PrintLine>
 			itsLineIdx = 0;
 		else
 		{
-			pageInt = new Integer(page);
+			pageInt = Integer.valueOf(page);
 			if(itsPagePos.containsKey(pageInt))
 			{
 				// We've been called for this page before
@@ -88,8 +88,8 @@ public class PrintBatch extends ArrayList<PrintLine>
 		}
 
 		// Cache the starting line for the next page
-		pageInt = new Integer(page + 1);
-		itsPagePos.put(pageInt, new Integer(itsLineIdx));
+		pageInt = Integer.valueOf(page + 1);
+		itsPagePos.put(pageInt, Integer.valueOf(itsLineIdx));
 
 		// At this point either the page is full or the list is empty.
 		// If there are any items left, I will print them on the next call to run().

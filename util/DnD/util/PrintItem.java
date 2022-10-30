@@ -8,7 +8,7 @@ public class PrintItem
 {
 	public enum Align { LEFT, CENTER, RIGHT }
 
-	public Font		itsFont;
+	public Font			itsFont;
 	public String		itsText;
 	public Align		itsAlign;
 	public boolean		itsWithLine;
@@ -31,7 +31,7 @@ public class PrintItem
 
 	protected void init(String str, Font fnt, Align al, boolean withLine)
 	{
-		itsText = str;
+		itsText = (str == null ? "" : str);
 		itsFont = fnt;
 		itsAlign = al;
 		itsWithLine = withLine;
