@@ -169,4 +169,11 @@ public abstract class MUBase extends ClassInfo
 			}
 		}
 	}
+
+	// Magic Users start with 20-80 gp (2d4 x 10)
+	public int getStartingGold() {
+		int gp = (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5);
+		return gp * 10;
+	}
 }

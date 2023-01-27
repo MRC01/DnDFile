@@ -208,6 +208,16 @@ public class Monk extends ClassInfo
 		return ourXPLevels;
 	}
 
+	// Monks start with 5-20 gp (5d4)
+	public int getStartingGold() {
+		int gp = (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5);
+		return gp;
+	}
+
 	// Returns the character's dexterity as an int, zero if the score is not parseable into an int
 	protected int getDexInt()
 	{

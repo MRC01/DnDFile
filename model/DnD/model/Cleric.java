@@ -166,4 +166,11 @@ public class Cleric extends ClassInfo
 			itsTurn[t.ordinal()] = ourTurnLevels[t.ordinal()][lvl];
 	}
 
+	// Clerics start with 30-180 gp (3d6 x 10)
+	public int getStartingGold() {
+		int gp = (int)(Math.random() * 5 + 1.5)
+				+ (int)(Math.random() * 5 + 1.5)
+				+ (int)(Math.random() * 5 + 1.5);
+		return gp * 10;
+	}
 }

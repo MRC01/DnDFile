@@ -6,6 +6,7 @@ package DnD.model;
 import java.util.*;
 
 import DnD.util.NameManager;
+import DnD.util.Util;
 
 public class Charactr
 {
@@ -24,7 +25,7 @@ public class Charactr
 	public List<String>	itsWeapProf, itsCombatAdj, itsLangs, itsSecSkills;
 	public Item		itsEquip;
 	public Race		itsRace;
-	public Wealth		itsWealth;
+	public Wealth	itsWealth;
 	/* Known classes: Cleric, Fighter, Thief, Monk, MUBase (MagicUser, Illusionist)
 	   At most one of each can be had.
 	*/
@@ -84,6 +85,12 @@ public class Charactr
 
 		// Pick race based on scores & class
 		newChar.itsRace = newChar.genRace();
+
+		// Generate (random) wealth
+		newChar.genWealth();
+
+		// Equip the character
+		newChar.genEquip();
 
 		return newChar;
 	}
@@ -156,5 +163,61 @@ public class Charactr
 			rc = new Fighter(genChar);
 		}
 		return rc;
+	}
+
+	// Subclasses override this based on character class
+	/* MRC: 230118: It will be cumbersome to store wealth as a string,
+	 * then automatically buy equipment, deducting for each.
+	 * If the character generator also randomly generates equipment (not just wealth),
+	 * then store the gold as a protected int, used for equipment generation.
+	 * Then when equipment generation is complete, convert the remainder to Wealth strings.
+	 */
+	protected void genWealth() {
+		int	g;
+		if(Util.isBlank(itsClasses)) {
+			// If class isn't defined, use a default 20-120, binomial distribution
+			g = (int)(Math.random() * 5 + 1.5)
+					+ (int)(Math.random() * 5 + 1.5);
+			g *= 10;
+		}
+		else {
+			// Generate wealth from each class and pick the highest
+			int max = -1;
+			for(ClassInfo ci: itsClasses) {
+				g = ci.getStartingGold();
+				if(g > max) max = g;
+			}
+			g = max;
+		}
+		itsWealth.add(Wealth.Type.GOLD, Integer.valueOf(g).toString());
+	}
+
+	protected void genEquip() {
+		if(Util.isBlank(itsClasses)) {
+			genEquipDefault();
+		}
+		else {
+			// Generate equipment for each class
+			for(ClassInfo ci: itsClasses) {
+				ci.genEquip();
+			}
+		}
+	}
+
+	// Generate default equipment
+	// ClassInfo subclasses may optionally call this - but they don't have to.
+	public void genEquipDefault() {
+		// If class isn't defined, equipment is just clothing
+		Item	it, it1, it2;
+		it = new Item("Clothing");
+		itsEquip.addChild(it);
+		it.addChild("Robe", "brown, knee length");
+		it.addChild("Boots", "low, soft");
+		it1 = new Item("Belt");
+		it.addChild(it1);
+		it2 = new Item("Belt Pouch", "small");
+		it1.addChild(it2);
+		it2.addChild("coins in hand");
+		itsClothing = "Robe, brown, knee length";
 	}
 }

@@ -1,5 +1,6 @@
 /* Item represents an item that a character can possess.
    It is a "composite" pattern; each item has a (possibly empty) set of child items.
+   The Character has a single root Item.
 */
 
 package DnD.model;

@@ -186,4 +186,13 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		}
 		return rc;
 	}
+	
+	// Return a random amount of goldpieces for a new character
+	public abstract int getStartingGold();
+	
+	// Generate equipment for a new character
+	// Subclasses should override this, else they'll get default clothing only
+	public void genEquip() {
+		itsChar.genEquipDefault();
+	}
 }

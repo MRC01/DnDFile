@@ -25,7 +25,7 @@ public class PanelEquipment extends PanelBase implements ActionListener
 
 	// GUI stuff
 	JTree			itsTree;
-	ItemTreeModel		itsTModel;
+	ItemTreeModel	itsTModel;
 	JButton			itsButAdd, itsButEdit, itsButDel, itsButExp;
 
 	// Other stuff
@@ -34,7 +34,7 @@ public class PanelEquipment extends PanelBase implements ActionListener
 	{
 		super();
 
-		JScrollPane		sp;
+		JScrollPane			sp;
 		GridBagLayout		gb = new GridBagLayout();
 		GridBagConstraints	gc = new GridBagConstraints();
 		MainGui.GuiCfg		guiCfg = new MainGui.GuiCfg(this, gb, gc);
@@ -295,7 +295,7 @@ public class PanelEquipment extends PanelBase implements ActionListener
 		JButton			itsButOK, itsButCancel;
 		JTextField		itsTFName, itsTFDesc;
 		JCheckBox		itsCBAdd, itsCBChild;
-		int			itsMode;
+		int				itsMode;
 		TreePath		itsItemPath, itsItemPPath;
 		Item			itsItem, itsPItem;
 		boolean			itsExitState;

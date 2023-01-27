@@ -16,8 +16,8 @@ public class Wealth
 		ELEC	("Electrum"),
 		SILV	("Silver"),
 		COPP	("Copper"),
-		GEM	("Gem"),
-		JEW	("Jewel");
+		GEM		("Gem"),
+		JEW		("Jewel");
 		public final String	itsName;
 		Type(String nam)
 		{
@@ -28,9 +28,9 @@ public class Wealth
 	public static class WealthItem
 	{
 		public Type		itsType;
-		public String		itsAmount, itsLocation;
+		public String	itsAmount, itsLocation;
 		// Used only for type "other"
-		public String		itsName;
+		public String	itsName;
 
 		public WealthItem()
 		{
@@ -99,6 +99,11 @@ public class Wealth
 	public void add(WealthItem wi)
 	{
 		itsItems.add(wi);
+	}
+
+	public void add(Type typ, String amt)
+	{
+		add(typ, amt, null, null);
 	}
 
 	public void add(Type typ, String amt, String loc)

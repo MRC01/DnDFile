@@ -40,4 +40,14 @@ public class Fighter extends ClassInfo
 	{
 		return ourXPLevels;
 	}
+
+	// Fighters start with 50-200 gp (5d4 x 10)
+	public int getStartingGold() {
+		int gp = (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5)
+				+ (int)(Math.random() * 3 + 1.5);
+		return gp * 10;
+	}
 }

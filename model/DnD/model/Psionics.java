@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Psionics
 {
-	String		itsAbility;
+	String	itsAbility;
 	List<String>	itsAttackList,
 			itsDefenseList,
 			itsMinorDis,

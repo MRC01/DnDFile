@@ -129,6 +129,52 @@ public class Thief extends ClassInfo
 		setSkills();
 	}
 
+	// Thieves start with 20-120 gp (2d6 x 10)
+	public int getStartingGold() {
+		int gp = (int)(Math.random() * 5 + 1.5)
+				+ (int)(Math.random() * 5 + 1.5);
+		return gp * 10;
+	}
+
+	// Generate default equipment for a Thief
+	public void genEquip() {
+		Item	it, belt, beltP, bkp;
+		// Start with the default clothing
+		it = new Item("Clothing");
+		itsChar.itsEquip.addChild(it);
+		it.addChild("Robe", "brown, knee length");
+		it.addChild("Boots", "low, soft");
+		belt = new Item("Belt");
+		it.addChild(belt);
+		beltP = new Item("Belt Pouch", "small");
+		belt.addChild(beltP);
+		beltP.addChild("coins in hand");
+		it.addChild("Leather Armor");
+
+		// Generic equipment
+		bkp = new Item("Backpack");
+		itsChar.itsEquip.addChild(bkp);
+		bkp.addChild("Bota bag", "1 gallon");
+		bkp.addChild("Rations", "1 week, standard");
+		bkp.addChild("Sleeping roll", "tied to bottom");
+		bkp.addChild("Tinder box", "flint and steel");
+		
+		// Now add thief-specific stuff
+		beltP = new Item("Belt Pouch", "large");
+		belt.addChild(beltP);
+		it = new Item("thieves' tools");
+		beltP.addChild(it);
+		it = new Item("Dagger in sheath");
+		belt.addChild(it);
+		belt.addChild("Sling");
+		beltP = new Item("Belt Pouch", "large");
+		belt.addChild(beltP);
+		beltP.addChild("Sling Bullets", "1 dozen");
+		
+		itsChar.itsClothing = "Robe, brown, knee length";
+		itsChar.itsArmor = "Leather";
+	}
+
 	// Set the skill percentages for this character adjusted for level, dexterity and race
 	protected void setSkills()
 	{
