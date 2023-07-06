@@ -170,9 +170,15 @@ public class Thief extends ClassInfo
 		beltP = new Item("Belt Pouch", "large");
 		belt.addChild(beltP);
 		beltP.addChild("Sling Bullets", "1 dozen");
-		
+
+		// General info settings related to equipment
 		itsChar.itsClothing = "Robe, brown, knee length";
 		itsChar.itsArmor = "Leather";
+
+		// Combat settings related to equipment
+		itsChar.setArmorClassFromBase(8, 5, 8);
+		itsChar.itsWeapProf.add("Dagger");
+		itsChar.itsWeapProf.add("Sling");
 	}
 
 	// Set the skill percentages for this character adjusted for level, dexterity and race

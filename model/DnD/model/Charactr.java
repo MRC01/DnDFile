@@ -86,10 +86,10 @@ public class Charactr
 		// Pick race based on scores & class
 		newChar.itsRace = newChar.genRace();
 
-		// Generate (random) wealth
+		// Generate (random) wealth (should be done after Class defined)
 		newChar.genWealth();
 
-		// Equip the character
+		// Equip the character (should be done after Class defined)
 		newChar.genEquip();
 
 		return newChar;
@@ -171,6 +171,9 @@ public class Charactr
 	 * If the character generator also randomly generates equipment (not just wealth),
 	 * then store the gold as a protected int, used for equipment generation.
 	 * Then when equipment generation is complete, convert the remainder to Wealth strings.
+	 * MRC: 230704: Better yet, keep wealth & equipment separate.
+	 * Generate starting equipment without regard to available wealth,
+	 * which we treat as remaining.
 	 */
 	protected void genWealth() {
 		int	g;
@@ -219,5 +222,28 @@ public class Charactr
 		it1.addChild(it2);
 		it2.addChild("coins in hand");
 		itsClothing = "Robe, brown, knee length";
+	}
+
+	// Given base armor classes, adjust for dexterity and set armor class fields
+	public void setArmorClassFromBase(int acFront, int acHead, int acRear) {
+		int 			acAdj = 0,
+						dex;
+		StringBuffer	sb = new StringBuffer();
+		dex = itsAbilScores.get(AbilScore.Type.DEX).getInt();
+		if(dex >= 24)
+			acAdj = -6;
+		else if(dex >= 22)
+			acAdj = -5;
+		else if(dex >= 18)
+			acAdj = -4;
+		else if(dex == 17)
+			acAdj = -3;
+		else if(dex == 16)
+			acAdj = -2;
+		else if(dex == 15)
+			acAdj = -1;
+		// Dex based AC adjustment applies to front & head but not rear
+		sb.append("F").append(acFront + acAdj).append(" H").append(acHead + acAdj).append(" R").append(acRear);
+		itsArmCls = sb.toString();
 	}
 }
