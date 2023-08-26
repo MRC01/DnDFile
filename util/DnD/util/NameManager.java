@@ -54,9 +54,10 @@ public class NameManager
 	public static String[] readNameFile(String filename) throws Exception
 	{
 		List<String>	rcList;
-		FileReader		fr = new FileReader(filename);
+		FileReader		fr = null;
 		try
 		{
+			fr = new FileReader(filename);
 			BufferedReader	br = new BufferedReader(fr);
 			try
 			{
@@ -80,7 +81,8 @@ public class NameManager
 		}
 		finally
 		{
-			fr.close();
+			if(fr != null)
+				fr.close();
 		}
 		// convert to array before returning
 		String[] rcArray = new String[rcList.size()];
