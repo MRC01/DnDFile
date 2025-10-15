@@ -1,0 +1,62 @@
+AC	F5 H1 R5
+AR	Chain mail
+CL	Robe, brown, knee length
+WP	Long sword
+WP	Hand axe
+Clothing
+	Robe; brown, knee length
+	Boots; low, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Long sword in scabbard (left side)
+		Hand axe (right side)
+	Chain mail armor
+	Small helmet
+Backpack
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel
+
+AC	F6 H1 R6
+AR	Scale mail
+CL	Robe, brown, knee length
+WP	Long sword
+WP	Hand axe
+Clothing
+	Robe; brown, knee length
+	Boots; low, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Long sword in scabbard (left side)
+		Hand axe (right side)
+	Scale mail armor
+	Small helmet
+Backpack
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel
+
+AC	F7 H1 R7
+AR	Ring mail
+CL	Robe, brown, knee length
+WP	Long sword
+WP	Hand axe
+Clothing
+	Robe; brown, knee length
+	Boots; low, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Long sword in scabbard (left side)
+		Hand axe (right side)
+	Ring mail armor
+	Small helmet
+Backpack
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel

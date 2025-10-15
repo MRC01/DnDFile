@@ -196,13 +196,35 @@ public class Charactr
 	}
 
 	protected void genEquip() {
-		if(Util.isBlank(itsClasses)) {
+		if(Util.isBlank(itsClasses))
 			genEquipDefault();
-		}
-		else {
+		else
+		{
 			// Generate equipment for each class
-			for(ClassInfo ci: itsClasses) {
-				ci.genEquip();
+			// If at least 1 succeeds, we're done
+			ClassInfo	ci;
+			boolean		rc = false;
+
+			ci = getClassData(Monk.class);
+			if(ci != null)
+				rc = rc || ci.genEquip();
+			ci = getClassData(MUBase.class);
+			if(ci != null)
+				rc = rc || ci.genEquip();
+			ci = getClassData(Thief.class);
+			if(ci != null)
+				rc = rc || ci.genEquip();
+			ci = getClassData(Cleric.class);
+			if(ci != null)
+				rc = rc || ci.genEquip();
+			ci = getClassData(Fighter.class);
+			if(ci != null)
+				rc = rc || ci.genEquip();
+
+			if(!rc)
+			{
+				// equip generation failed for every class
+				genEquipDefault();
 			}
 		}
 	}

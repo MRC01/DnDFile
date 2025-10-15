@@ -1,0 +1,23 @@
+AC	F8 H5 R8
+AR	Leather
+CL	Robe, brown, knee length
+WP	Dagger
+WP	Sling
+Clothing
+	Robe; brown, knee length
+	Boots; low, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Belt Pouch; large
+			thieves' tools
+		Belt Pouch; large
+			Sling Bullets; 1 dozen
+	Leather armor
+	Dagger in sheath
+	Sling
+Backpack
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel
