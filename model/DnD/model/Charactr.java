@@ -92,6 +92,9 @@ public class Charactr
 		// Equip the character (should be done after Class defined)
 		newChar.genEquip();
 
+		// Set armor class, adjusting for dexterity
+		newChar.setArmorClassFromBase();
+
 		return newChar;
 	}
 
@@ -247,10 +250,57 @@ public class Charactr
 	}
 
 	// Given base armor classes, adjust for dexterity and set armor class fields
-	public void setArmorClassFromBase(int acFront, int acHead, int acRear) {
+	protected int acStrToInt(String acStr)
+	{
+		int		rc;
+
+		try
+		{
+			rc = Integer.valueOf(acStr.substring(1));
+		}
+		catch(Exception e)
+		{
+			rc = Integer.MIN_VALUE;
+		}
+		return rc;
+	}
+	public void setArmorClassFromBase()
+	{
+		String[]	tok;
+		int			acF = Integer.MIN_VALUE,
+					acH = Integer.MIN_VALUE,
+					acR = Integer.MIN_VALUE;
+
+		// Extract armor class integers from itsArmCls
+		// This works only if the string is of the form "Fx Hy Rz"
+		if(Util.isBlank(itsArmCls))
+			return;
+		tok = itsArmCls.split("[ \t]");
+		if(Util.isBlank(tok))
+			return;
+		for(String t: tok)
+		{
+			if(t.startsWith("F"))
+				acF = acStrToInt(t);
+			if(t.startsWith("H"))
+				acH = acStrToInt(t);
+			if(t.startsWith("R"))
+				acR = acStrToInt(t);
+		}
+		setArmorClassFromBase(acF, acH, acR);
+	}
+	public void setArmorClassFromBase(int acFront, int acHead, int acRear)
+	{
 		int 			acAdj = 0,
 						dex;
 		StringBuffer	sb = new StringBuffer();
+		
+		// do nothing & return if any of the values are out of range
+		if((acFront < AbilScore.MIN || acFront > AbilScore.MAX)
+				|| (acHead < AbilScore.MIN || acHead > AbilScore.MAX)
+				|| (acRear < AbilScore.MIN || acRear > AbilScore.MAX))
+			return;
+		// adjust AC values based on dexterity
 		dex = itsAbilScores.get(AbilScore.Type.DEX).getInt();
 		if(dex >= 24)
 			acAdj = -6;

@@ -8,7 +8,10 @@ public class Util
 	{
 		return (str == null || str.length() == 0);
 	}
-
+	public static boolean isBlank(String[] s)
+	{
+		return (s == null || s.length == 0);
+	}
 	// Note: intentionally use Collection of unspecified type
 	public static boolean isBlank(Collection c)
 	{
@@ -16,7 +19,6 @@ public class Util
 			return true;
 		return c.isEmpty();
 	}
-
 	// Note: intentionally use Map of unspecified type
 	public static boolean isBlank(Map m)
 	{

@@ -1,0 +1,20 @@
+AC	F10 H5 R10
+AR	None
+CL	Robe, brown, knee length, Wizard hat
+WP	Dagger
+Clothing
+	Robe; brown, knee length
+	Boots; high, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Belt Pouch: large
+			material spell components
+		Dagger; left side
+		Dagger; right side
+Backpack
+	Spellbook
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel

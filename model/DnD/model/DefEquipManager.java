@@ -50,8 +50,6 @@ public class DefEquipManager
 	}
 
 	// Filenames are of the form equip.CLASSNAME.dat
-	protected static final String	defEquipFilePrefix = "equip.",
-									defEquipFileSuffix = ".dat";
 	private static DefEquipInfo[]	ourDefEquipArrTmp = new DefEquipInfo[0];
 
 	// Keys = ClassInfo classname; Values = array of default equipment for that class
@@ -75,7 +73,6 @@ public class DefEquipManager
 			rc = fullCName;
 		return rc;
 	}
-	
 
 	// Fetch a default equipment info for the given class
 	protected static DefEquipInfo fetchDefEquip(ClassInfo chrClass)
@@ -126,7 +123,8 @@ public class DefEquipManager
 	{
 		ourEquipInfo = new HashMap<String, DefEquipInfo[]>();
 		initDefEquipSub(Monk.class.getName());
-		initDefEquipSub(MUBase.class.getName());
+		initDefEquipSub(MagicUser.class.getName());
+		initDefEquipSub(Illusionist.class.getName());
 		initDefEquipSub(Thief.class.getName());
 		initDefEquipSub(Cleric.class.getName());
 		initDefEquipSub(Fighter.class.getName());

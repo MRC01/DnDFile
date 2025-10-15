@@ -1,45 +1,40 @@
-AC	F8 H5 R8
-AR	Leather
+AC	F5 H1 R5
+AR	Chain mail
 CL	Robe, brown, knee length
-WP	Dagger
-WP	Sling
+WP	Mace
+Worn around neck
+	Holy Symbol; Celtic Knot
 Clothing
 	Robe; brown, knee length
 	Boots; low, soft
 	Belt
 		Belt Pouch; small
 			coins in hand
-		Belt Pouch; large
-			thieves' tools
-		Belt Pouch; large
-			Sling Bullets; 1 dozen
-	Leather armor
-	Dagger in sheath
-	Sling
+		Mace (left side)
+	Chain mail armor
+	Small helmet
 Backpack
 	Bota bag; 1 gallon
 	Rations; 1 week, standard
 	Sleeping roll; tied to bottom
 	Tinder box; flint and steel
 
-AC	F10 H5 R10
-AR	None
+AC	F6 H1 R6
+AR	Scale mail
 CL	Robe, brown, knee length
-WP	Short Sword
-WP	Sling
+WP	Quarterstaff
+Worn around neck
+	Holy Symbol; Oak Tree Medallion
+In hand
+	Quarterstaff; use as walking stick
 Clothing
 	Robe; brown, knee length
-	Boots; high, soft
+	Boots; low, soft
 	Belt
 		Belt Pouch; small
 			coins in hand
-		Belt Pouch; large
-			thieves' tools
-		Belt Pouch; large
-			Sling Bullets; 1 dozen
-		Short sword; left side
-		Sling; right side
-	Leather armor
+	Scale mail armor
+	Small helmet
 Backpack
 	Bota bag; 1 gallon
 	Rations; 1 week, standard
