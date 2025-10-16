@@ -6,6 +6,8 @@ package DnD.model;
 
 import java.util.*;
 
+import DnD.util.Util;
+
 public class Wealth
 {
 	public enum Type
@@ -29,8 +31,7 @@ public class Wealth
 	{
 		public Type		itsType;
 		public String	itsAmount, itsLocation;
-		// Used only for type "other"
-		public String	itsName;
+		public String	itsName; // name/description, optional
 
 		public WealthItem()
 		{
@@ -74,17 +75,21 @@ public class Wealth
 
 			if(itsType == Type.OTHER)
 				sb.append(itsName);
-			else if(itsName != null)
-				sb.append(itsType.itsName);
+			else if(!Util.isBlank(itsName))
+				sb.append(itsName);
 			else
-				sb.append(Type.OTHER.itsName);
-			sb.append(": ");
-			if(itsAmount != null)
-				sb.append(itsAmount);
-			sb.append(": ");
-			if(itsLocation != null)
-				sb.append(itsLocation);
+				sb.append(itsType.itsName);
 
+			if(!Util.isBlank(itsAmount))
+			{
+				sb.append(": ");
+				sb.append(itsAmount);
+			}
+			if(!Util.isBlank(itsLocation))
+			{
+				sb.append(": ");
+				sb.append(itsLocation);
+			}
 			return sb.toString();
 		}
 	}
