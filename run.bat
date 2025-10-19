@@ -1,12 +1,11 @@
 @echo off
 
 setlocal
-set CLASSPATH=bin
 
 if "%1" == "-h" goto usage
 
 if "%1" == "" (
-	set fontsize=3
+	set fontsize=2
 ) else (
 	set fontsize=%1
 )
@@ -16,8 +15,9 @@ if "%1" == "" (
 ) else (
 	set loadFile=-file %1
 )
+cd bin
 set debug=-Xdebug -Xrunjdwp:transport=dt_shmem,server=y,address=dnd,suspend=n
-start /MIN java %debug% DnD.DnDMain %loadFile% -font %fontsize%
+start /MIN java %debug% -jar DnD.jar %loadFile% -font %fontsize%
 goto done
 
 :usage

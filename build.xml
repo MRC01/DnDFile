@@ -38,11 +38,10 @@
 
 	<target name="clean">
 		<delete dir="${bin.dir}"/>
-		<delete file="DnD.jar"/>
 	</target>
 
 	<target name="jar">
-		<jar destfile="DnD.jar" basedir="bin" manifest="manifest.txt">
+		<jar destfile="${bin.dir}/DnD.jar" basedir="${bin.dir}" manifest="manifest.txt">
 		</jar>
 	</target>
 	
