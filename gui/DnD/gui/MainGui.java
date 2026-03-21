@@ -32,6 +32,7 @@ public class MainGui extends Container implements ActionListener
 	// Other stuff
 	Charactr			itsChar;
 	CharactrStreamer	itsCharStreamer;
+	String				itsCharPath = ".";
 
 	public static MainGui create(JFrame f)
 	{
@@ -240,6 +241,11 @@ public class MainGui extends Container implements ActionListener
 			{
 				// Save the character
 				itsCharStreamer.write();
+				/* If we get here, the file save succeeded.
+				 * This means the path & filename must exist.
+				 * Make this last-used path the default for future use.
+				 */
+				itsCharPath = itsCharStreamer.getPath();
 			}
 			catch(Exception e)
 			{
@@ -280,6 +286,8 @@ public class MainGui extends Container implements ActionListener
 				// If we get here, newCh is the new character read from the file
 				charOpened = true;
 				itsChar = newCh;
+				// Make this last-used path the default for future use.
+				itsCharPath = newCS.getPath();
 				// Now update the UI to show the char
 				// itsRoot will be null if we are loading a char on initial startup
 				if(itsRoot != null)
@@ -349,9 +357,9 @@ public class MainGui extends Container implements ActionListener
 		{
 			// Enable the user to select the file
 			JFileChooser	fcDialog;
-			int		fcRet;
+			int				fcRet;
 
-			fcDialog = new JFileChooser(".");
+			fcDialog = new JFileChooser(itsCharPath);
 			// Display the file dialog (modal)
 			if(forRead)
 				fcRet = fcDialog.showOpenDialog(this);
@@ -374,12 +382,15 @@ public class MainGui extends Container implements ActionListener
 
 	protected void setCharStreamer(CharactrStreamer cs)
 	{
-		String	fNam;
+		String	fNam = null;
 
 		itsCharStreamer = cs;
 		// Update the titlebar with the current filename
-		fNam = (cs != null ? cs.getName() : null);
-		itsFrame.setTitle(fNam != null ? fNam : "unnamed");
+		if(cs != null)
+			fNam = cs.getName();
+		if(fNam == null)
+			fNam = "unnamed";
+		itsFrame.setTitle(fNam);
 	}
 
 	// ---------------------------- General public methods

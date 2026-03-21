@@ -13,7 +13,7 @@ public class CharactrStreamer
 	protected static final int	kVersion = 1;
 
 	public Charactr	itsChar;
-	public File	itsFile;
+	public File		itsFile;
 
 	public CharactrStreamer(Charactr c, File f)
 	{
@@ -25,6 +25,13 @@ public class CharactrStreamer
 	{
 		if(itsFile != null)
 			return itsFile.getName();
+		return null;
+	}
+
+	public String getPath()
+	{
+		if(itsFile != null)
+			return itsFile.getPath();
 		return null;
 	}
 
