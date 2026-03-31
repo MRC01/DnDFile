@@ -40,15 +40,15 @@
 		<delete dir="${bin.dir}"/>
 	</target>
 
-	<target name="jar">
-		<jar destfile="${bin.dir}/DnD.jar" basedir="${bin.dir}" manifest="manifest.txt">
+	<target name="jar" depends="main,test">
+		<jar destfile="${bin.dir}/DnD.jar" basedir="${bin.dir}" excludes="DnD.jar" manifest="manifest.txt">
 		</jar>
 	</target>
-	
+
 	<target name="test">
 		<javac includeantruntime="false" classpath="${cp};${junit}/junit-4.8.2.jar" debug="on" srcdir="test" destdir="${bin.dir}">
 			<compilerarg value="-Xlint:all"/>
 		</javac>
 	</target>
-		
+
 </project>
