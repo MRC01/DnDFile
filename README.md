@@ -34,11 +34,14 @@ This program uses 2 fonts when printing: Garamond and DejaVu Sans.
 Both are freely available.
 If you don't have them installed, the printouts won't look right.
 
-The app has 1 command-line parameter: -font N.
+The app has 2 command-line parameters: -font N and -file FILE
 N is an integer that adjusts relative font size, positive or negative.
 Java Swing was made back when monitors were lower res with less DPI than they have today.
 Thus, its default font sizes are too small for modern monitors.
 Typically, "-font +4" works well, but you can use any size adjustment.
+FILE is the full path and filename of a character file to load on startup.
+This makes it possible to create desktop icon wrappers around this app,
+so you can double-click a file and have this app pop up and open it.
 
 The build requires Junit 4.8.2 (file junit-4.8.2.jar).
 It looks for an env var JUNIT_HOME for the directory to find it.
