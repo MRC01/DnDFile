@@ -95,9 +95,9 @@ public class DefEquipConfig
 						lst3.add(String.valueOf(lvl));
 						tok = lin.stripLeading().split(";");
 						if(tok.length > 0)
-							lst3.add(tok[0]);
+							lst3.add(tok[0].strip());
 						if(tok.length > 1)
-							lst3.add(tok[1]);
+							lst3.add(tok[1].strip());
 					}
 					// Add this line to the config
 					if(!Util.isBlank(lst3))

@@ -180,7 +180,7 @@ public class MainGui extends Container implements ActionListener
 				"D&D Character App\n" +
 				"An app to create, manage and print D&D characters.\n" +
 				"Uses javax.swing, java.awt.print, and java.util.\n" +
-				"Copyright 2009, 2025\n" +
+				"Copyright 2009, 2026\n" +
 				"Github: https://github.com/MRC01/DnDFile\n" +
 				"See README.md for instructions & details.\n" +
 				"by Michael R. Clements\n" +
