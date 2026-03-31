@@ -77,15 +77,27 @@ public class DefEquipManager
 	// Fetch a default equipment info for the given class
 	protected static DefEquipInfo fetchDefEquip(ClassInfo chrClass)
 	{
-		DefEquipInfo[]	deiArr;
+		DefEquipInfo[]	deiArr = null;
 		DefEquipInfo	rc = null;
 		String			cName;
 	
 		cName = nameFromClass(chrClass);
 		if(ourEquipInfo.containsKey(cName))
 		{
-			int	len, i;
 			deiArr = ourEquipInfo.get(cName);
+		}
+		else
+		{
+			// The given class isn't known, so won't be loaded by default.
+			// Yet try anyway, it might exist
+			if(initDefEquipSub(chrClass.getName()))
+			{
+				deiArr = ourEquipInfo.get(cName);
+			}
+		}
+		if(deiArr != null)
+		{
+			int	len, i;
 			len = deiArr.length;
 			i = (int)(Math.random() * len);
 			rc = deiArr[i];
@@ -122,6 +134,7 @@ public class DefEquipManager
 	protected static void initDefEquip()
 	{
 		ourEquipInfo = new HashMap<String, DefEquipInfo[]>();
+		// Look for the classes we know about
 		initDefEquipSub(Monk.class.getName());
 		initDefEquipSub(MagicUser.class.getName());
 		initDefEquipSub(Illusionist.class.getName());
@@ -130,14 +143,18 @@ public class DefEquipManager
 		initDefEquipSub(Fighter.class.getName());
 	}
 	
-	protected static void initDefEquipSub(String cName)
+	protected static boolean initDefEquipSub(String cName)
 	{
 		DefEquipInfo[]	rc;
 		
 		cName = nameFromClass(cName);
 		rc = initDefEquipClass(cName);
 		if(rc != null)
+		{
 			ourEquipInfo.put(cName,  rc);
+			return true;
+		}
+		return false;
 	}
 	
 	protected static DefEquipInfo[] initDefEquipClass(String cName)
