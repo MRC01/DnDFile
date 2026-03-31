@@ -1,6 +1,12 @@
 # DnDFile
 Dungeons &amp; Dragons Character App
 
+**WHAT**
+
+DnD is a Java Swing application that manages AD&D characters.
+The program uses and requires JDK 1.6 or any later version.
+It runs on any computer having Java: Linux, Windows or Mac.
+
 **WHY**
 
 Years ago I had been doing Java programming with advanced features like weak references and reflection.
@@ -13,11 +19,6 @@ I wanted to write a program to manage all the characters I had built and campaig
 
 The complex structure of a D&D character was the perfect opportunity to
 model with java.util classes to really learn how to combine them and use Generics.
-
-**WHAT**
-
-DnD is a Java Swing application that manages AD&D characters.
-The program uses and requires JDK 1.6 or any later version.
 
 **HOW**
 
