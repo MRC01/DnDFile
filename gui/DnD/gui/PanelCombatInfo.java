@@ -84,6 +84,7 @@ public class PanelCombatInfo extends PanelBase implements ActionListener
 		itsWeapProf.applyAll();
 		itsCombatAdj.applyAll();
 		*/
+		MainGui.get().itsChar.setDirty();
 	}
 
 	public void revertAll()

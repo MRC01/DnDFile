@@ -56,6 +56,7 @@ public class PanelCombatBasic extends PanelBase implements ActionListener
 		{
 			for(FieldMap fm : itsFields)
 				fm.apply();
+			// No need to set the Character dirty, since each FieldMap does this
 		}
 		catch(Exception e)
 		{

@@ -46,6 +46,20 @@ public class MainGui extends Container implements ActionListener
 		itsFrame = f;
 	}
 
+	protected boolean charDirtyConfirm()
+	{
+		boolean	rc = true;
+		
+		if(itsChar != null)
+		{
+			if(itsChar.isDirty())
+			{
+				rc = yesNoBox("Warning: Unsaved Changes", "This character has unsaved changes that will be lost if you continue.\nAre you sure?");
+			}
+		}
+		return rc;
+	}
+
 	public static MainGui get()
 	{
 		return ourSelf;
@@ -130,7 +144,8 @@ public class MainGui extends Container implements ActionListener
 		// menu/file/new
 		if(bc.equals(itsMFNew.getText()))
 		{
-			newChar();
+			if(charDirtyConfirm())
+				newChar();
 		}
 		// menu/file/save
 		else if(bc.equals(itsMFSave.getText()))
@@ -146,17 +161,21 @@ public class MainGui extends Container implements ActionListener
 		// menu/file/open
 		else if(bc.equals(itsMFOpen.getText()))
 		{
-			FileOpen();
+			if(charDirtyConfirm())
+				FileOpen();
 		}
-		// menu/file/open
+		// menu/file/print
 		else if(bc.equals(itsMFPrint.getText()))
 		{
 			FilePrint();
 		}
 		else if(bc.equals(itsMFExit.getText()))
 		{
-			// This will force the entire application to exit
-			itsFrame.dispose();
+			if(charDirtyConfirm())
+			{
+				// This will force the entire application to exit
+				itsFrame.dispose();
+			}
 		}
 		// menu/edit/apply
 		else if(bc.equals(itsMEApply.getText()))
@@ -171,7 +190,8 @@ public class MainGui extends Container implements ActionListener
 		// menu/edit/generate
 		else if(bc.equals(itsMEGen.getText()))
 		{
-			CharGenerate();
+			if(charDirtyConfirm())
+				CharGenerate();
 		}
 		// menu/help/about
 		else if(bc.equals(itsMHAbout.getText()))

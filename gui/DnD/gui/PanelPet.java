@@ -81,6 +81,7 @@ public class PanelPet extends PanelBase implements ActionListener
 	{
 		itsPetDetail.applyAll();
 		itsPetList.applyAll();
+		MainGui.get().itsChar.setDirty();
 	}
 
 	public void revertAll()
@@ -120,6 +121,7 @@ public class PanelPet extends PanelBase implements ActionListener
 		itsPetList.refreshList(idx);
 		// Display it in the detail pane
 		itsPetDetail.setData(pet);
+		MainGui.get().itsChar.setDirty();
 	}
 
 	// PanelPetList calls this to delete a pet
@@ -133,12 +135,14 @@ public class PanelPet extends PanelBase implements ActionListener
 		itsPetList.refreshList(idx);
 		pet = (idx <  0 ? null : itsData.get(idx));
 		itsPetDetail.setData(pet);
+		MainGui.get().itsChar.setDirty();
 	}
 
 	// PanelPetDetail calls this when a pet is applied
 	public void applyPetItem(Pet pet)
 	{
 		itsPetList.refreshList();
+		MainGui.get().itsChar.setDirty();
 	}
 
 	// Returns the grid bag height of this panel

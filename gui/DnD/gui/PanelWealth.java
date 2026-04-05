@@ -21,7 +21,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 	// GUI stuff
 	PanelWealthList		itsWealthList;
 	PanelWealthDetail	itsWealthDetail;
-	Wealth			itsData;
+	Wealth				itsData;
 
 	// Other stuff
 
@@ -78,6 +78,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 	{
 		itsWealthDetail.applyAll();
 		itsWealthList.applyAll();
+		MainGui.get().itsChar.setDirty();
 	}
 
 	public void revertAll()
@@ -120,6 +121,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 		itsWealthList.refreshList(idx);
 		// Display it in the detail pane
 		itsWealthDetail.setData(wi);
+		MainGui.get().itsChar.setDirty();
 	}
 
 	// PanelWealthList calls this to delete a wealth item
@@ -134,12 +136,14 @@ public class PanelWealth extends PanelBase implements ActionListener
 		itsWealthList.refreshList(idx);
 		wi = (idx <  0 ? null : lst.get(idx));
 		itsWealthDetail.setData(wi);
+		MainGui.get().itsChar.setDirty();
 	}
 
 	// PanelWealthDetail calls this when a wealth item is applied
 	public void applyWealthItem(Wealth.WealthItem wi)
 	{
 		itsWealthList.refreshList();
+		MainGui.get().itsChar.setDirty();
 	}
 
 	// Returns the grid bag height of this panel

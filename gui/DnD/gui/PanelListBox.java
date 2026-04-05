@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-/** This is the GUI panel for combat information
+/** This is the GUI panel for various kinds of lists
  */
 public class PanelListBox<T> extends PanelBase implements ActionListener
 {
@@ -123,7 +123,10 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 				idx = 0;
 			val = valueDlg(kModeAdd, null);
 			if(val != null)
+			{
 				itsRawData.add(idx, val);
+				MainGui.get().itsChar.setDirty();
+			}
 			refreshList();
 		}
 		else if(bc.equals(itsButEdit.getText()))
@@ -138,6 +141,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 				return;
 			}
 			itsRawData.remove(idx);
+			MainGui.get().itsChar.setDirty();
 			refreshList();
 		}
 		else if(bc.equals(itsButDown.getText()))
@@ -155,6 +159,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 			val = itsRawData.remove(idx);
 			// The next element has moved up into position "idx"; the list is one element shorter
 			itsRawData.add(idx + 1, val);
+			MainGui.get().itsChar.setDirty();
 			refreshList();
 			itsLB.setSelectedIndex(idx + 1);
 		}
@@ -173,6 +178,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 			val = itsRawData.remove(idx);
 			// The next element has moved up into position "idx"; the list is one element shorter
 			itsRawData.add(idx - 1, val);
+			MainGui.get().itsChar.setDirty();
 			refreshList();
 			itsLB.setSelectedIndex(idx - 1);
 		}
@@ -191,7 +197,10 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 		val = itsRawData.get(idx);
 		newVal = valueDlg(kModeEdit, val);
 		if(!val.equals(newVal))
+		{
 			itsRawData.set(idx, newVal);
+			MainGui.get().itsChar.setDirty();
+		}
 		refreshList();
 	}
 

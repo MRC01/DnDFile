@@ -4,6 +4,7 @@ import java.lang.reflect.*;
 import javax.swing.*;
 
 import DnD.util.Util;
+import DnD.model.*;
 
 /* This class correlates a text field to a raw data value (an Object Field).
  * The data value may be an array, in which case an index is used.
@@ -46,15 +47,22 @@ public class FieldMap
 
 	public void apply() throws IllegalAccessException
 	{
+		Object	par = getParent();
+
 		if(itsIndex < 0)
-			itsData.set(getParent(), strToFldType(itsTF.getText()));
+			itsData.set(par, strToFldType(itsTF.getText()));
 		else
 		{
 			String[]	tmp;
 
-			tmp = (String[])itsData.get(getParent());
+			tmp = (String[])itsData.get(par);
 			tmp[itsIndex] = itsTF.getText();
-			itsData.set(getParent(), tmp);
+			itsData.set(par, tmp);
+		}
+		if(par instanceof Charactr)
+		{
+			// Parent isn't always a Charactr, but when it is, mark it dirty
+			((Charactr)par).setDirty();
 		}
 	}
 

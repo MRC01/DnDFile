@@ -130,6 +130,7 @@ public class PanelWealthDetail extends PanelBase implements ActionListener
 			// Apply the data in the form to the item
 			for(FieldMap fm : itsFields)
 				fm.apply();
+			// No need to set the Character dirty, since each FieldMap does this
 		}
 		catch(Exception e)
 		{

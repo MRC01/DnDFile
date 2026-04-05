@@ -193,6 +193,8 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		}
 		// Delegate to subclass
 		_applyAll();
+		// Mark character as Dirty
+		mainChar.setDirty();
 	}
 
 	public int gbHeight()

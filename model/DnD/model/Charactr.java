@@ -12,6 +12,8 @@ public class Charactr
 {
 	public static final int	NUM_SAV_THROWS	= 5;
 
+	protected boolean	isDirty;
+
 	public String
 		itsName, itsGender, itsClothing, itsArmor,
 		itsHeight, itsWeight, itsAge,
@@ -46,6 +48,20 @@ public class Charactr
 		itsLangs = new ArrayList<String>();
 		itsSecSkills = new ArrayList<String>();
 		itsWealth = new Wealth();
+		setClean();
+	}
+
+	public void setDirty()
+	{
+		isDirty = true;
+	}
+	public void setClean()
+	{
+		isDirty = false;
+	}
+	public boolean isDirty()
+	{
+		return isDirty;
 	}
 
 	// returns this character's ClassInfo instance of the given type (if any)
@@ -95,6 +111,7 @@ public class Charactr
 		// Set armor class, adjusting for dexterity
 		newChar.setArmorClassFromBase();
 
+		newChar.setDirty();
 		return newChar;
 	}
 
@@ -169,12 +186,7 @@ public class Charactr
 	}
 
 	// Subclasses override this based on character class
-	/* MRC: 230118: It will be cumbersome to store wealth as a string,
-	 * then automatically buy equipment, deducting for each.
-	 * If the character generator also randomly generates equipment (not just wealth),
-	 * then store the gold as a protected int, used for equipment generation.
-	 * Then when equipment generation is complete, convert the remainder to Wealth strings.
-	 * MRC: 230704: Better yet, keep wealth & equipment separate.
+	/* MRC: 230704: For simplicity, keep wealth & equipment separate.
 	 * Generate starting equipment without regard to available wealth,
 	 * which we treat as remaining.
 	 */

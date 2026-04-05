@@ -147,6 +147,8 @@ public class CharactrStreamer
 					// Add it to the character
 					itsChar.itsClasses.add(ci);
 				}
+				// Successful load; Char now matches disk and is clean.
+				itsChar.setClean();
 			}
 			catch(Exception e)
 			{
@@ -245,6 +247,8 @@ public class CharactrStreamer
 				so.writeUTF(cl.getClass().getName());
 				cl.write(so);
 			}
+			// Successful save; Char now matches disk and is clean.
+			itsChar.setClean();
 		}
 		finally
 		{

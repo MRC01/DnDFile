@@ -132,6 +132,7 @@ public class PanelAbilScore extends PanelBase implements ActionListener
 			adj = itsABAdj[idx].getText();
 			MainGui.get().itsChar.itsAbilScores.set(abt, val, adj);
 		}
+		MainGui.get().itsChar.setDirty();
 	}
 
 	public void revertAll()
