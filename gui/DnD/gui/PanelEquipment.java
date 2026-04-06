@@ -283,6 +283,8 @@ public class PanelEquipment extends PanelBase implements ActionListener
 			for(TreeModelListener tml : itsTMListeners)
 				tml.treeStructureChanged(e);
 			expandTree();
+			// Data changed; mark the Character as dirty.
+			MainGui.get().itsChar.setDirty();
 		}
 	}
 
