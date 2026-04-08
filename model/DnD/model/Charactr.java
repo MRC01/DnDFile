@@ -111,6 +111,9 @@ public class Charactr
 		// Set armor class, adjusting for dexterity
 		newChar.setArmorClassFromBase();
 
+		// Set the alignment (must be after class and race)
+		newChar.genAlignment();
+		
 		newChar.setDirty();
 		return newChar;
 	}
@@ -148,6 +151,14 @@ public class Charactr
 		ClassInfo	rc;
 		AbilScore[]	asl;
 		
+		// Monk is hardest to qualify, so check this first
+		if((genChar.itsAbilScores.get(AbilScore.Type.STR).getInt() >= 15)
+				&& (genChar.itsAbilScores.get(AbilScore.Type.WIS).getInt() >= 15)
+				&& (genChar.itsAbilScores.get(AbilScore.Type.DEX).getInt() >= 15)
+				&& (genChar.itsAbilScores.get(AbilScore.Type.CON).getInt() >= 11))
+		{
+			return new Monk(genChar);
+		}
 		/* NOTE: we could find the max score and pick a class from that.
 		But if the max score is CON or CHA we'd have to loop looking for the next highest.
 		The logic ends up being complex.
@@ -329,5 +340,63 @@ public class Charactr
 		// Dex based AC adjustment applies to front & head but not rear
 		sb.append("F").append(acFront + acAdj).append(" H").append(acHead + acAdj).append(" R").append(acRear);
 		itsArmCls = sb.toString();
+	}
+
+	
+	public void genAlignment()
+	{
+		final String	n1 = "Neutral";
+		StringBuffer	al = new StringBuffer();
+		double	a1 = Math.random(),
+				a2 = Math.random();
+
+		// Monks must be lawful
+		if(getClassData(Monk.class) != null)
+			al.append("Lawful");
+		// Thieves can't be lawful
+		else if(getClassData(Thief.class) != null)
+		{
+				if(Math.random() < 0.5)
+					al.append(n1);
+				else
+					al.append("Chaotic");
+		}
+		else
+		{
+			// Lawful, neutral, chaotic all equally probable
+			if(a1 < 0.333)
+				al.append("Lawful");
+			else if(a1 < 0.667)
+				al.append(n1);
+			else
+				al.append("Chaotic");
+		}
+
+		// Evil is rare (10%), good & neutral equally probable
+		if(a2 < 0.45)
+			al.append(" Good");
+		else if(a2 < 0.9)
+		{
+			// We got Neutral again, which means True Neutral
+			if(n1.equals(al.toString()))
+			{
+				if(getClassData(Cleric.class) != null)
+				{
+					// Clerics cannot be true neutral (only Druids); set to Good
+					al.append(" Good");
+				}
+				else
+				{
+					// Neutral-Neutral is renamed to "True Neutral"
+					al.insert(0, "True ");
+				}
+			}
+			else
+				al.append(" ").append(n1);
+		}
+		else if(a2 >= 0.9)
+			al.append(" Evil");
+
+		itsAlign = al.toString();
 	}
 }
