@@ -3,6 +3,7 @@
 
 # Eclipse stuff
 .classpath
+.settings
 .project
 .externalToolBuilders
 
