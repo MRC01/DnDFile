@@ -37,9 +37,10 @@ public class Monk extends ClassInfo
 
 	// Lookup tables for skill adjustments
 	static double[][]	ourSkillLevel,
-				ourSkillDexAdj;
+						ourSkillDexAdj;
 
-	static String[]		ourAbils;
+	static String[]		ourSpecAbils,
+						ourMonkAbils;
 
 	static String[]		ourFallSkill;
 	static int[]		ourFallLevel;
@@ -53,7 +54,15 @@ public class Monk extends ClassInfo
 		};
 		initSkillAdj();
 		SKILL_LEVEL_MAX = ourSkillLevel[0].length;
-		ourAbils = new String[]
+		ourMonkAbils = new String[]
+		{
+			"+1/2 Dam with any weapon",
+			"Hand attack stuns for 1-6 rounds if TH d+5",
+			"Hand attack that stuns kills on % AC-6",
+			"Dodge missiles, 12+ on d20",
+			"Zero damage on successful save throws"
+		};
+		ourSpecAbils = new String[]
 		{
 			"Speak with animals",
 			"Mask mind from ESP, 30%+",
@@ -86,7 +95,7 @@ public class Monk extends ClassInfo
 	// Monk class data
 	public String[]		itsSkills;
 	public String		itsFall;
-	public List<String>	itsAbils;
+	public List<String>	itsSpecAbils;
 
 	public String getName()
 	{
@@ -96,14 +105,15 @@ public class Monk extends ClassInfo
 	protected void _init()
 	{
 		itsSkills = new String[ourSkillCount];
-		itsAbils = new ArrayList<String>();
+		itsSpecAbils = new ArrayList<String>();
+		itsAbils.addAll(Arrays.asList(ourMonkAbils));
 	}
 
 	// persist my raw data
 	protected void _write(StreamOutput so) throws Exception
 	{
 		so.writeUTF(itsFall);
-		so.writeList(itsAbils);
+		so.writeList(itsSpecAbils);
 		so.writeArray(itsSkills, String.class);
 	}
 
@@ -111,7 +121,7 @@ public class Monk extends ClassInfo
 	protected void _read(StreamInput si) throws Exception
 	{
 		itsFall = si.readUTF();
-		si.readList(itsAbils, String.class);
+		si.readList(itsSpecAbils, String.class);
 		itsSkills = si.readArray(String.class);
 	}
 
@@ -148,7 +158,7 @@ public class Monk extends ClassInfo
 			cPrint.itsPrinter.add(pl);
 
 		cPrint.textWithLabel("Fall Skill", itsFall);
-		cPrint.textList("Special Abilities", itsAbils);
+		cPrint.textList("Special Abilities", itsSpecAbils);
 	}
 
 	protected void _setLevel()
@@ -156,7 +166,7 @@ public class Monk extends ClassInfo
 		int	lvl = (itsLevel > 0 ? itsLevel : 0);
 
 		setSkills(lvl);
-		setAbils(lvl);
+		setSpecAbils(lvl);
 		setFall(lvl);
 	}
 
@@ -193,13 +203,13 @@ public class Monk extends ClassInfo
 		}
 	}
 
-	protected void setAbils(int lvl)
+	protected void setSpecAbils(int lvl)
 	{
 		if(lvl > ABILS_LEVEL_MAX)
 			lvl = ABILS_LEVEL_MAX;
-		itsAbils.clear();
+		itsSpecAbils.clear();
 		for(int i = 0; i <= lvl - ABILS_LEVEL_MIN; i++)
-			itsAbils.add(ourAbils[i]);
+			itsSpecAbils.add(ourSpecAbils[i]);
 	}
 
 	// Defines the XP level boundaries for this class

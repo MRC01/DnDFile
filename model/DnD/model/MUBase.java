@@ -94,6 +94,7 @@ public abstract class MUBase extends ClassInfo
 	protected void _init()
 	{
 		itsSpellBook = new SpellBook();
+		itsAbils.add("Cast 1, 1st level spell daily");
 	}
 
 	// persist my raw data

@@ -32,4 +32,9 @@ public class Illusionist extends MUBase
 	{
 		return ourXPLevels;
 	}
+
+	protected void _init()
+	{
+		super._init();
+	}
 }

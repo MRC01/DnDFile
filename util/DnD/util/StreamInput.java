@@ -218,7 +218,8 @@ public class StreamInput
 			throws Exception
 	{
 		List<T>	theList = typeList.getDeclaredConstructor().newInstance();
-		return readList(theList, typeItem);
+		readList(theList, typeItem);
+		return theList;
 	}
 
 	/** <!-- ================================================================================================== -->
@@ -232,25 +233,24 @@ public class StreamInput
 	 * <!-- ------------------------------------------------------------------------------------------------ --> */
 	// Type conversions are safe, so disable the compiler warning.
 	@SuppressWarnings("unchecked")
-	public <T> List<T> readList(List<T> theList, Class<T> typeItem) throws Exception
+	public <T> void readList(List<T> theList, Class<T> typeItem) throws Exception
 	{
 		int		i, cnt, itemTypeCode;
 		T		val;
 
 		cnt = readShort();
-		if(cnt <= 0)
-			return null;
-
-		// Set a flag for the typIneIn so we aren't repeatedly comparing class objects
-		itemTypeCode = Util.getTypeCode(typeItem);
-
-		// Read the data & build the list
-		for(i = 0; i < cnt; i++)
+		if(cnt > 0)
 		{
-			val = (T)readItem(itemTypeCode);
-			theList.add(val);
+			// Set a flag for the typIneIn so we aren't repeatedly comparing class objects
+			itemTypeCode = Util.getTypeCode(typeItem);
+	
+			// Read the data & build the list
+			for(i = 0; i < cnt; i++)
+			{
+				val = (T)readItem(itemTypeCode);
+				theList.add(val);
+			}
 		}
-		return theList;
 	}
 
 	public <T> T[] readArray(Class<T> typeItem) throws Exception

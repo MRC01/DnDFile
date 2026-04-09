@@ -65,7 +65,7 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 
 		// Button to (re)initialize
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		itsBInit = new JButton("(Re)Initialize");
+		itsBInit = new JButton("Reset/Init");
 		itsBInit.setForeground(Color.RED);
 		itsBInit.addActionListener(this);
 		MainGui.addGui(guiCfg, itsBInit);

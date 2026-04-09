@@ -60,6 +60,8 @@ public class Thief extends ClassInfo
 	protected void _init()
 	{
 		itsSkills = new String[ourSkillCount];
+		itsBStab = "+4 To Hit, x2 Damage";
+		itsAbils.add("Language: Thieves' Cant");
 	}
 
 	public String getName()

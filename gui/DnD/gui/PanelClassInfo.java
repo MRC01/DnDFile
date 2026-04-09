@@ -127,10 +127,8 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		tmp = MainGui.get().itsChar.getClassData(getDataClass());
 		if(tmp == null)
 		{
-			// The character has no data for this class - we'll use a placeholder
-			// But don't create a new one unless necessary
-			if(itsData == null)
-				itsData = createData();
+			// The character has no data for this class - we'll use an empty placeholder
+			itsData = createData();
 		}
 		else
 		{

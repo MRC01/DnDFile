@@ -64,6 +64,8 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Subclasses override this to persist their own raw data
 	protected void _write(StreamOutput so) throws Exception { }
 
+	// Type conversions are safe, so disable the compiler warning.
+	@SuppressWarnings("unchecked")
 	/* package */ void read(StreamInput si) throws Exception
 	{
 		// Reinitialize
@@ -73,7 +75,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		itsLevel = si.readInt();
 		itsXPoints = si.readInt();
 		itsXPBonus = si.readInt();
-		si.readList(itsAbils, String.class);
+		itsAbils = si.readList((Class<ArrayList<String>>)itsAbils.getClass(), String.class);
 		// delegate to subclass
 		_read(si);
 	}

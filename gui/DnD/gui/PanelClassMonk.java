@@ -55,7 +55,7 @@ public class PanelClassMonk extends PanelClassInfo implements ActionListener
 		guiCfg.gc.fill = GridBagConstraints.BOTH;
 		guiCfg.gc.weighty = 2.0;
 		guiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
-		itsLBAbils = new PanelListBox<String>("Special Abilities", ((Monk)itsData).itsAbils, String.class);
+		itsLBAbils = new PanelListBox<String>("Special Abilities", ((Monk)itsData).itsSpecAbils, String.class);
 		MainGui.addGui(guiCfg, itsLBAbils);
 	}
 
@@ -75,7 +75,7 @@ public class PanelClassMonk extends PanelClassInfo implements ActionListener
 		itsFMFall.setParent(monk);
 		
 		// list box (abilities)
-		itsLBAbils.setList(monk.itsAbils, String.class);
+		itsLBAbils.setList(monk.itsSpecAbils, String.class);
 	}
 	
 	public void _applyAll()
@@ -102,7 +102,7 @@ public class PanelClassMonk extends PanelClassInfo implements ActionListener
 				fm.revert();
 			itsFMFall.revert();
 			// list box (abilities)
-			itsLBAbils.setList(monk.itsAbils, String.class);
+			itsLBAbils.setList(monk.itsSpecAbils, String.class);
 		}
 		catch(Exception e)
 		{
