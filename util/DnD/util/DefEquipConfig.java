@@ -49,8 +49,8 @@ public class DefEquipConfig
 						if(!priorBlank)
 						{
 							/* This line is blank but the prior line wasn't.
-							 * Thus, we must have already captured a config,
-							 * so add it to the list of configs.
+							 * Thus, we must have just completed a config.
+							 * Add it to the list of configs.
 							 */
 							lst1.add(lst2);
 							lst2 = null;
@@ -66,7 +66,7 @@ public class DefEquipConfig
 						lst2 = new ArrayList<ArrayList<String>>();
 						priorBlank = false;
 					}
-					// At this point, read a line of data into the current config.
+					// Read a line of data into the current config.
 					lst3 = new ArrayList<String>();
 					// Summary strings for AC, AR, CL or WP
 					if(lin.startsWith("AC")
