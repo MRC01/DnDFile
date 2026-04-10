@@ -78,4 +78,23 @@ public class Util
 		}
 		return rc;
 	}
+
+	// Use only the last part of the classname, skipping any module prefixes
+	public static String nameFromClass(Object ci)
+	{
+		return nameFromClass(ci.getClass());
+	}
+	public static String nameFromClass(Class cl)
+	{
+		return nameFromClass(cl.getName());
+	}
+	public static String nameFromClass(String fullCName)
+	{
+		String	rc;
+		if(fullCName.contains("."))
+			rc = fullCName.substring(fullCName.lastIndexOf('.') + 1);
+		else
+			rc = fullCName;
+		return rc;
+	}
 }

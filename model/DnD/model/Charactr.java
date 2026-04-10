@@ -10,8 +10,6 @@ import DnD.util.Util;
 
 public class Charactr
 {
-	public static final int	NUM_SAV_THROWS	= 5;
-
 	protected boolean	isDirty;
 
 	public String
@@ -20,9 +18,11 @@ public class Charactr
 		itsPlaceOrig, itsDescrip, itsReligion,
 		itsAlign, itsSleep,
 		itsMove,
-		itsSaveThrows[],
 		itsSurp, itsHandAtt, itsArmCls, itsHitPts;
-
+	/* The index of each Save Throw in this array matches
+	 * the ClassInfo.SaveThrow enum ordinal.
+	 */
+	public String	itsSaveThrows[];
 	public AbilScoreSet	itsAbilScores;
 	public List<String>	itsWeapProf, itsCombatAdj, itsLangs, itsSecSkills;
 	public Item		itsEquip;
@@ -40,7 +40,7 @@ public class Charactr
 		itsAbilScores = new AbilScoreSet();
 		itsRace = new Race();
 		itsEquip = new Item(null);
-		itsSaveThrows = new String[NUM_SAV_THROWS];
+		itsSaveThrows = new String[ClassInfo.ourSaveThrowCount];
 		itsWeapProf = new ArrayList<String>();
 		itsCombatAdj = new ArrayList<String>();
 		itsClasses = new ArrayList<ClassInfo>();

@@ -220,7 +220,7 @@ public class CharactrPrinter implements Printable
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
 
-		for(int i = 0; i < Charactr.NUM_SAV_THROWS; i++)
+		for(int i = 0; i < ClassInfo.ourSaveThrowCount; i++)
 			textWithLabel(indent + stLabels[i], itsChar.itsSaveThrows[i]);
 
 		textList("Combat Adjustments", itsChar.itsCombatAdj);

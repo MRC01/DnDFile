@@ -55,25 +55,6 @@ public class DefEquipManager
 	// Keys = ClassInfo classname; Values = array of default equipment for that class
 	protected static Map<String, DefEquipInfo[]>	ourEquipInfo = null;
 
-	// Use only the last part of the classname, skipping the module prefixes
-	protected static String nameFromClass(ClassInfo ci)
-	{
-		return nameFromClass(ci.getClass());
-	}
-	protected static String nameFromClass(Class cl)
-	{
-		return nameFromClass(cl.getName());
-	}
-	protected static String nameFromClass(String fullCName)
-	{
-		String	rc;
-		if(fullCName.contains("."))
-			rc = fullCName.substring(fullCName.lastIndexOf('.') + 1);
-		else
-			rc = fullCName;
-		return rc;
-	}
-
 	// Fetch a default equipment info for the given class
 	protected static DefEquipInfo fetchDefEquip(ClassInfo chrClass)
 	{
@@ -81,7 +62,7 @@ public class DefEquipManager
 		DefEquipInfo	rc = null;
 		String			cName;
 	
-		cName = nameFromClass(chrClass);
+		cName = Util.nameFromClass(chrClass);
 		if(ourEquipInfo.containsKey(cName))
 		{
 			deiArr = ourEquipInfo.get(cName);
@@ -147,7 +128,7 @@ public class DefEquipManager
 	{
 		DefEquipInfo[]	rc;
 		
-		cName = nameFromClass(cName);
+		cName = Util.nameFromClass(cName);
 		rc = initDefEquipClass(cName);
 		if(rc != null)
 		{

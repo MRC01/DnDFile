@@ -8,6 +8,9 @@ import java.util.*;
 
 import DnD.util.*;
 
+/* Base class for character class info.
+ * Each character class is a subclass. 
+ */
 public abstract class ClassInfo implements Comparable<ClassInfo>
 {
 	public ClassInfo(Charactr ch)
@@ -20,6 +23,35 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	   Each class has its own entry by name.
 	*/
 	static Map<String,int[]>	ourXPLevels = new HashMap<String,int[]>();
+	static public enum SaveThrow
+	{
+		PD ("Para/Poi/DM"),
+		PP ("Petr/Poly"),
+		RW ("Rod/Staff/Wand"),
+		BW ("Breath Weap"),
+		SP ("Spell");
+		public final String	itsName;
+		SaveThrow(String nam)
+		{
+			itsName = nam;
+		}
+	}
+	static public int	ourSaveThrowCount = SaveThrow.values().length;
+	/* Keys are classnames (ClassInfo.getClass.getName())
+	 * Each value is a 2-D array:
+	 *	level 1: character level (size varying)
+	 *	level 2: save throws for that level (size 5 - number of save throws)
+	 * The array of levels is completely filled in - this simplifies lookups.
+	 */
+	static private Map<String, int[][]> ourSaveThrows = null;
+	static protected Map<String, int[][]> getSaveThrowDefaults()
+	{
+		if(ourSaveThrows == null)
+		{
+			ourSaveThrows = loadSaveThrowDefaults();
+		}
+		return ourSaveThrows;
+	}
 
 	public String	itsName;			// Name of this class (can be anything)
 	public int		itsLevel, itsXPoints,
@@ -83,6 +115,48 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Subclasses override this to read their own raw data
 	protected void _read(StreamInput si) throws Exception { }
 
+	// Set all save throws to the defaults for this character class and level
+	public void setSaveThrowDefaults()
+	{
+		String	hk = Util.nameFromClass(getClass());
+		int		stData[][],
+				lvlMax,
+				idx;
+		if(getSaveThrowDefaults().containsKey(hk))
+		{
+			stData = ourSaveThrows.get(hk);
+			// The max is the count of levels, which is the highest level + 1
+			lvlMax = stData.length;
+			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
+			// Save throw arrays are zero-based; levels are 1-based
+			idx -= 1;
+			for(int i = 0; i < ourSaveThrowCount; i++)
+				itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
+			itsChar.setDirty();
+		}
+	}
+
+	// Return the requested save throw default for this character class and level
+	public int getSaveThrowDefault(SaveThrow st)
+	{
+		int		rc = -1;
+		String	hk = Util.nameFromClass(getClass());
+		int		stData[][],
+				lvlMax,
+				idx;
+		if(getSaveThrowDefaults().containsKey(hk))
+		{
+			stData = ourSaveThrows.get(hk);
+			// The max is the count of levels, which is the highest level + 1
+			lvlMax = stData.length;
+			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
+			// Save throw arrays are zero-based; levels are 1-based
+			idx -= 1;
+			rc = stData[idx][st.ordinal()];
+		}
+		return rc;
+	}
+
 	public void print(CharactrPrinter cPrint)
 	{
 		PrintItem	pi;
@@ -142,14 +216,15 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		return rc;
 	}
 
-	public void setLevel()
-	{
-		_setLevel();
-	}
-
+	// Set all class info to defaults for its level
 	public void setLevel(int level)
 	{
 		itsLevel = level;
+		setLevel();
+	}
+	public void setLevel()
+	{
+		setSaveThrowDefaults();
 		_setLevel();
 	}
 
@@ -198,5 +273,13 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	*/ 
 	public boolean genEquip() {
 		return DefEquipManager.assignDefEquipment(this);
+	}
+
+	// First-time load and init for save throw default values (for all classes & levels)
+	// Never return null - if data can't be loaded, return an empty Map.
+	static protected Map<String, int[][]> loadSaveThrowDefaults()
+	{
+		Map<String, int[][]> rc = new HashMap<String, int[][]>();
+		return rc;
 	}
 }

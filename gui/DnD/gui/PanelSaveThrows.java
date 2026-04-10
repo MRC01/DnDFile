@@ -3,6 +3,8 @@ package DnD.gui;
 import java.awt.*;
 import javax.swing.*;
 
+import DnD.model.ClassInfo;
+
 /** This is the GUI panel for combat information
  */
 public class PanelSaveThrows extends PanelBase
@@ -10,8 +12,7 @@ public class PanelSaveThrows extends PanelBase
 	// This stops the Java compiler from complaining
 	private static final long serialVersionUID = 1;
 
-	static final int	kFieldCount = 5,
-				kFieldLen = 15;
+	static final int	kFieldLen = 15;
 
 	// GUI stuff
 	FieldMap[]		itsFields;
@@ -36,18 +37,18 @@ public class PanelSaveThrows extends PanelBase
 		guiCfg.fldLen = kFieldLen;
 		itsFields = new FieldMap[]
 		{
-			addFieldMap("itsSaveThrows", 0, guiCfg, "Para/Poi/DM"),
-			addFieldMap("itsSaveThrows", 1, guiCfg, "Petr/Poly"),
-			addFieldMap("itsSaveThrows", 2, guiCfg, "Rod/Staff/Wand"),
-			addFieldMap("itsSaveThrows", 3, guiCfg, "Breath Weap"),
-			addFieldMap("itsSaveThrows", 4, guiCfg, "Spell")
+			addFieldMap("itsSaveThrows", ClassInfo.SaveThrow.PD.ordinal(), guiCfg, ClassInfo.SaveThrow.PD.itsName),
+			addFieldMap("itsSaveThrows", ClassInfo.SaveThrow.PP.ordinal(), guiCfg, ClassInfo.SaveThrow.PP.itsName),
+			addFieldMap("itsSaveThrows", ClassInfo.SaveThrow.RW.ordinal(), guiCfg, ClassInfo.SaveThrow.RW.itsName),
+			addFieldMap("itsSaveThrows", ClassInfo.SaveThrow.BW.ordinal(), guiCfg, ClassInfo.SaveThrow.BW.itsName),
+			addFieldMap("itsSaveThrows", ClassInfo.SaveThrow.SP.ordinal(), guiCfg, ClassInfo.SaveThrow.SP.itsName)
 		};
 	}
 
 	// Returns the grid bag height of this panel
 	public int gbHeight()
 	{
-		return kFieldCount + 2;
+		return ClassInfo.ourSaveThrowCount + 2;
 	}
 
 	public void applyAll()
