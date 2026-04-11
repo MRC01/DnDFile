@@ -35,7 +35,7 @@ public class Wealth
 
 		public WealthItem()
 		{
-			init(null, null, null, null);
+			init(Type.OTHER, null, null, null);
 		}
 
 		public WealthItem(Type typ, String amt)

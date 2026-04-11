@@ -104,7 +104,7 @@ public class PanelWealthDetail extends PanelBase implements ActionListener
 		return itsWealthTypeCount + 1;
 	}
 
-	// Make this detail panel show the given wealth item
+	// Tie this detail panel to the given wealth item
 	public void setData(Wealth.WealthItem wi)
 	{
 		itsData = (wi != null ? wi : kEmptyWealthItem);
