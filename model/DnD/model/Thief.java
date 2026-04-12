@@ -130,10 +130,13 @@ public class Thief extends ClassInfo
 	{
 		if(itsLevel > 0)
 		{
-			int BSDam = (int)((itsLevel-1)/4) + 2;
-			itsBStab = "+4 To Hit, x" + BSDam + " Damage";
+			// Add the Thief basic class abilities that are independent of level.
+			// But only if they aren't already there
 			if(Util.isBlank(itsAbils))
 				itsAbils.add("Language: Thieves' Cant");
+			// Backstab damage: levels 1-4 double, 5-8 triple, etc.
+			int BSDam = (int)((itsLevel-1)/4) + 2;
+			itsBStab = "+4 To Hit, x" + BSDam + " Damage";
 		}
 		setSkills();
 	}

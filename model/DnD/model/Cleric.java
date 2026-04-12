@@ -38,6 +38,8 @@ public class Cleric extends ClassInfo
 	// Turning ability by level
 	static String[][]	ourTurnLevels;
 
+	static String		ourNameDruid = "Druid";
+
 	// Initialize static/final stuff
 	static
 	{
@@ -162,10 +164,21 @@ public class Cleric extends ClassInfo
 
 	protected void _setLevel()
 	{
-		// TODO:MRC: adjust this to accommodate Wisdom bonuses and class level
+		// TODO:MRC: adjust this to accommodate class level
 		if(itsLevel > 0)
 			if(Util.isBlank(itsAbils))
-				itsAbils.add("Cast 1, 1st level spell daily");
+			{
+				int sc, w;
+				// Druids start with 2 spells/day, Clerics 1
+				sc = (ourNameDruid.equals(itsName) ? 2 : 1);
+				// Compute Wisdom spell bonus (if any)
+				w = itsChar.itsAbilScores.get(AbilScore.Type.WIS).getInt();
+				if(w > 12)
+					sc += 1;
+				if(w > 13)
+					sc += 1;
+				itsAbils.add("Cast " + sc + ", 1st level spell" + (sc > 1 ? "s" : "") + " daily");
+			}
 		// prevent levels from under or overflowing the turning data
 		int lvl = (itsLevel > 0 ? itsLevel : 0);
 		if(lvl >= ourTurnLevels[0].length)

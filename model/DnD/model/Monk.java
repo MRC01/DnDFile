@@ -171,8 +171,11 @@ public class Monk extends ClassInfo
 		int	lvl = (itsLevel > 0 ? itsLevel : 0);
 
 		if(lvl > 0)
+			// Add the Monk basic class abilities that are independent of level.
+			// But only if they aren't already there
 			if(Util.isBlank(itsAbils))
 				itsAbils.addAll(Arrays.asList(ourMonkAbils));
+		// Level-specific Monk abilities
 		setSkills(lvl);
 		setSpecAbils(lvl);
 		setFall(lvl);
