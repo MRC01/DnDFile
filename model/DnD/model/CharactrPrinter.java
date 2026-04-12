@@ -216,7 +216,7 @@ public class CharactrPrinter implements Printable
 		textWithLabel("Surprise", itsChar.itsSurp);
 		textWithLabel("Hand Attacks", itsChar.itsHandAtt);
 
-		pi = new PrintItem("Saving Throw Adjustments", itsLabelFont);
+		pi = new PrintItem("Saving Throws", itsLabelFont);
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
 
@@ -310,22 +310,26 @@ public class CharactrPrinter implements Printable
 		PrintItem	pi;
 		PrintLine	pl;
 		String		delimit = ": ",
-				indent = "    ",
-				wType, wLoc;
+					indent = "    ",
+					wLoc;
 
-		// type & amount on line 1
-		if(wi.itsType == Wealth.Type.OTHER)
-			wType = wi.itsName;
-		else
-			wType = wi.itsType.itsName;
-		pi = new PrintItem(wType + delimit, itsLabelFont);
+		// type, name, amount on line 1
+		pi = new PrintItem(wi.itsType.itsName, itsLabelFont);
 		pl = new PrintLine(pi);
-		pi = new PrintItem(wi.itsAmount, itsTextFont);
-		pl.add(pi);
+		if(!Util.isBlank(wi.itsName))
+		{
+			pi = new PrintItem(delimit + wi.itsName, itsTextFont);
+			pl.add(pi);
+		}
+		if(!Util.isBlank(wi.itsAmount))
+		{
+			pi = new PrintItem(delimit + wi.itsAmount, itsTextFont);
+			pl.add(pi);
+		}
 		itsPrinter.add(pl);
 
 		// location & desc indented on line 2
-		if(wi.itsLocation != null)
+		if(!Util.isBlank(wi.itsLocation))
 		{
 			wLoc = indent + "Location: " + wi.itsLocation;
 			pi = new PrintItem(wLoc, itsTextFont);
