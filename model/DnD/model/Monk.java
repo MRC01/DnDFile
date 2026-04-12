@@ -9,6 +9,7 @@ import DnD.util.PrintItem;
 import DnD.util.PrintLine;
 import DnD.util.StreamInput;
 import DnD.util.StreamOutput;
+import DnD.util.Util;
 
 public class Monk extends ClassInfo
 {
@@ -92,6 +93,11 @@ public class Monk extends ClassInfo
 		super(ch);
 	}
 
+	public Monk(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	// Monk class data
 	public String[]		itsSkills;
 	public String		itsFall;
@@ -106,7 +112,6 @@ public class Monk extends ClassInfo
 	{
 		itsSkills = new String[ourSkillCount];
 		itsSpecAbils = new ArrayList<String>();
-		itsAbils.addAll(Arrays.asList(ourMonkAbils));
 	}
 
 	// persist my raw data
@@ -165,6 +170,9 @@ public class Monk extends ClassInfo
 	{
 		int	lvl = (itsLevel > 0 ? itsLevel : 0);
 
+		if(lvl > 0)
+			if(Util.isBlank(itsAbils))
+				itsAbils.addAll(Arrays.asList(ourMonkAbils));
 		setSkills(lvl);
 		setSpecAbils(lvl);
 		setFall(lvl);

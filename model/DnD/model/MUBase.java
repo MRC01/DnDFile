@@ -89,12 +89,24 @@ public abstract class MUBase extends ClassInfo
 		super(ch);
 	}
 
+	public MUBase(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	public SpellBook	itsSpellBook;
 
 	protected void _init()
 	{
 		itsSpellBook = new SpellBook();
-		itsAbils.add("Cast 1, 1st level spell daily");
+	}
+
+	protected void _setLevel()
+	{
+		// TODO:MRC: adjust this to accommodate class level
+		if(itsLevel > 0)
+			if(Util.isBlank(itsAbils))
+				itsAbils.add("Cast 1, 1st level spell daily");
 	}
 
 	// persist my raw data

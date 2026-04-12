@@ -157,7 +157,7 @@ public class Charactr
 				&& (genChar.itsAbilScores.get(AbilScore.Type.DEX).getInt() >= 15)
 				&& (genChar.itsAbilScores.get(AbilScore.Type.CON).getInt() >= 11))
 		{
-			return new Monk(genChar);
+			return new Monk(genChar, 1);
 		}
 		/* NOTE: we could find the max score and pick a class from that.
 		But if the max score is CON or CHA we'd have to loop looking for the next highest.
@@ -175,23 +175,23 @@ public class Charactr
 		if(asMax.getInt() < 13)
 		{
 			// max score is too low - must be a fighter
-			rc = new Fighter(genChar);
+			rc = new Fighter(genChar, 1);
 		}
 		else if(asMax.itsType == AbilScore.Type.INT)
 		{
-			rc = new MagicUser(genChar);
+			rc = new MagicUser(genChar, 1);
 		}
 		else if (asMax.itsType == AbilScore.Type.WIS)
 		{
-			rc = new Cleric(genChar);
+			rc = new Cleric(genChar, 1);
 		}
 		else if (asMax.itsType == AbilScore.Type.DEX)
 		{
-			rc = new Thief(genChar);
+			rc = new Thief(genChar, 1);
 		}
 		else
 		{
-			rc = new Fighter(genChar);
+			rc = new Fighter(genChar, 1);
 		}
 		return rc;
 	}

@@ -3,10 +3,7 @@
 
 package DnD.model;
 
-import DnD.util.PrintItem;
-import DnD.util.PrintLine;
-import DnD.util.StreamInput;
-import DnD.util.StreamOutput;
+import DnD.util.*;
 
 public class Thief extends ClassInfo
 {
@@ -53,6 +50,11 @@ public class Thief extends ClassInfo
 		super(ch);
 	}
 
+	public Thief(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	// Thief class data
 	public String[]	itsSkills;
 	public String	itsBStab;
@@ -60,8 +62,6 @@ public class Thief extends ClassInfo
 	protected void _init()
 	{
 		itsSkills = new String[ourSkillCount];
-		itsBStab = "+4 To Hit, x2 Damage";
-		itsAbils.add("Language: Thieves' Cant");
 	}
 
 	public String getName()
@@ -128,6 +128,13 @@ public class Thief extends ClassInfo
 
 	protected void _setLevel()
 	{
+		if(itsLevel > 0)
+		{
+			int BSDam = (int)((itsLevel-1)/4) + 2;
+			itsBStab = "+4 To Hit, x" + BSDam + " Damage";
+			if(Util.isBlank(itsAbils))
+				itsAbils.add("Language: Thieves' Cant");
+		}
 		setSkills();
 	}
 

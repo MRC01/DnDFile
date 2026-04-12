@@ -68,6 +68,11 @@ public class Cleric extends ClassInfo
 		super(ch);
 	}
 
+	public Cleric(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	public String		itsHolySymbol;
 	public List<String>	itsSpells;
 	public String[]		itsTurn;
@@ -157,6 +162,10 @@ public class Cleric extends ClassInfo
 
 	protected void _setLevel()
 	{
+		// TODO:MRC: adjust this to accommodate Wisdom bonuses and class level
+		if(itsLevel > 0)
+			if(Util.isBlank(itsAbils))
+				itsAbils.add("Cast 1, 1st level spell daily");
 		// prevent levels from under or overflowing the turning data
 		int lvl = (itsLevel > 0 ? itsLevel : 0);
 		if(lvl >= ourTurnLevels[0].length)

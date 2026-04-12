@@ -10,6 +10,11 @@ public class Fighter extends ClassInfo
 		super(ch);
 	}
 
+	public Fighter(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	// Experience point level boundaries
 	static int[]	ourXPLevels;
 

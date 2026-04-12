@@ -15,7 +15,12 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 {
 	public ClassInfo(Charactr ch)
 	{
-		init(ch);
+		init(ch, 0);
+	}
+
+	public ClassInfo(Charactr ch, int level)
+	{
+		init(ch, level);
 	}
 
 	/* Global Map of experience point / level thresholds for all character classes.
@@ -48,13 +53,17 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Initialize, called from constructor
 	public final void init(Charactr ch)
 	{
+		init(ch, 0);
+	}
+	public final void init(Charactr ch, int level)
+	{
 		itsChar = ch;
 		itsName = getName();
 		itsXPoints = 0;
 		setXPBonus();
 		itsAbils = new ArrayList<String>();
 		_init();
-		setLevel(1);
+		setLevel(level);
 	}
 
 	// Subclass implementation of init(), by default does nothing
@@ -122,7 +131,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 			idx -= 1;
 			for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
 				if(override || Util.isBlank(itsChar.itsSaveThrows[i]))
-						itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
+					itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
 		}
 		/* Don't set the character as dirty because this happens during initialization.
 		 * If the character actually is dirty, then whatever invoked this, will also set it dirty.
@@ -217,10 +226,15 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	}
 	public void setLevel()
 	{
-		/* TODO:MRC: Need to distinguish initializing an empty character, from explicitly setting this.
-		 * This avoids creating default data for empty/unused classes.
+		/* Level 0 is an empty placeholder class; don't set Save Throws.
+		 * Level > 0 means we are setting up a real character class, so set the Save Throws.
+		 * This method is not called when loading a character from disk,
+		 *		so any user overrides will not be replaced.
+		 * This method is called when the "Level" button on PanelClassBasic is clicked.
+		 * 		but that means the user wants to override existing save throws.  
 		 */
-		//setSaveThrowDefaults();
+		if(itsLevel > 0)
+			setSaveThrowDefaults(true);
 		_setLevel();
 	}
 

@@ -135,6 +135,16 @@ public class MainGui extends Container implements ActionListener
 	{
 	}
 
+	public void applyAll()
+	{
+		itsRoot.applyAll();
+	}
+
+	public void revertAll()
+	{
+		itsRoot.revertAll();
+	}
+
 	public void actionPerformed(ActionEvent ev)
 	{
 		String			bc;
@@ -180,12 +190,12 @@ public class MainGui extends Container implements ActionListener
 		// menu/edit/apply
 		else if(bc.equals(itsMEApply.getText()))
 		{
-			itsRoot.applyAll();
+			applyAll();
 		}
 		// menu/edit/revert
 		else if(bc.equals(itsMERevert.getText()))
 		{
-			itsRoot.revertAll();
+			revertAll();
 		}
 		// menu/edit/generate
 		else if(bc.equals(itsMEGen.getText()))
@@ -251,7 +261,7 @@ public class MainGui extends Container implements ActionListener
 	protected void FileSave(boolean newFile)
 	{
 		// Apply all changes
-		itsRoot.applyAll();
+		applyAll();
 		// Get a streamer for this char
 		if(getCharStreamer(false, newFile) == null)
 			msgBox("Save Aborted", "Character not saved.");

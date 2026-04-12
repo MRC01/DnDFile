@@ -22,6 +22,11 @@ public class Illusionist extends MUBase
 		super(ch);
 	}
 
+	public Illusionist(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	public String getName()
 	{
 		return "Illusionist";

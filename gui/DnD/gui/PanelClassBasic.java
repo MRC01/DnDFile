@@ -188,11 +188,13 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		else if(bc.equals(itsBLevel.getText()))
 		{
 			// Apply the values in the GUI to the fields
-			itsClassPanel.applyAll();
+			//itsClassPanel.applyAll();
+			MainGui.get().applyAll();
 			if(itsClassPanel.itsData.itsLevel > 0)
 			{
 				itsClassPanel.itsData.setLevel();
-				itsClassPanel.revertAll();
+				//itsClassPanel.revertAll();
+				MainGui.get().revertAll();
 			}
 		}
 		else if(bc.equals(itsBXPBonus.getText()))
@@ -261,8 +263,6 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 	{
 		// initialize the class info
 		itsClassPanel.itsData.init(MainGui.get().itsChar);
-		// apply it to the current character
-		itsClassPanel.applyAll();
 		// reset the GUI form to use the new data
 		try
 		{
@@ -300,6 +300,7 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 			for(FieldMap fm : itsFields)
 				fm.revert();
 			itsFMXPAdd.revert();
+			itsLBAbils.refreshList();
 		}
 		catch(Exception e)
 		{

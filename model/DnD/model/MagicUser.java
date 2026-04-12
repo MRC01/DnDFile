@@ -22,6 +22,11 @@ public class MagicUser extends MUBase
 		super(ch);
 	}
 
+	public MagicUser(Charactr ch, int level)
+	{
+		super(ch, level);
+	}
+
 	public String getName()
 	{
 		return "Magic User";
