@@ -9,11 +9,6 @@ public class DefEquipConfig
 	protected static final String	defEquipFilePrefix = "equip.",
 									defEquipFileSuffix = ".dat";
 
-	// Read config files (if any) and create default equipment manifests
-	protected static void initDefEquip()
-	{
-	}
-
 	/* Each class can have multiple equipment configs.
 	 * The outer List has one element for each config.
 	 * The next List has one element for each line of the config.

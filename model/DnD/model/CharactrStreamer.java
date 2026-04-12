@@ -79,7 +79,7 @@ public class CharactrStreamer
 				itsChar.itsArmCls = si.readUTF();
 				itsChar.itsHitPts = si.readUTF();
 
-				for(int i = 0; i < ClassInfo.ourSaveThrowCount; i++)
+				for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
 					itsChar.itsSaveThrows[i] = si.readUTF();
 
 				for(AbilScore.Type abt : AbilScore.Type.values())
@@ -194,7 +194,7 @@ public class CharactrStreamer
 			so.writeUTF(itsChar.itsArmCls);
 			so.writeUTF(itsChar.itsHitPts);
 
-			for(int i = 0; i < ClassInfo.ourSaveThrowCount; i++)
+			for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
 				so.writeUTF(itsChar.itsSaveThrows[i]);
 
 			for(AbilScore.Type abt : AbilScore.Type.values())

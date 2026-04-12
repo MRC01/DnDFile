@@ -6,7 +6,7 @@ package DnD.model;
 import java.util.*;
 
 import DnD.util.NameManager;
-import DnD.util.Util;
+import DnD.util.*;
 
 public class Charactr
 {
@@ -40,7 +40,7 @@ public class Charactr
 		itsAbilScores = new AbilScoreSet();
 		itsRace = new Race();
 		itsEquip = new Item(null);
-		itsSaveThrows = new String[ClassInfo.ourSaveThrowCount];
+		itsSaveThrows = new String[SaveThrowManager.ourSaveThrowCount];
 		itsWeapProf = new ArrayList<String>();
 		itsCombatAdj = new ArrayList<String>();
 		itsClasses = new ArrayList<ClassInfo>();

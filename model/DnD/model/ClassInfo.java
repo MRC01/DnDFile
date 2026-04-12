@@ -23,6 +23,8 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	   Each class has its own entry by name.
 	*/
 	static Map<String,int[]>	ourXPLevels = new HashMap<String,int[]>();
+
+	// Save throws are defined by character Class (and level)
 	static public enum SaveThrow
 	{
 		PD ("Para/Poi/DM"),
@@ -36,27 +38,11 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 			itsName = nam;
 		}
 	}
-	static public int	ourSaveThrowCount = SaveThrow.values().length;
-	/* Keys are classnames (ClassInfo.getClass.getName())
-	 * Each value is a 2-D array:
-	 *	level 1: character level (size varying)
-	 *	level 2: save throws for that level (size 5 - number of save throws)
-	 * The array of levels is completely filled in - this simplifies lookups.
-	 */
-	static private Map<String, int[][]> ourSaveThrows = null;
-	static protected Map<String, int[][]> getSaveThrowDefaults()
-	{
-		if(ourSaveThrows == null)
-		{
-			ourSaveThrows = loadSaveThrowDefaults();
-		}
-		return ourSaveThrows;
-	}
 
 	public String	itsName;			// Name of this class (can be anything)
 	public int		itsLevel, itsXPoints,
 					itsXPBonus;			// example: 0 means none, 10 means +10%
-	public List<String>	itsAbils;
+	public List<String>	itsAbils;		// General class abilities (spells, tracking, etc.)
 	Charactr		itsChar;			// used so classes can check ability scores, race, etc.
 
 	// Initialize, called from constructor
@@ -118,22 +104,29 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Set all save throws to the defaults for this character class and level
 	public void setSaveThrowDefaults()
 	{
+		setSaveThrowDefaults(false);
+	}
+	public void setSaveThrowDefaults(boolean override)
+	{
 		String	hk = Util.nameFromClass(getClass());
 		int		stData[][],
 				lvlMax,
 				idx;
-		if(getSaveThrowDefaults().containsKey(hk))
+		if(SaveThrowManager.getSaveThrowDefaults().containsKey(hk))
 		{
-			stData = ourSaveThrows.get(hk);
+			stData = SaveThrowManager.getSaveThrowDefaults().get(hk);
 			// The max is the count of levels, which is the highest level + 1
 			lvlMax = stData.length;
-			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
 			// Save throw arrays are zero-based; levels are 1-based
+			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
 			idx -= 1;
-			for(int i = 0; i < ourSaveThrowCount; i++)
-				itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
-			itsChar.setDirty();
+			for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
+				if(override || Util.isBlank(itsChar.itsSaveThrows[i]))
+						itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
 		}
+		/* Don't set the character as dirty because this happens during initialization.
+		 * If the character actually is dirty, then whatever invoked this, will also set it dirty.
+		 */
 	}
 
 	// Return the requested save throw default for this character class and level
@@ -144,9 +137,9 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		int		stData[][],
 				lvlMax,
 				idx;
-		if(getSaveThrowDefaults().containsKey(hk))
+		if(SaveThrowManager.getSaveThrowDefaults().containsKey(hk))
 		{
-			stData = ourSaveThrows.get(hk);
+			stData = SaveThrowManager.getSaveThrowDefaults().get(hk);
 			// The max is the count of levels, which is the highest level + 1
 			lvlMax = stData.length;
 			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
@@ -224,7 +217,10 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	}
 	public void setLevel()
 	{
-		setSaveThrowDefaults();
+		/* TODO:MRC: Need to distinguish initializing an empty character, from explicitly setting this.
+		 * This avoids creating default data for empty/unused classes.
+		 */
+		//setSaveThrowDefaults();
 		_setLevel();
 	}
 
@@ -273,13 +269,5 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	*/ 
 	public boolean genEquip() {
 		return DefEquipManager.assignDefEquipment(this);
-	}
-
-	// First-time load and init for save throw default values (for all classes & levels)
-	// Never return null - if data can't be loaded, return an empty Map.
-	static protected Map<String, int[][]> loadSaveThrowDefaults()
-	{
-		Map<String, int[][]> rc = new HashMap<String, int[][]>();
-		return rc;
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import DnD.model.ClassInfo;
+import DnD.util.*;
 
 /** This is the GUI panel for combat information
  */
@@ -48,7 +49,7 @@ public class PanelSaveThrows extends PanelBase
 	// Returns the grid bag height of this panel
 	public int gbHeight()
 	{
-		return ClassInfo.ourSaveThrowCount + 2;
+		return SaveThrowManager.ourSaveThrowCount + 2;
 	}
 
 	public void applyAll()
