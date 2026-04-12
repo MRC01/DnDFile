@@ -188,6 +188,7 @@ public class Monk extends ClassInfo
 	{
 		if(lvl > SKILL_LEVEL_MAX)
 			lvl = SKILL_LEVEL_MAX;
+		int dex = getDexInt();
 		for(Skill sk : Skill.values())
 		{
 			int	skOrd;
@@ -197,7 +198,8 @@ public class Monk extends ClassInfo
 			// base score
 			skVal = ourSkillLevel[skOrd][lvl];
 			// dexterity adjustment
-			skVal += ourSkillDexAdj[skOrd][getDexInt()];
+			if(dex >=0 && dex <= 25)
+				skVal += ourSkillDexAdj[skOrd][dex];
 
 			itsSkills[skOrd] = String.format("%1$.1f", skVal);
 		}
@@ -250,12 +252,12 @@ public class Monk extends ClassInfo
 		// Dexterity
 		ourSkillDexAdj = new double[][]
 		{
-		/* OL */ { 0, 0, 0, 0, 0, 0, 0, 0, 0, -10, -5, 0, 0, 0, 0, 0, 5, 10, 15 },
-		/* FT */ { 0, 0, 0, 0, 0, 0, 0, 0, 0, -10, -10, -5, 0, 0, 0, 0, 0, 0, 5 },
-		/* MS */ { 0, 0, 0, 0, 0, 0, 0, 0, 0, -20, -15, -10, -5, 0, 0, 0, 0, 5, 10 },
-		/* HS */ { 0, 0, 0, 0, 0, 0, 0, 0, 0, -10, -5, 0, 0, 0, 0, 0, 0, 5, 10 },
-		/* HN */ { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		/* CW */ { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		/* OL */ { 0,0,0,0,0,0,0,0,0,-10,-5,0,0,0,0,0,5,10,15,20,25,30,35,40,45,50 },
+		/* FT */ { 0,0,0,0,0,0,0,0,0,-10,-10,-5,0,0,0,0,0,0,5,10,15,20,25,30,35,40 },
+		/* MS */ { 0,0,0,0,0,0,0,0,0,-20,-15,-10,-5,0,0,0,0,5,10,12,15,18,20,23,25,30 },
+		/* HS */ { 0,0,0,0,0,0,0,0,0,-10,-5,0,0,0,0,0,0,5,10,12,15,18,20,23,25,30 },
+		/* HN */ { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		/* CW */ { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 		};
 	}
 }

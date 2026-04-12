@@ -145,17 +145,19 @@ public class Thief extends ClassInfo
 		int	lvl = (itsLevel > 0 ? itsLevel : 0);
 		if(lvl > ourMaxSkillLevel)
 			lvl = ourMaxSkillLevel;
+		int dex = getDexInt();
 		// set ability data
 		for(Skill sk : Skill.values())
 		{
-			int	skOrd;
+			int		skOrd;
 			double	skVal;
 
 			skOrd = sk.ordinal();
 			// base score
 			skVal = ourSkillLevel[skOrd][lvl];
 			// dexterity adjustment
-			skVal += ourSkillDexAdj[skOrd][getDexInt()];
+			if(dex >=0 && dex <= 25)
+				skVal += ourSkillDexAdj[skOrd][dex];
 			// race adjustment
 			skVal += ourSkillRaceAdj[skOrd][itsChar.itsRace.itsType.ordinal()];
 

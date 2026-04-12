@@ -73,23 +73,14 @@ public class Wealth
 
 			StringBuffer	sb = new StringBuffer();
 
-			if(itsType == Type.OTHER)
-				sb.append(itsName);
-			else if(!Util.isBlank(itsName))
-				sb.append(itsName);
-			else
-				sb.append(itsType.itsName);
-
+			// Type cannot be null
+			sb.append(itsType.itsName);
+			if(!Util.isBlank(itsName))
+				sb.append(": ").append(itsName);
 			if(!Util.isBlank(itsAmount))
-			{
-				sb.append(": ");
-				sb.append(itsAmount);
-			}
+				sb.append(": ").append(itsAmount);
 			if(!Util.isBlank(itsLocation))
-			{
-				sb.append(": ");
-				sb.append(itsLocation);
-			}
+				sb.append(": ").append(itsLocation);
 			return sb.toString();
 		}
 	}
