@@ -167,13 +167,17 @@ public class Monk extends ClassInfo
 	}
 
 	// Generate and return new hit points for the given level
-	// TODO:MRC:260414 handle levels > 1
 	protected int _genHitPoints(int level)
 	{
 		int		hp;
+
 		// Monks get 1-4 HP per level, at 1st level 2d4 and never less than average
-		hp = Util.random(4) + Util.random(4);
-		if(hp < 5) hp = 5;
+		hp = Util.random(4);
+		if(level == 1)
+		{
+			hp += Util.random(4);
+			if(hp < 5) hp = 5;
+		}
 		return hp;
 	}
 

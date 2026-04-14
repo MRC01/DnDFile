@@ -35,23 +35,37 @@ public class Fighter extends ClassInfo
 	}
 
 	// Generate and return new hit points for the given level
-	// TODO:MRC:260414 handle levels > 1
 	protected int _genHitPoints(int level)
 	{
-		int		hp;
+		int		hp, hpMax, hpMinLvl1, maxLevel, hpRange;
+		boolean	isRanger;
 		
-		if("Ranger".equals(itsName))
+		isRanger = "Ranger".equals(itsName);
+		if(isRanger)
 		{
-			// Rangers get 1-8 HP per level, at 1st level 2d8 and never less than average
-			hp = Util.random(8) + Util.random(8);
-			if(hp < 9) hp = 9;
+			maxLevel = 11;
+			hpRange = 8;
+			hpMax = 2;
+			hpMinLvl1 = 9;
 		}
 		else
 		{
-			// Fighters get 1-10 HP per level, never less than average at 1st level
-			hp = Util.random(10);
-			if(hp < 6) hp = 6;
-		} 
+			maxLevel = 10;
+			hpRange = 10;
+			hpMax = 3;
+			hpMinLvl1 = 6;
+		}
+		if(level < maxLevel)
+		{
+			hp = Util.random(hpRange);
+			if(level == 1)
+			{
+				if(isRanger) hp += Util.random(hpRange);
+				if(hp < hpMinLvl1) hp = hpMinLvl1;
+			}
+		}
+		else
+			hp = hpMax;
 		return hp;
 	}
 

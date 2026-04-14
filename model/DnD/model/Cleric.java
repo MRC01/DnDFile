@@ -163,13 +163,20 @@ public class Cleric extends ClassInfo
 	}
 
 	// Generate and return new hit points for the given level
-	// TODO:MRC:260414 handle levels > 1
 	protected int _genHitPoints(int level)
 	{
-		int		hp;
+		int		hp, maxLevel;
+
 		// Clerics get 1-8 HP per level, never less than average at 1st level
-		hp = Util.random(8);
-		if(hp < 5) hp = 5;
+		maxLevel = ("Druid".equals(itsName) ? 15 : 10);
+		if(level < maxLevel)
+		{
+			hp = Util.random(8);
+			if(level == 1)
+				if(hp < 5) hp = 5;
+		}
+		else
+			hp = 2;
 		return hp;
 	}
 

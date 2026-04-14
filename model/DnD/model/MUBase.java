@@ -102,13 +102,20 @@ public abstract class MUBase extends ClassInfo
 	}
 
 	// Generate and return new hit points for the given level
-	// TODO:MRC:260414 handle levels > 1
 	protected int _genHitPoints(int level)
 	{
-		int		hp;
+		int		hp, maxLevel;
+		
 		// Magic Users get 1-4 HP per level, never less than average at 1st level
-		hp = Util.random(4);
-		if(hp < 3) hp = 3;
+		maxLevel = ("Illusionist".equals(itsName) ? 11 : 12);
+		if(level < maxLevel)
+		{
+			hp = Util.random(4);
+			if(level == 1)
+				if(hp < 3) hp = 3;
+		}
+		else
+			hp = 1;
 		return hp;
 	}
 

@@ -112,7 +112,6 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 
 	/* Generate and return new hit points for the given level
 	 * Apply constitution bonuses (if any)
-	 * TODO:MRC:260414: handle higher levels
 	 */
 	protected int genHitPoints(int level)
 	{
@@ -270,13 +269,21 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		 */
 		if(itsLevel > 0)
 		{
+			// Save throws - always force override
 			setSaveThrowDefaults(true);
-			if(itsLevel == 1)
+			// Hit points - either replace or add
+			int hp, hpNew;
+			hp = Util.numFromString(itsChar.itsHitPts);
+			if(hp < 0)
 			{
-				/* TODO:MRC:260414: set hit points only for level 1
-				 * It overwrites and doesn't handle higher levels.
-				 */
+				// Hit points not defined - set them
 				itsChar.itsHitPts = Integer.valueOf(genHitPoints(itsLevel)).toString();
+			}
+			else
+			{
+				// Character already has hit points - add one more level
+				hpNew = genHitPoints(itsLevel);
+				itsChar.itsHitPts = Integer.valueOf(hp + hpNew).toString();
 			}
 		}
 		_setLevel();

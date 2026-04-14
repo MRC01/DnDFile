@@ -188,12 +188,10 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		else if(bc.equals(itsBLevel.getText()))
 		{
 			// Apply the values in the GUI to the fields
-			//itsClassPanel.applyAll();
 			MainGui.get().applyAll();
 			if(itsClassPanel.itsData.itsLevel > 0)
 			{
 				itsClassPanel.itsData.setLevel();
-				//itsClassPanel.revertAll();
 				MainGui.get().revertAll();
 			}
 		}
@@ -221,8 +219,8 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 				{
 					// Calculate & assign the new level (if any)
 					itsClassPanel.itsData.addXPoints(itsXPToAdd);
-					// Make the level & XPoints fields show their new values
-					itsClassPanel.revertAll();
+					// Make the character show the new values
+					MainGui.get().revertAll();
 				}
 			}
 			catch(Exception e)
