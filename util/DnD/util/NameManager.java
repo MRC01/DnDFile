@@ -23,7 +23,7 @@ public class NameManager
 				if(namesMale == null)
 					return nameDefaultMale;
 			}
-			int i = (int)(Math.random() * namesMale.length + 0.5);
+			int i = Util.random(namesMale.length) - 1;
 			return namesMale[i];
 		}
 		catch(Exception e)
@@ -42,7 +42,7 @@ public class NameManager
 				if(namesFemale == null)
 					return nameDefaultFemale;
 			}
-			int i = (int)(Math.random() * namesFemale.length + 0.5);
+			int i = Util.random(namesFemale.length) - 1;
 			return namesFemale[i];
 		}
 		catch(Exception e)

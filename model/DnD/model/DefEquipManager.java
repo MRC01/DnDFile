@@ -80,7 +80,7 @@ public class DefEquipManager
 		{
 			int	len, i;
 			len = deiArr.length;
-			i = (int)(Math.random() * len);
+			i = Util.random(len) - 1;
 			rc = deiArr[i];
 		}
 		return rc;

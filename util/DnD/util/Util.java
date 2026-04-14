@@ -79,6 +79,12 @@ public class Util
 		return rc;
 	}
 
+	// Return a random number from 1 to d, uniform distribution
+	public static int random(int d)
+	{
+		return (int)(Math.random() * (d - 1.0) + 1.5);
+	}
+
 	// Use only the last part of the classname, skipping any module prefixes
 	public static String nameFromClass(Object ci)
 	{

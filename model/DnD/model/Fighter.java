@@ -3,6 +3,8 @@
 
 package DnD.model;
 
+import DnD.util.Util;
+
 public class Fighter extends ClassInfo
 {
 	public Fighter(Charactr ch)
@@ -41,14 +43,13 @@ public class Fighter extends ClassInfo
 		if("Ranger".equals(itsName))
 		{
 			// Rangers get 1-8 HP per level, at 1st level 2d8 and never less than average
-			hp = (int)(Math.random() * 8 + 0.5);
-			hp += (int)(Math.random() * 8 + 0.5);
+			hp = Util.random(8) + Util.random(8);
 			if(hp < 9) hp = 9;
 		}
 		else
 		{
 			// Fighters get 1-10 HP per level, never less than average at 1st level
-			hp = (int)(Math.random() * 10 + 0.5);
+			hp = Util.random(10);
 			if(hp < 6) hp = 6;
 		} 
 		return hp;
@@ -70,11 +71,11 @@ public class Fighter extends ClassInfo
 
 	// Fighters start with 50-200 gp (5d4 x 10)
 	public int getStartingGold() {
-		int gp = (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5);
+		int gp = Util.random(4)
+				+ Util.random(4)
+				+ Util.random(4)
+				+ Util.random(4)
+				+ Util.random(4);
 		return gp * 10;
 	}
 }

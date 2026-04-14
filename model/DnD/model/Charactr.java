@@ -115,9 +115,20 @@ public class Charactr
 
 		// Set the alignment (must be after class and race)
 		newChar.genAlignment();
-		
+
+		// Set the sleep factor
+		newChar.genSleepFactor();
+
 		newChar.setDirty();
 		return newChar;
+	}
+
+	// Sleep factor range is 1-10, generated as 2-8
+	protected void genSleepFactor()
+	{
+		int		sf;
+		sf = Util.random(4) + Util.random(4);
+		itsSleep = Integer.valueOf(sf).toString();
 	}
 
 	protected Race genRace() {
@@ -207,8 +218,7 @@ public class Charactr
 		int	g;
 		if(Util.isBlank(itsClasses)) {
 			// If class isn't defined, use a default 20-120, binomial distribution
-			g = (int)(Math.random() * 5 + 1.5)
-					+ (int)(Math.random() * 5 + 1.5);
+			g = Util.random(6) + Util.random(6);
 			g *= 10;
 		}
 		else {

@@ -168,7 +168,7 @@ public class Cleric extends ClassInfo
 	{
 		int		hp;
 		// Clerics get 1-8 HP per level, never less than average at 1st level
-		hp = (int)(Math.random() * 8 + 0.5);
+		hp = Util.random(8);
 		if(hp < 5) hp = 5;
 		return hp;
 	}
@@ -201,9 +201,9 @@ public class Cleric extends ClassInfo
 
 	// Clerics start with 30-180 gp (3d6 x 10)
 	public int getStartingGold() {
-		int gp = (int)(Math.random() * 5 + 1.5)
-				+ (int)(Math.random() * 5 + 1.5)
-				+ (int)(Math.random() * 5 + 1.5);
+		int gp = Util.random(6)
+				+ Util.random(6)
+				+ Util.random(6);
 		return gp * 10;
 	}
 }

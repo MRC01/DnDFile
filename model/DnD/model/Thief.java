@@ -132,7 +132,7 @@ public class Thief extends ClassInfo
 	{
 		int		hp;
 		// Thieves get 1-6 HP per level, never less than average at 1st level
-		hp = (int)(Math.random() * 6 + 0.5);
+		hp = Util.random(6);
 		if(hp < 4) hp = 4;
 		return hp;
 	}
@@ -154,8 +154,8 @@ public class Thief extends ClassInfo
 
 	// Thieves start with 20-120 gp (2d6 x 10)
 	public int getStartingGold() {
-		int gp = (int)(Math.random() * 5 + 1.5)
-				+ (int)(Math.random() * 5 + 1.5);
+		int gp = Util.random(6)
+				+ Util.random(6);
 		return gp * 10;
 	}
 

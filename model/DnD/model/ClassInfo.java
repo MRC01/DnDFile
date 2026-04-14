@@ -142,7 +142,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	protected int _genHitPoints(int level)
 	{
 		// Normal humans, by default, have 1-4 HP (level doesn't matter)
-		return (int)(Math.random() * 4 + 0.5);
+		return Util.random(4);
 	}
 
 	// Set all save throws to the defaults for this character class and level

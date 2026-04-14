@@ -172,8 +172,7 @@ public class Monk extends ClassInfo
 	{
 		int		hp;
 		// Monks get 1-4 HP per level, at 1st level 2d4 and never less than average
-		hp = (int)(Math.random() * 4 + 0.5);
-		hp += (int)(Math.random() * 4 + 0.5);
+		hp = Util.random(4) + Util.random(4);
 		if(hp < 5) hp = 5;
 		return hp;
 	}
@@ -245,11 +244,11 @@ public class Monk extends ClassInfo
 
 	// Monks start with 5-20 gp (5d4)
 	public int getStartingGold() {
-		int gp = (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5);
+		int gp = Util.random(4)
+				+ Util.random(4)
+				+ Util.random(4)
+				+ Util.random(4)
+				+ Util.random(4);
 		return gp;
 	}
 

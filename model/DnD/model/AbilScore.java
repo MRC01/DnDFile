@@ -97,8 +97,7 @@ public class AbilScore implements Comparable<AbilScore>
 		// Generate 4 random numbers & add the 3 highest
 		for(int i = 0; i < 4; i++)
 		{
-			// random 0-5, plus 1 to get 1-6, plus 0.5 for truncation round-off
-			int die = (int)(Math.random() * 5.0 + 1.5);
+			int die = Util.random(6);
 			if(die < min) min = die;
 			sum += die;
 		}

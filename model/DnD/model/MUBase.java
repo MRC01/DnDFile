@@ -107,7 +107,7 @@ public abstract class MUBase extends ClassInfo
 	{
 		int		hp;
 		// Magic Users get 1-4 HP per level, never less than average at 1st level
-		hp = (int)(Math.random() * 4 + 0.5);
+		hp = Util.random(4);
 		if(hp < 3) hp = 3;
 		return hp;
 	}
@@ -197,8 +197,8 @@ public abstract class MUBase extends ClassInfo
 
 	// Magic Users start with 20-80 gp (2d4 x 10)
 	public int getStartingGold() {
-		int gp = (int)(Math.random() * 3 + 1.5)
-				+ (int)(Math.random() * 3 + 1.5);
+		int gp = Util.random(4)
+				+ Util.random(4);
 		return gp * 10;
 	}
 }
