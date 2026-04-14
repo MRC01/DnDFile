@@ -271,7 +271,13 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		if(itsLevel > 0)
 		{
 			setSaveThrowDefaults(true);
-			itsChar.itsHitPts = Integer.valueOf(genHitPoints(itsLevel)).toString();
+			if(itsLevel == 1)
+			{
+				/* TODO:MRC:260414: set hit points only for level 1
+				 * It overwrites and doesn't handle higher levels.
+				 */
+				itsChar.itsHitPts = Integer.valueOf(genHitPoints(itsLevel)).toString();
+			}
 		}
 		_setLevel();
 	}
