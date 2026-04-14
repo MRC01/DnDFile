@@ -101,6 +101,17 @@ public abstract class MUBase extends ClassInfo
 		itsSpellBook = new SpellBook();
 	}
 
+	// Generate and return new hit points for the given level
+	// TODO:MRC:260414 handle levels > 1
+	protected int _genHitPoints(int level)
+	{
+		int		hp;
+		// Magic Users get 1-4 HP per level, never less than average at 1st level
+		hp = (int)(Math.random() * 4 + 0.5);
+		if(hp < 3) hp = 3;
+		return hp;
+	}
+
 	protected void _setLevel()
 	{
 		// TODO:MRC: adjust this to accommodate class level

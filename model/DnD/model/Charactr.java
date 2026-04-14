@@ -75,7 +75,9 @@ public class Charactr
 		return null;
 	}
 	
-	// Create and return a new Character, generated randomly
+	/* Create and return a new Character, generated randomly
+	 * Always 1st level (TODO: MRC: enable creation of higher level chars).
+	 */
 	public static Charactr newRandom()
 	{
 		Charactr	newChar = new Charactr();

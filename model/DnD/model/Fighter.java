@@ -32,6 +32,28 @@ public class Fighter extends ClassInfo
 		return "Fighter";
 	}
 
+	// Generate and return new hit points for the given level
+	// TODO:MRC:260414 handle levels > 1
+	protected int _genHitPoints(int level)
+	{
+		int		hp;
+		
+		if("Ranger".equals(itsName))
+		{
+			// Rangers get 1-8 HP per level, at 1st level 2d8 and never less than average
+			hp = (int)(Math.random() * 8 + 0.5);
+			hp += (int)(Math.random() * 8 + 0.5);
+			if(hp < 9) hp = 9;
+		}
+		else
+		{
+			// Fighters get 1-10 HP per level, never less than average at 1st level
+			hp = (int)(Math.random() * 10 + 0.5);
+			if(hp < 6) hp = 6;
+		} 
+		return hp;
+	}
+
 	public void setXPBonus()
 	{
 		if(itsChar.itsAbilScores.get(AbilScore.Type.STR).getInt() > 15)

@@ -162,6 +162,17 @@ public class Cleric extends ClassInfo
 		itsSpells = new ArrayList<String>();
 	}
 
+	// Generate and return new hit points for the given level
+	// TODO:MRC:260414 handle levels > 1
+	protected int _genHitPoints(int level)
+	{
+		int		hp;
+		// Clerics get 1-8 HP per level, never less than average at 1st level
+		hp = (int)(Math.random() * 8 + 0.5);
+		if(hp < 5) hp = 5;
+		return hp;
+	}
+
 	protected void _setLevel()
 	{
 		// TODO:MRC: adjust this to accommodate class level

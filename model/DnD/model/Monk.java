@@ -166,6 +166,18 @@ public class Monk extends ClassInfo
 		cPrint.textList("Special Abilities", itsSpecAbils);
 	}
 
+	// Generate and return new hit points for the given level
+	// TODO:MRC:260414 handle levels > 1
+	protected int _genHitPoints(int level)
+	{
+		int		hp;
+		// Monks get 1-4 HP per level, at 1st level 2d4 and never less than average
+		hp = (int)(Math.random() * 4 + 0.5);
+		hp += (int)(Math.random() * 4 + 0.5);
+		if(hp < 5) hp = 5;
+		return hp;
+	}
+
 	protected void _setLevel()
 	{
 		int	lvl = (itsLevel > 0 ? itsLevel : 0);

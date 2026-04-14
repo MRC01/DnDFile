@@ -110,6 +110,41 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Subclasses override this to read their own raw data
 	protected void _read(StreamInput si) throws Exception { }
 
+	/* Generate and return new hit points for the given level
+	 * Apply constitution bonuses (if any)
+	 * TODO:MRC:260414: handle higher levels
+	 */
+	protected int genHitPoints(int level)
+	{
+		int c,
+			hp;
+
+		// Get the class-specific hit points
+		hp = _genHitPoints(level);
+		// Apply constitution bonuses
+		c = itsChar.itsAbilScores.get(AbilScore.Type.CON).getInt();
+		if(c > 14)
+			hp += 1;
+		if(c > 15)
+			hp += 1;
+		if(this instanceof Fighter)
+		{
+			// Highest HP bonuses apply only to Fighter, Ranger, Paladin
+			if(c > 16)
+				hp += 1;
+			if(c > 17)
+				hp += 1;
+		}
+		return hp;
+	}
+	
+	// Subclasses override this to set hit points
+	protected int _genHitPoints(int level)
+	{
+		// Normal humans, by default, have 1-4 HP (level doesn't matter)
+		return (int)(Math.random() * 4 + 0.5);
+	}
+
 	// Set all save throws to the defaults for this character class and level
 	public void setSaveThrowDefaults()
 	{
@@ -234,7 +269,10 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		 * 		but that means the user wants to override existing save throws.  
 		 */
 		if(itsLevel > 0)
+		{
 			setSaveThrowDefaults(true);
+			itsChar.itsHitPts = Integer.valueOf(genHitPoints(itsLevel)).toString();
+		}
 		_setLevel();
 	}
 

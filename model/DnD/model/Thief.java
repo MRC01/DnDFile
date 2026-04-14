@@ -126,6 +126,17 @@ public class Thief extends ClassInfo
 			itsXPBonus = 0;
 	}
 
+	// Generate and return new hit points for the given level
+	// TODO:MRC:260414 handle levels > 1
+	protected int _genHitPoints(int level)
+	{
+		int		hp;
+		// Thieves get 1-6 HP per level, never less than average at 1st level
+		hp = (int)(Math.random() * 6 + 0.5);
+		if(hp < 4) hp = 4;
+		return hp;
+	}
+
 	protected void _setLevel()
 	{
 		if(itsLevel > 0)
