@@ -13,6 +13,9 @@ import DnD.util.*;
  */
 public abstract class ClassInfo implements Comparable<ClassInfo>
 {
+	// Prefix for all auto-generated class abilities in the list
+	/* module */ static String	ourAbilPrefix = "AG: ";
+
 	public ClassInfo(Charactr ch)
 	{
 		init(ch, 0);
@@ -324,7 +327,27 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		}
 		return rc;
 	}
-	
+
+	// Delete/remove all auto-generated class abilities
+	protected void deleteAGClassAbils()
+	{
+		// Delete any class abilities that were auto-generated
+		boolean hit;
+		do
+		{
+			// Note that the loop must be repeated every time something is removed,
+			// Due to how Java implements Collection loops
+			hit = false;
+			for(String a : itsAbils)
+				if(a.startsWith(ourAbilPrefix))
+				{
+					hit = itsAbils.remove(a);
+					break;
+				}
+		}
+		while (hit);
+	}
+
 	// Return a random amount of goldpieces for a new character
 	public abstract int getStartingGold();
 	

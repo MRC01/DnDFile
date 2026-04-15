@@ -121,10 +121,16 @@ public abstract class MUBase extends ClassInfo
 
 	protected void _setLevel()
 	{
-		// TODO:MRC: adjust this to accommodate class level
 		if(itsLevel > 0)
-			if(Util.isBlank(itsAbils))
-				itsAbils.add("Cast 1, 1st level spell daily");
+		{
+			// Delete all auto-generated class abilities and replace them with spell use
+			deleteAGClassAbils();
+			// Add spells for this magic user
+			SpellManager	sm;
+			sm = SpellManager.get(this);
+			if(sm != null)
+				itsAbils.addAll(sm.getSpells(itsLevel, this));
+		}
 	}
 
 	// persist my raw data

@@ -57,11 +57,11 @@ public class Monk extends ClassInfo
 		SKILL_LEVEL_MAX = ourSkillLevel[0].length;
 		ourMonkAbils = new String[]
 		{
-			"+1/2 Dam with any weapon",
-			"Hand attack stuns for 1-6 rounds if TH d+5",
-			"Hand attack that stuns kills on % AC-6",
-			"Dodge missiles, 12+ on d20",
-			"Zero damage on successful save throws"
+			ourAbilPrefix + "+1/2 Dam per level with any weapon",
+			ourAbilPrefix + "Hand attack stuns for 1-6 rounds if TH d+5",
+			ourAbilPrefix + "Hand attack that stuns kills on % AC-6",
+			ourAbilPrefix + "Dodge missiles, save v petrification",
+			ourAbilPrefix + "Zero damage on successful save throws"
 		};
 		ourSpecAbils = new String[]
 		{
@@ -183,17 +183,16 @@ public class Monk extends ClassInfo
 
 	protected void _setLevel()
 	{
-		int	lvl = (itsLevel > 0 ? itsLevel : 0);
-
-		if(lvl > 0)
-			// Add the Monk basic class abilities that are independent of level.
-			// But only if they aren't already there
-			if(Util.isBlank(itsAbils))
-				itsAbils.addAll(Arrays.asList(ourMonkAbils));
-		// Level-specific Monk abilities
-		setSkills(lvl);
-		setSpecAbils(lvl);
-		setFall(lvl);
+		if(itsLevel > 0)
+		{
+			// Delete all auto-generated class abilities and replace them
+			deleteAGClassAbils();
+			itsAbils.addAll(Arrays.asList(ourMonkAbils));
+		}
+		// Level-specific Monk abilities, intended to be set even for 0-level placeholders
+		setSkills(itsLevel);
+		setSpecAbils(itsLevel);
+		setFall(itsLevel);
 	}
 
 	protected void setFall(int lvl)

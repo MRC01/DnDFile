@@ -37,6 +37,8 @@ public class Cleric extends ClassInfo
 
 	// Turning ability by level
 	static String[][]	ourTurnLevels;
+	
+	static int[][]		ourWisdomSpellBonuses;
 
 	static String		ourNameDruid = "Druid";
 
@@ -62,6 +64,22 @@ public class Cleric extends ClassInfo
 		/* GHOS */ { "0", "-",  "-",  "-",  "-",  "-",  "-",  "20", "16", "13",  "7" },
 		/* LICH */ { "0", "-",  "-",  "-",  "-",  "-",  "-",  "-",  "19", "16", "10" },
 		/* SPEC */ { "0", "-",  "-",  "-",  "-",  "-",  "-",  "-",  "20", "19", "13" }
+		};
+		ourWisdomSpellBonuses = new int[][]
+		{
+			{ 13,	1,	0,	0,	0,	0,	0,	0 },
+			{ 14,	2,	0,	0,	0,	0,	0,	0 },
+			{ 15,	2,	1,	0,	0,	0,	0,	0 },
+			{ 16,	2,	2,	0,	0,	0,	0,	0 },
+			{ 17,	2,	2,	1,	0,	0,	0,	0 },
+			{ 18,	2,	2,	1,	1,	0,	0,	0 },
+			{ 19,	3,	2,	2,	1,	0,	0,	0 },
+			{ 20,	3,	3,	2,	2,	0,	0,	0 },
+			{ 21,	3,	3,	3,	2,	1,	0,	0 },
+			{ 22,	3,	3,	3,	3,	2,	0,	0 },
+			{ 23,	3,	3,	3,	3,	3,	0,	0 },
+			{ 24,	3,	3,	3,	3,	3,	2,	0 },
+			{ 25,	3,	3,	3,	3,	3,	3,	1 }
 		};
 	}
 
@@ -182,21 +200,16 @@ public class Cleric extends ClassInfo
 
 	protected void _setLevel()
 	{
-		// TODO:MRC: adjust this to accommodate class level
 		if(itsLevel > 0)
-			if(Util.isBlank(itsAbils))
-			{
-				int sc, w;
-				// Druids start with 2 spells/day, Clerics 1
-				sc = (ourNameDruid.equals(itsName) ? 2 : 1);
-				// Compute Wisdom spell bonus (if any)
-				w = itsChar.itsAbilScores.get(AbilScore.Type.WIS).getInt();
-				if(w > 12)
-					sc += 1;
-				if(w > 13)
-					sc += 1;
-				itsAbils.add("Cast " + sc + ", 1st level spell" + (sc > 1 ? "s" : "") + " daily");
-			}
+		{
+			// Delete all auto-generated class abilities and replace them with spell use
+			deleteAGClassAbils();
+			// Add spells for this cleric
+			SpellManager	sm;
+			sm = SpellManager.get(this);
+			if(sm != null)
+				itsAbils.addAll(sm.getSpells(itsLevel, this));
+		}
 		// prevent levels from under or overflowing the turning data
 		int lvl = (itsLevel > 0 ? itsLevel : 0);
 		if(lvl >= ourTurnLevels[0].length)
@@ -204,6 +217,18 @@ public class Cleric extends ClassInfo
 		// Set turn values
 		for(Turn t : Turn.values())
 			itsTurn[t.ordinal()] = ourTurnLevels[t.ordinal()][lvl];
+	}
+
+	public int getWisdomSpellBonus(int spLvl)
+	{
+		int	rc = 0,
+			w = itsChar.itsAbilScores.get(AbilScore.Type.WIS).getInt();
+
+		if(w < 13 || spLvl > 7)
+			return rc;
+		w -= 13;
+		rc = ourWisdomSpellBonuses[w][spLvl];
+		return rc;
 	}
 
 	// Clerics start with 30-180 gp (3d6 x 10)

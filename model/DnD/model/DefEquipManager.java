@@ -130,12 +130,9 @@ public class DefEquipManager
 		
 		cName = Util.nameFromClass(cName);
 		rc = initDefEquipClass(cName);
-		if(rc != null)
-		{
-			ourEquipInfo.put(cName,  rc);
-			return true;
-		}
-		return false;
+		// Even if it's null, we still put it into the Map to prevent trying again.
+		ourEquipInfo.put(cName,  rc);
+		return (rc != null);
 	}
 	
 	protected static DefEquipInfo[] initDefEquipClass(String cName)
