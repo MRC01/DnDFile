@@ -97,11 +97,6 @@ public class Cleric extends ClassInfo
 	public List<String>	itsSpells;
 	public String[]		itsTurn;
 
-	public String getName()
-	{
-		return "Cleric";
-	}
-
 	// persist my raw data
 	protected void _write(StreamOutput so) throws Exception
 	{

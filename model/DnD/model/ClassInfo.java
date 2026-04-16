@@ -221,8 +221,17 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Subclasses override this to print their class info
 	protected void _print(CharactrPrinter cPrint) { }
 
-	// The friendly (printable) name of this class
-	public abstract String getName();
+	/* The friendly (printable) name of this class
+	 * Usually, same as the Class type name.
+	 * Sometimes, user overridden to a subclass variant (Ranger, Druid, etc.).
+	 */
+	public String getName()
+	{
+		if(!Util.isBlank(itsName))
+			return itsName;
+		else
+			return Util.nameFromClass(this);
+	}
 
 	// Returns XPoint level boundaries for the class (subclass of this)
 	protected abstract int[] initXPLevels() throws Exception;

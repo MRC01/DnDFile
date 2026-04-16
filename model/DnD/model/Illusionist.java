@@ -27,11 +27,6 @@ public class Illusionist extends MUBase
 		super(ch, level);
 	}
 
-	public String getName()
-	{
-		return "Illusionist";
-	}
-
 	// Defines the XP level boundaries for this class
 	protected int[] initXPLevels() throws Exception
 	{

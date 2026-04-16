@@ -103,11 +103,6 @@ public class Monk extends ClassInfo
 	public String		itsFall;
 	public List<String>	itsSpecAbils;
 
-	public String getName()
-	{
-		return "Monk";
-	}
-
 	protected void _init()
 	{
 		itsSkills = new String[ourSkillCount];

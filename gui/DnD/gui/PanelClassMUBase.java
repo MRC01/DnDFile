@@ -69,7 +69,18 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 	// This tells my superclass my specific data model class
 	public Class<? extends ClassInfo> getDataClass()
 	{
-		return MagicUser.class;
+		Class<? extends ClassInfo> rc = null;
+		try
+		{
+			// Try to instantiate a class of the ClassInfo name
+			rc = (Class<? extends ClassInfo>)Class.forName("DnD.model." + itsData.itsName);
+		}
+		catch(Exception e)
+		{
+			// the named class doesn't exist - this is not an error, fall back to MagicUser
+			rc = MagicUser.class;
+		}
+		return rc;
 	}
 
 	public void _resetAll() throws Exception

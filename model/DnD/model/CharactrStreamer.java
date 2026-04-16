@@ -241,11 +241,19 @@ public class CharactrStreamer
 				so.writeUTF(pet.itsAbilities);
 			}
 
-			so.writeInt(itsChar.itsClasses.size());
+			// Don't write placeholder classes.
+			int	cCount = 0;
+			for(ClassInfo cl : itsChar.itsClasses)
+				if(cl.itsLevel > 0)
+					cCount += 1;
+			so.writeInt(cCount);
 			for(ClassInfo cl : itsChar.itsClasses)
 			{
-				so.writeUTF(cl.getClass().getName());
-				cl.write(so);
+				if(cl.itsLevel > 0)
+				{
+					so.writeUTF(cl.getClass().getName());
+					cl.write(so);
+				}
 			}
 			// Successful save; Char now matches disk and is clean.
 			itsChar.setClean();

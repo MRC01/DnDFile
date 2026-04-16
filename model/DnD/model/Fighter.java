@@ -29,11 +29,6 @@ public class Fighter extends ClassInfo
 		};
 	}
 
-	public String getName()
-	{
-		return "Fighter";
-	}
-
 	// Generate and return new hit points for the given level
 	protected int _genHitPoints(int level)
 	{

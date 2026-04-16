@@ -64,11 +64,6 @@ public class Thief extends ClassInfo
 		itsSkills = new String[ourSkillCount];
 	}
 
-	public String getName()
-	{
-		return "Thief";
-	}
-
 	// persist my raw data
 	protected void _write(StreamOutput so) throws Exception
 	{

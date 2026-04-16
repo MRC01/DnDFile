@@ -27,11 +27,6 @@ public class MagicUser extends MUBase
 		super(ch, level);
 	}
 
-	public String getName()
-	{
-		return "Magic User";
-	}
-
 	public void setXPBonus()
 	{
 		if(itsChar.itsAbilScores.get(AbilScore.Type.INT).getInt() > 15)
