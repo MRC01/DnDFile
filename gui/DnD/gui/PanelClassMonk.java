@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import DnD.model.ClassInfo;
+import DnD.model.Fighter;
 import DnD.model.Monk;
 
 /** This is the GUI panel for the Monk class
@@ -59,8 +60,17 @@ public class PanelClassMonk extends PanelClassInfo implements ActionListener
 		MainGui.addGui(guiCfg, itsLBAbils);
 	}
 
-	// This tells my superclass my specific data model class
-	public Class<? extends ClassInfo> getDataClass()
+	/* Through this method, subclasses tell me what type of general ClassInfo they handle.
+	 * Note: this may be a base class compatible with any possible subclass.
+	 */
+	public Class<? extends ClassInfo> getDataClassBase()
+	{
+		return Monk.class;
+	}
+	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
+	 * Note: this is a specific subclass.
+	 */
+	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		return Monk.class;
 	}

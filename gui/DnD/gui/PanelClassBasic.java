@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import DnD.util.*;
+import DnD.model.*;
+
 /** This is the GUI panel for basic class info (level, XPoints, etc.) - part of every class panel.
  *  It is created and used by base class PanelClassInfo.
  *  It is never used *directly* by any specific class GUI panel (PanelClassFighter, etc.).
@@ -257,14 +260,29 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		itsClassPanel.itsRDPanel.enableTab(itsClassPanel, ef);
 	}
 
+	// Reset/initialize the ClassInfo for this panel
 	void initClass()
 	{
-		// initialize the class info
+		String		cName;
+		ClassInfo	newClass;
+		/* First, pick what type of Class we will use from the ClassName field.
+		 * Pick it directly from the GUI field so the data doesn't have to be applied.
+		 * This user-defined name is just a hint, it doesn't have to exist.
+		*/
+		cName = itsFields[0].itsTF.getText();
+		if(!Util.isBlank(cName))
+			cName = "DnD.model." + cName;
+		newClass = itsClassPanel.createData(cName);
+		// The character can only have 1 instance of each class,
+		// so remove the existing class from the Character (if it was there)
+		MainGui.get().itsChar.itsClasses.remove(itsClassPanel.itsData);
+		// assign and initialize the new class
+		itsClassPanel.itsData = newClass;
 		itsClassPanel.itsData.init(MainGui.get().itsChar);
 		// reset the GUI form to use the new data
 		try
 		{
-			itsClassPanel.resetAll();
+			itsClassPanel.resetAll(itsClassPanel.itsData);
 		}
 		catch(Exception e)
 		{

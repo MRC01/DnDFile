@@ -19,8 +19,17 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener
 		super(rootData);
 	}
 
-	// This tells my superclass my specific data model class
-	public Class<? extends ClassInfo> getDataClass()
+	/* Through this method, subclasses tell me what type of general ClassInfo they handle.
+	 * Note: this may be a base class compatible with any possible subclass.
+	 */
+	public Class<? extends ClassInfo> getDataClassBase()
+	{
+		return Fighter.class;
+	}
+	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
+	 * Note: this is a specific subclass.
+	 */
+	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		return Fighter.class;
 	}

@@ -89,27 +89,42 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	protected void createGui(MainGui.GuiCfg guiCfg)	throws NoSuchFieldException, IllegalAccessException
 		{ /* do nothing */ }
 
-	// Through this method, subclasses tell me what their specific class is (Figher, Cleric, etc.)
-	public abstract Class<? extends ClassInfo> getDataClass();
+	/* Through this method, subclasses tell me what type of general ClassInfo they handle.
+	 * Note: this may be a base class compatible with any possible subclass.
+	 */
+	public abstract Class<? extends ClassInfo> getDataClassBase();
 
-	// Create working data for my class
+	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
+	 * Note: this is a specific subclass.
+	 */
+	public abstract Class<? extends ClassInfo> getDataClassSub(String cNameHint);
+
+	// Create and return working data for my class
 	public ClassInfo createData()
+	{
+		return createData(null);
+	}
+	/* Create and return working data for my class.
+	 * The given classname is a user-defined hint; it doesn't have to exist.
+	 */
+	public ClassInfo createData(String cNameHint)
 	{
 		Class<? extends ClassInfo>		myClass;
 		Constructor<? extends ClassInfo>	myClassCon;
+		ClassInfo	rc = null;
 
-		myClass = getDataClass();
+		myClass = getDataClassSub(cNameHint);
 		try
 		{
 			// Every character class must have a constructor that takes a Charactr object
 			myClassCon = myClass.getConstructor(Charactr.class);
-			itsData = myClassCon.newInstance(MainGui.get().itsChar);
+			rc = myClassCon.newInstance(MainGui.get().itsChar);
 		}
 		catch(Exception e)
 		{
 			MainGui.get().errBox("Could Not Create ClassInfo", e);
 		}
-		return itsData;
+		return rc;
 	}
 
 	// Subclasses override this with their own local reset handling
@@ -121,10 +136,17 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	*/
 	public final void resetAll() throws Exception
 	{
-		ClassInfo	tmp;
-
-		// set the class data
-		tmp = MainGui.get().itsChar.getClassData(getDataClass());
+		resetAll(null);
+	}
+	public final void resetAll(ClassInfo tmp) throws Exception
+	{
+		// Normally, tmp is NULL and I figure out where to get the Class data.
+		// But if tmp is provided, always use it directly.
+		if(tmp == null)
+		{
+			// get this class from the Character, if it exists
+			tmp = MainGui.get().itsChar.getClassData(getDataClassBase());
+		}
 		if(tmp == null)
 		{
 			// The character has no data for this class - we'll use an empty placeholder
@@ -140,10 +162,8 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		itsClassInfoPanel.resetAll();
 		// delegate to the subclass
 		_resetAll();
-
 		// revert to the new data
 		revertAll();
-
 		// enable/disable this class info as appropriate
 		boolean		hasClass = (tmp != null);
 		itsClassInfoPanel.itsCBEnable.setSelected(hasClass);

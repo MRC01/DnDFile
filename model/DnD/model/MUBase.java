@@ -1,5 +1,5 @@
 /* MUBase is the base class for classes that have a spellbook: Magic Users & Illusionists.
-   The only difference between them is their experience point levels.
+   The only differences between them are their experience point levels and spells per level.
 */
 
 package DnD.model;

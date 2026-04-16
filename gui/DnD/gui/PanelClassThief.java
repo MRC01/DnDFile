@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import DnD.model.ClassInfo;
+import DnD.model.Fighter;
 import DnD.model.Thief;
 
 /** This is the GUI panel for the Thief class
@@ -51,8 +52,17 @@ public class PanelClassThief extends PanelClassInfo implements ActionListener
 		itsFMBStab = addFieldMap(itsData, "itsBStab", guiCfg, "Back Stab");
 	}
 
-	// This tells my superclass my specific data model class
-	public Class<? extends ClassInfo> getDataClass()
+	/* Through this method, subclasses tell me what type of general ClassInfo they handle.
+	 * Note: this may be a base class compatible with any possible subclass.
+	 */
+	public Class<? extends ClassInfo> getDataClassBase()
+	{
+		return Thief.class;
+	}
+	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
+	 * Note: this is a specific subclass.
+	 */
+	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		return Thief.class;
 	}

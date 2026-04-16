@@ -6,8 +6,8 @@ import java.util.LinkedList;
 
 
 import DnD.model.ClassInfo;
-import DnD.model.Illusionist;
 import DnD.model.MUBase;
+import DnD.model.Illusionist;
 import DnD.model.MagicUser;
 
 /** This is the GUI panel for basic magic user information (spellbooks)
@@ -66,14 +66,20 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 		setFocusOrder(lst);
 }
 
+	// This tells my superclass what ClassInfo types I can handle
+	public Class<? extends ClassInfo> getDataClassBase()
+	{
+		return MUBase.class;
+	}
+
 	// This tells my superclass my specific data model class
-	public Class<? extends ClassInfo> getDataClass()
+	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		Class<? extends ClassInfo> rc = null;
 		try
 		{
-			// Try to instantiate a class of the ClassInfo name
-			rc = (Class<? extends ClassInfo>)Class.forName("DnD.model." + itsData.itsName);
+			// Try to get a class for the ClassInfo name
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
 		}
 		catch(Exception e)
 		{
