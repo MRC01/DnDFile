@@ -54,7 +54,21 @@ public class MainGui extends Container implements ActionListener
 		{
 			if(itsChar.isDirty())
 			{
-				rc = yesNoBox("Warning: Unsaved Changes", "This character has unsaved changes that will be lost if you continue.\nAre you sure?");
+				rc = yesNoBox("Warning: Unsaved Changes", "This character has unsaved changes that will be lost.\nContinue without saving?");
+			}
+		}
+		return rc;
+	}
+
+	protected boolean charDirtySaveConfirm()
+	{
+		boolean	rc = false;
+		
+		if(itsChar != null)
+		{
+			if(itsChar.isDirty())
+			{
+				rc = yesNoBox("Warning: Unsaved Changes", "The app is about to exit and the character has unsaved changes.\nSave the character?");
 			}
 		}
 		return rc;
@@ -133,6 +147,10 @@ public class MainGui extends Container implements ActionListener
 
 	public void shutdown()
 	{
+		if(charDirtySaveConfirm())
+		{
+			FileSave(itsCharStreamer == null);
+		}
 	}
 
 	public void applyAll()
