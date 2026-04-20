@@ -85,17 +85,17 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weighty = 1.0;
 		itsRaceAbils = new PanelListBox<String>("Race Abilities",
-				MainGui.get().itsChar.itsRace.itsAbilities, String.class);
+				MainGui.getChar().itsRace.itsAbilities, String.class);
 		MainGui.addGui(guiCfg, itsRaceAbils);
 		// Languages
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		itsLangList = new PanelListBox<String>("Languages",
-				MainGui.get().itsChar.itsLangs, String.class);
+				MainGui.getChar().itsLangs, String.class);
 		MainGui.addGui(guiCfg, itsLangList);
 		// Secondary Skills
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		itsSkillList = new PanelListBox<String>("Secondary Skills",
-				MainGui.get().itsChar.itsSecSkills, String.class);
+				MainGui.getChar().itsSecSkills, String.class);
 		MainGui.addGui(guiCfg, itsSkillList);
 
 		// Control buttons
@@ -128,15 +128,15 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 
 			applyAll();
 			// Auto-set race abilities & fetch the languages
-			chr = MainGui.get().itsChar;
-			MainGui.get().itsChar.itsRace.setAbils(chr);
+			chr = MainGui.getChar();
+			MainGui.getChar().itsRace.setAbils(chr);
 			revertAll();
 		}
 	}
 
 	public void applyAll()
 	{
-		Charactr	chr = MainGui.get().itsChar;
+		Charactr	chr = MainGui.getChar();
 
 		// Apply radio button selection to type
 		ButtonModel bm = itsBGType.getSelection();
@@ -146,7 +146,7 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 
 	public void revertAll()
 	{
-		Charactr	chr = MainGui.get().itsChar;
+		Charactr	chr = MainGui.getChar();
 
 		// Set the correct "type" radio button
 		if(chr.itsRace.itsType == null)

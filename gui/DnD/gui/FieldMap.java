@@ -87,7 +87,7 @@ public class FieldMap
 
 	public Object getParent()
 	{
-		return (itsParent != null ? itsParent : MainGui.get().itsChar);
+		return (itsParent != null ? itsParent : MainGui.getChar());
 	}
 
 	public Object getValue() throws IllegalAccessException

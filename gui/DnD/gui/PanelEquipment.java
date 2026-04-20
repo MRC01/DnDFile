@@ -160,7 +160,7 @@ public class PanelEquipment extends PanelBase implements ActionListener
 
 	public void revertAll()
 	{
-		itsTModel = new PanelEquipment.ItemTreeModel(MainGui.get().itsChar.itsEquip);
+		itsTModel = new PanelEquipment.ItemTreeModel(MainGui.getChar().itsEquip);
 		itsTree.setModel(itsTModel);
 		expandTree();
 	}
@@ -284,7 +284,7 @@ public class PanelEquipment extends PanelBase implements ActionListener
 				tml.treeStructureChanged(e);
 			expandTree();
 			// Data changed; mark the Character as dirty.
-			MainGui.get().itsChar.setDirty();
+			MainGui.getChar().setDirty();
 		}
 	}
 

@@ -26,10 +26,17 @@ public class SpellManager
 	// This is the factory that returns the SpellManager for each class
 	public static SpellManager get(ClassInfo ci)
 	{
+		return get(ci, null);
+	}
+	// This is the factory that returns the SpellManager for each class
+	// if cName is provided, it overrides the normal name
+	public static SpellManager get(ClassInfo ci, String cName)
+	{
 		String			hk;
 		SpellManager	rc = null;
 		
-		/* First try the user-defined class name
+		/* First try the given name (if provided). If this works we're done.
+		 * Next try the user-defined class name of the given class.
 		 * May be Ranger instead of Fighter, or Illusionist instead of Magic User
 		 * If that exists, use it.
 		 * Otherwise check the class-type name
@@ -38,23 +45,35 @@ public class SpellManager
 		 * 	If they do have their own spell data config data, it will be used.
 		 *	If they don't, then their class general spell data will be used.
 		 */
-		hk = ci.itsName;
-		if(ourFactory.containsKey(hk))
-			return ourFactory.get(hk);
-		rc = createSpellManager(hk, ci);
+		if(cName != null)
+		{
+			if(ourFactory.containsKey(cName))
+				return ourFactory.get(cName);
+			// The given name didn't have a Spell Manager; try to create one
+			rc = createSpellManager(cName, ci);
+			if(rc != null)
+				ourFactory.put(cName, rc);
+		}
 		if(rc == null)
 		{
-			// No user-defined name config; try the class-name
-			hk = Util.nameFromClass(ci.getClass());
+			hk = ci.itsName;
 			if(ourFactory.containsKey(hk))
 				return ourFactory.get(hk);
-			// Neither class name or type-name exists (yet) 
 			rc = createSpellManager(hk, ci);
-			if(rc != null)
+			if(rc == null)
+			{
+				// No user-defined name config; try the class-name
+				hk = Util.nameFromClass(ci.getClass());
+				if(ourFactory.containsKey(hk))
+					return ourFactory.get(hk);
+				// Neither class name or type-name exists (yet) 
+				rc = createSpellManager(hk, ci);
+				if(rc != null)
+					ourFactory.put(hk, rc);
+			}
+			else
 				ourFactory.put(hk, rc);
 		}
-		else
-			ourFactory.put(hk, rc);
 		return rc;
 	}
 
@@ -75,8 +94,12 @@ public class SpellManager
 		itsSpellLevelCount = spellArray;
 	}
 
-	// This is how ClassInfo subclasses fetch their lists of spells usable by level
 	public List<String> getSpells(int level, ClassInfo ci)
+	{
+		return getSpells(level, ci, false);
+	}
+	// This is how ClassInfo subclasses fetch their lists of spells usable by level
+	public List<String> getSpells(int level, ClassInfo ci, boolean wisBonus)
 	{
 		List<String>	rc = null;
 		int				lvl;
@@ -85,6 +108,10 @@ public class SpellManager
 		if(level < 1)
 			return rc;
 
+		// Wisdom bonus always applies for Clerics & Druids
+		// It can also be forced with the override parameter
+		if(ci instanceof Cleric)
+			wisBonus = true;
 		// Spells don't increase past the max level
 		rc = new ArrayList<String>();
 		lvl = (level < itsSpellLevelCount.length ? level : itsSpellLevelCount.length);
@@ -98,13 +125,15 @@ public class SpellManager
 
 			lvlSpell = s + 1;
 			cntSpells = itsSpellLevelCount[lvl][s];
-			if(ci instanceof Cleric)
-				cntSpells += ((Cleric)ci).getWisdomSpellBonus(lvlSpell);
+			if(wisBonus)
+				cntSpells += Cleric.getWisdomSpellBonus(lvlSpell);
 			numSfx = (s >= 3 ? ourNumSfx[3] : ourNumSfx[s]);
 			msg.append(ClassInfo.ourAbilPrefix)
 				.append(Integer.valueOf(lvlSpell).toString())
 				.append(numSfx)
-				.append(" level spells: ")
+				.append(" level ")
+				.append(itsClassName)
+				.append(" spells: ")
 				.append(Integer.valueOf(cntSpells).toString())
 				.append(" per day");
 			rc.add(msg.toString()); 

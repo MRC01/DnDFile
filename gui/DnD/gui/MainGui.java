@@ -30,7 +30,7 @@ public class MainGui extends Container implements ActionListener
 					itsMHAbout;
 
 	// Other stuff
-	Charactr			itsChar;
+	private Charactr	itsChar;
 	CharactrStreamer	itsCharStreamer;
 	String				itsCharPath = ".";
 
@@ -79,6 +79,17 @@ public class MainGui extends Container implements ActionListener
 		return ourSelf;
 	}
 
+	public static Charactr getChar()
+	{
+		return ourSelf.itsChar;
+	}
+	
+	public void setChar(Charactr c)
+	{
+		Charactr.setChar(c);
+		itsChar = c;
+	}
+
 	public void init(String charFileName)
 	{
 		GridBagLayout		gb;
@@ -93,7 +104,7 @@ public class MainGui extends Container implements ActionListener
 			   since the GUI doesn't yet exist.
 			*/
 			if(charFileName != null)
-				itsChar = FileOpen(charFileName);
+				FileOpen(charFileName);
 			if(itsChar == null)
 				newChar(false);
 
@@ -265,7 +276,7 @@ public class MainGui extends Container implements ActionListener
 	{
 		try
 		{
-			itsChar = new Charactr();
+			setChar(new Charactr());
 			if(notifyGui)
 				itsRoot.resetAll();
 			setCharStreamer(null);
@@ -310,10 +321,12 @@ public class MainGui extends Container implements ActionListener
 	// Uses JFileChooser to select a file, then loads that file
 	protected Charactr FileOpen(String charFileName)
 	{
+		Charactr			oldCh;
 		CharactrStreamer	oldCS, newCS;
 		boolean				charOpened = false;
 
 		// Save the current char streamer (if any) to be restored if anything fails
+		oldCh = itsChar;
 		oldCS = itsCharStreamer;
 		try
 		{
@@ -333,7 +346,7 @@ public class MainGui extends Container implements ActionListener
 
 				// If we get here, newCh is the new character read from the file
 				charOpened = true;
-				itsChar = newCh;
+				setChar(newCh);
 				// Make this last-used path the default for future use.
 				itsCharPath = newCS.getPath();
 				// Now update the UI to show the char
@@ -351,7 +364,10 @@ public class MainGui extends Container implements ActionListener
 		finally
 		{
 			if(!charOpened)
+			{
 				setCharStreamer(oldCS);
+				setChar(oldCh);
+			}
 		}
 		return itsChar;
 	}
@@ -364,7 +380,7 @@ public class MainGui extends Container implements ActionListener
 		try
 		{
 			newCh = Charactr.newRandom();
-			itsChar = newCh;
+			setChar(newCh);
 			if(itsRoot != null)
 				itsRoot.resetAll();
 		}
@@ -372,10 +388,10 @@ public class MainGui extends Container implements ActionListener
 		{
 			// If we get here, character generation failed and the current char still exists
 			errBox("Character Generation Failed", e);
-			itsChar = oldCh;
+			setChar(oldCh);
 		}
 	}
-	
+
 	protected void FilePrint()
 	{
 		try

@@ -45,12 +45,12 @@ public class PanelCombatInfo extends PanelBase implements ActionListener
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weighty = 1.0;
 		itsWeapProf = new PanelListBox<String>("Weapon Proficiencies",
-				MainGui.get().itsChar.itsWeapProf, String.class);
+				MainGui.getChar().itsWeapProf, String.class);
 		MainGui.addGui(guiCfg, itsWeapProf);
 		// other adjustments
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		itsCombatAdj = new PanelListBox<String>("Combat Adjustments",
-				MainGui.get().itsChar.itsCombatAdj, String.class);
+				MainGui.getChar().itsCombatAdj, String.class);
 		MainGui.addGui(guiCfg, itsCombatAdj);
 
 		// Control buttons
@@ -84,14 +84,14 @@ public class PanelCombatInfo extends PanelBase implements ActionListener
 		itsWeapProf.applyAll();
 		itsCombatAdj.applyAll();
 		*/
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	public void revertAll()
 	{
 		itsCombatBasic.revertAll();
 		itsSaveThrows.revertAll();
-		itsWeapProf.setList(MainGui.get().itsChar.itsWeapProf, String.class);
-		itsCombatAdj.setList(MainGui.get().itsChar.itsCombatAdj, String.class);
+		itsWeapProf.setList(MainGui.getChar().itsWeapProf, String.class);
+		itsCombatAdj.setList(MainGui.getChar().itsCombatAdj, String.class);
 	}
 }

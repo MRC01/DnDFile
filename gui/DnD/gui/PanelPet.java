@@ -32,7 +32,7 @@ public class PanelPet extends PanelBase implements ActionListener
 		GridBagConstraints	gc = new GridBagConstraints();
 		MainGui.GuiCfg		guiCfg = new MainGui.GuiCfg();
 
-		itsData = MainGui.get().itsChar.itsPets;
+		itsData = MainGui.getChar().itsPets;
 		setLayout(gb);
 		guiCfg.parent = this;
 		guiCfg.gb = gb;
@@ -73,7 +73,7 @@ public class PanelPet extends PanelBase implements ActionListener
 
 	public void _resetAll()
 	{
-		itsData = MainGui.get().itsChar.itsPets;
+		itsData = MainGui.getChar().itsPets;
 		itsPetList.setList(itsData);
 	}
 
@@ -81,7 +81,7 @@ public class PanelPet extends PanelBase implements ActionListener
 	{
 		itsPetDetail.applyAll();
 		itsPetList.applyAll();
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	public void revertAll()
@@ -121,7 +121,7 @@ public class PanelPet extends PanelBase implements ActionListener
 		itsPetList.refreshList(idx);
 		// Display it in the detail pane
 		itsPetDetail.setData(pet);
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	// PanelPetList calls this to delete a pet
@@ -135,14 +135,14 @@ public class PanelPet extends PanelBase implements ActionListener
 		itsPetList.refreshList(idx);
 		pet = (idx <  0 ? null : itsData.get(idx));
 		itsPetDetail.setData(pet);
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	// PanelPetDetail calls this when a pet is applied
 	public void applyPetItem(Pet pet)
 	{
 		itsPetList.refreshList();
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	// Returns the grid bag height of this panel

@@ -33,7 +33,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 		GridBagConstraints	gc = new GridBagConstraints();
 		MainGui.GuiCfg		guiCfg = new MainGui.GuiCfg();
 
-		itsData = MainGui.get().itsChar.itsWealth;
+		itsData = MainGui.getChar().itsWealth;
 		setLayout(gb);
 		guiCfg.parent = this;
 		guiCfg.gb = gb;
@@ -78,7 +78,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 	{
 		itsWealthDetail.applyAll();
 		itsWealthList.applyAll();
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	public void revertAll()
@@ -88,7 +88,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 		Wealth.WealthItem	wi;
 
 		// set the data
-		itsData = MainGui.get().itsChar.itsWealth;
+		itsData = MainGui.getChar().itsWealth;
 		lst = itsData.itsItems;
 		itsWealthList.setList(lst);
 
@@ -121,7 +121,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 		itsWealthList.refreshList(idx);
 		// Display it in the detail pane
 		itsWealthDetail.setData(wi);
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	// PanelWealthList calls this to delete a wealth item
@@ -136,14 +136,14 @@ public class PanelWealth extends PanelBase implements ActionListener
 		itsWealthList.refreshList(idx);
 		wi = (idx <  0 ? null : lst.get(idx));
 		itsWealthDetail.setData(wi);
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	// PanelWealthDetail calls this when a wealth item is applied
 	public void applyWealthItem(Wealth.WealthItem wi)
 	{
 		itsWealthList.refreshList();
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	// Returns the grid bag height of this panel

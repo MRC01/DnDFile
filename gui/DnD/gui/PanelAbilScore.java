@@ -130,9 +130,9 @@ public class PanelAbilScore extends PanelBase implements ActionListener
 			idx = abt.ordinal();
 			val = itsABVal[idx].getText();
 			adj = itsABAdj[idx].getText();
-			MainGui.get().itsChar.itsAbilScores.set(abt, val, adj);
+			MainGui.getChar().itsAbilScores.set(abt, val, adj);
 		}
-		MainGui.get().itsChar.setDirty();
+		MainGui.getChar().setDirty();
 	}
 
 	public void revertAll()
@@ -143,7 +143,7 @@ public class PanelAbilScore extends PanelBase implements ActionListener
 			AbilScore	ab;
 
 			idx = abt.ordinal();
-			ab = MainGui.get().itsChar.itsAbilScores.get(abt);
+			ab = MainGui.getChar().itsAbilScores.get(abt);
 			itsABVal[idx].setText(ab.itsVal);
 			itsABAdj[idx].setText(ab.itsAdjust);
 		}
@@ -156,6 +156,6 @@ public class PanelAbilScore extends PanelBase implements ActionListener
 
 		i = abt.ordinal();
 		txtVal = itsABVal[i].getText();
-		itsABAdj[i].setText(MainGui.get().itsChar.itsAbilScores.get(abt).getAdjust(txtVal));
+		itsABAdj[i].setText(MainGui.getChar().itsAbilScores.get(abt).getAdjust(txtVal));
 	}
 }

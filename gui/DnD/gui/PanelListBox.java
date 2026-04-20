@@ -125,7 +125,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 			if(val != null)
 			{
 				itsRawData.add(idx, val);
-				MainGui.get().itsChar.setDirty();
+				MainGui.getChar().setDirty();
 			}
 			refreshList();
 		}
@@ -141,7 +141,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 				return;
 			}
 			itsRawData.remove(idx);
-			MainGui.get().itsChar.setDirty();
+			MainGui.getChar().setDirty();
 			refreshList();
 		}
 		else if(bc.equals(itsButDown.getText()))
@@ -159,7 +159,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 			val = itsRawData.remove(idx);
 			// The next element has moved up into position "idx"; the list is one element shorter
 			itsRawData.add(idx + 1, val);
-			MainGui.get().itsChar.setDirty();
+			MainGui.getChar().setDirty();
 			refreshList();
 			itsLB.setSelectedIndex(idx + 1);
 		}
@@ -178,7 +178,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 			val = itsRawData.remove(idx);
 			// The next element has moved up into position "idx"; the list is one element shorter
 			itsRawData.add(idx - 1, val);
-			MainGui.get().itsChar.setDirty();
+			MainGui.getChar().setDirty();
 			refreshList();
 			itsLB.setSelectedIndex(idx - 1);
 		}
@@ -199,7 +199,7 @@ public class PanelListBox<T> extends PanelBase implements ActionListener
 		if(!val.equals(newVal))
 		{
 			itsRawData.set(idx, newVal);
-			MainGui.get().itsChar.setDirty();
+			MainGui.getChar().setDirty();
 		}
 		refreshList();
 	}

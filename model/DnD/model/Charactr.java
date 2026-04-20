@@ -10,6 +10,9 @@ import DnD.util.*;
 
 public class Charactr
 {
+	// Set to the main/primary Charactr in use
+	protected static Charactr ourCharactr = null;
+
 	protected boolean	isDirty;
 
 	public String
@@ -49,6 +52,16 @@ public class Charactr
 		itsSecSkills = new ArrayList<String>();
 		itsWealth = new Wealth();
 		setClean();
+	}
+
+	public static Charactr getChar()
+	{
+		return ourCharactr;
+	}
+	
+	public static void setChar(Charactr c)
+	{
+		ourCharactr = c;
 	}
 
 	public void setDirty()

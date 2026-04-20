@@ -118,7 +118,7 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		{
 			// Every character class must have a constructor that takes a Charactr object
 			myClassCon = myClass.getConstructor(Charactr.class);
-			rc = myClassCon.newInstance(MainGui.get().itsChar);
+			rc = myClassCon.newInstance(MainGui.getChar());
 		}
 		catch(Exception e)
 		{
@@ -145,7 +145,7 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		if(tmp == null)
 		{
 			// get this class from the Character, if it exists
-			tmp = MainGui.get().itsChar.getClassData(getDataClassBase());
+			tmp = MainGui.getChar().getClassData(getDataClassBase());
 		}
 		if(tmp == null)
 		{
@@ -192,7 +192,7 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		itsClassInfoPanel.applyAll();
 
 		// Either remove, or ensure this data is set, depending on whether the class GUI panel is enabled
-		Charactr mainChar = MainGui.get().itsChar;
+		Charactr mainChar = MainGui.getChar();
 		if(itsClassInfoPanel.isEnabled())
 		{
 			if(mainChar.itsClasses.contains(itsData))

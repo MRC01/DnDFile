@@ -214,10 +214,11 @@ public class Cleric extends ClassInfo
 			itsTurn[t.ordinal()] = ourTurnLevels[t.ordinal()][lvl];
 	}
 
-	public int getWisdomSpellBonus(int spLvl)
+	// This is static so SpellManger can use it for Paladins & Rangers too
+	public static int getWisdomSpellBonus(int spLvl)
 	{
 		int	rc = 0,
-			w = itsChar.itsAbilScores.get(AbilScore.Type.WIS).getInt();
+			w = Charactr.getChar().itsAbilScores.get(AbilScore.Type.WIS).getInt();
 
 		if(w < 13 || spLvl > 7)
 			return rc;

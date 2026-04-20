@@ -80,7 +80,7 @@ public class GuiTest
 		
 		// Ensure the panel lists match the character lists
 		Charactr	ch;
-		ch = MainGui.get().itsChar;
+		ch = MainGui.getChar();
 		assertEquals(ch.itsCombatAdj, panCI.itsCombatAdj.itsRawData);
 		assertEquals(ch.itsLangs, panBI2.itsLangList.itsRawData);
 		assertEquals(ch.itsSecSkills, panBI2.itsSkillList.itsRawData);
@@ -105,7 +105,7 @@ public class GuiTest
 		Charactr	ch;
 		clDataPanel = (Fighter)panFtr.itsData;
 		assertNotNull(clDataPanel);
-		ch = MainGui.get().itsChar;
+		ch = MainGui.getChar();
 		clDataChar = ch.getClassData(Fighter.class);
 		assertNotNull(clDataChar);
 		assertEquals(clDataPanel, clDataChar);

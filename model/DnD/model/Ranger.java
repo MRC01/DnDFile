@@ -81,10 +81,24 @@ public class Ranger extends Fighter
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourRangerAbils));
-			/* NOTE: At 9th level Rangers gain spell use but this is not handled here.
-			 * At 8th level add a Cleric class, set the level and title it Ranger.
-			 * At 9th level add a MagicUser class, set the level and title it Ranger.
-			 */
+			// Add Druid spells (if any)
+			if(itsLevel > 7)
+			{ 
+				int				lvl = itsLevel - 7;
+				SpellManager	sm;
+				sm = SpellManager.get(this, "Ranger.Druid");
+				if(sm != null)
+					itsAbils.addAll(sm.getSpells(lvl, this, true));
+			}
+			// Add MagicUser spells (if any)
+			if(itsLevel > 8)
+			{ 
+				int				lvl = itsLevel - 8;
+				SpellManager	sm;
+				sm = SpellManager.get(this, "Ranger.MagicUser");
+				if(sm != null)
+					itsAbils.addAll(sm.getSpells(lvl, this));
+			}
 		}
 	}
 

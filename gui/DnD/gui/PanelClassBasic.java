@@ -275,10 +275,10 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		newClass = itsClassPanel.createData(cName);
 		// The character can only have 1 instance of each class,
 		// so remove the existing class from the Character (if it was there)
-		MainGui.get().itsChar.itsClasses.remove(itsClassPanel.itsData);
+		MainGui.getChar().itsClasses.remove(itsClassPanel.itsData);
 		// assign and initialize the new class
 		itsClassPanel.itsData = newClass;
-		itsClassPanel.itsData.init(MainGui.get().itsChar);
+		itsClassPanel.itsData.init(MainGui.getChar());
 		// reset the GUI form to use the new data
 		try
 		{
