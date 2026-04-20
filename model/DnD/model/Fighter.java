@@ -33,31 +33,16 @@ public class Fighter extends ClassInfo
 	protected int _genHitPoints(int level)
 	{
 		int		hp, hpMax, hpMinLvl1, maxLevel, hpRange;
-		boolean	isRanger;
 		
-		isRanger = "Ranger".equals(itsName);
-		if(isRanger)
-		{
-			maxLevel = 11;
-			hpRange = 8;
-			hpMax = 2;
-			hpMinLvl1 = 9;
-		}
-		else
-		{
-			maxLevel = 10;
-			hpRange = 10;
-			hpMax = 3;
-			hpMinLvl1 = 6;
-		}
+		maxLevel = 10;
+		hpRange = 10;
+		hpMax = 3;
+		hpMinLvl1 = 6;
 		if(level < maxLevel)
 		{
 			hp = Util.random(hpRange);
 			if(level == 1)
-			{
-				if(isRanger) hp += Util.random(hpRange);
 				if(hp < hpMinLvl1) hp = hpMinLvl1;
-			}
 		}
 		else
 			hp = hpMax;

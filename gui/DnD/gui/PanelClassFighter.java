@@ -26,11 +26,23 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener
 	{
 		return Fighter.class;
 	}
+
 	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
 	 * Note: this is a specific subclass.
 	 */
 	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
-		return Fighter.class;
+		Class<? extends ClassInfo> rc = null;
+		try
+		{
+			// Try to get a class for the ClassInfo name
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+		}
+		catch(Exception e)
+		{
+			// the named class doesn't exist - this is not an error, fall back to Fighter
+			rc = Fighter.class;
+		}
+		return rc;
 	}
 }
