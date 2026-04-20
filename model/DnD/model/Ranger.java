@@ -9,13 +9,16 @@ import DnD.util.Util;
 
 public class Ranger extends Fighter
 {
-	// Experience point level boundaries
+	static final int ourSpellLevelDruid,
+					ourSpellLevelMU;
 	static int[]	ourXPLevels;
 	static String[]	ourRangerAbils;
 
 	// Initialize static/final stuff
 	static
 	{
+		ourSpellLevelDruid = 8;
+		ourSpellLevelMU = 9;
 		ourXPLevels = new int[]
 		{
 			325000, 2250, 4500, 10000, 20000, 40000, 90000, 150000, 225000, 325000, 650000, 975000, 1300000
@@ -82,18 +85,18 @@ public class Ranger extends Fighter
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourRangerAbils));
 			// Add Druid spells (if any)
-			if(itsLevel > 7)
+			if(itsLevel >= ourSpellLevelDruid)
 			{ 
-				int				lvl = itsLevel - 7;
+				int				lvl = 1 + itsLevel - ourSpellLevelDruid;
 				SpellManager	sm;
 				sm = SpellManager.get(this, "Ranger.Druid");
 				if(sm != null)
 					itsAbils.addAll(sm.getSpells(lvl, this, true));
 			}
 			// Add MagicUser spells (if any)
-			if(itsLevel > 8)
+			if(itsLevel >= ourSpellLevelMU)
 			{ 
-				int				lvl = itsLevel - 8;
+				int				lvl = 1 + itsLevel - ourSpellLevelMU;
 				SpellManager	sm;
 				sm = SpellManager.get(this, "Ranger.MagicUser");
 				if(sm != null)
