@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import DnD.model.ClassInfo;
 import DnD.model.Fighter;
+import DnD.model.MUBase;
+import DnD.model.MagicUser;
 import DnD.model.Thief;
 
 /** This is the GUI panel for the Thief class
@@ -64,7 +66,19 @@ public class PanelClassThief extends PanelClassInfo implements ActionListener
 	 */
 	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
-		return Thief.class;
+		Class<? extends ClassInfo> rc = null;
+		try
+		{
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			if(!Thief.class.isAssignableFrom(rc))
+				throw new ClassCastException(cNameHint + "is not a type of Thief");
+		}
+		catch(Exception e)
+		{
+			// the named class doesn't exist - this is not an error, fall back to Thief
+			rc = Thief.class;
+		}
+		return rc;
 	}
 
 	public void _resetAll() throws Exception

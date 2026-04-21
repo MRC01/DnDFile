@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 
 import DnD.model.ClassInfo;
+import DnD.model.Fighter;
 import DnD.model.MUBase;
 import DnD.model.Illusionist;
 import DnD.model.MagicUser;
@@ -78,8 +79,9 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 		Class<? extends ClassInfo> rc = null;
 		try
 		{
-			// Try to get a class for the ClassInfo name
 			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			if(!MUBase.class.isAssignableFrom(rc))
+				throw new ClassCastException(cNameHint + "is not a type of Magic User");
 		}
 		catch(Exception e)
 		{

@@ -396,6 +396,7 @@ public class MainGui extends Container implements ActionListener
 	{
 		try
 		{
+			applyAll();
 			CharactrPrinter	chPrint = new CharactrPrinter(itsChar);
 			chPrint.print();
 		}

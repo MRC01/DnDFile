@@ -3,6 +3,7 @@ package DnD.gui;
 import java.awt.event.*;
 
 import DnD.model.ClassInfo;
+import DnD.model.Cleric;
 import DnD.model.Fighter;
 
 /** This is the GUI panel for the Fighter class
@@ -37,6 +38,8 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener
 		{
 			// Try to get a class for the ClassInfo name
 			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			if(!Fighter.class.isAssignableFrom(rc))
+				throw new ClassCastException(cNameHint + "is not a type of Fighter");
 		}
 		catch(Exception e)
 		{

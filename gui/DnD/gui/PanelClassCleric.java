@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import DnD.model.ClassInfo;
 import DnD.model.Cleric;
+import DnD.model.Fighter;
 
 /** This is the GUI panel for the Cleric class
  */
@@ -71,7 +72,20 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	 */
 	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
-		return Cleric.class;
+		Class<? extends ClassInfo> rc = null;
+		try
+		{
+			// Try to get a class for the ClassInfo name
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			if(!Cleric.class.isAssignableFrom(rc))
+				throw new ClassCastException(cNameHint + "is not a type of Cleric");
+		}
+		catch(Exception e)
+		{
+			// the named class doesn't exist - this is not an error, fall back to Cleric
+			rc = Cleric.class;
+		}
+		return rc;
 	}
 
 	public void _resetAll() throws Exception

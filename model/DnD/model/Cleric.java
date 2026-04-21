@@ -120,37 +120,51 @@ public class Cleric extends ClassInfo
 		String		txt;
 		int		cols = 3,
 				idx = 0;
+		boolean	canTurn;
 
-		// Turning ability
-		pi = new PrintItem("Turning vs. Undead", CharactrPrinter.itsGroupFont);
-		pl = new PrintLine(pi);
-		cPrint.itsPrinter.add(pl);
+		// Don't print turn ability unless this character can actually do it.
+		// For example, skip it for Druids
+		canTurn = false;
 		for(Turn ct : Turn.values())
 		{
-			idx = ct.ordinal();
-			txt = ct.itsName + ": " + itsTurn[idx];
-			pi = new PrintItem(txt, CharactrPrinter.itsLabelFont);
-			// print in 3 columns - left, center, right justified
-			switch(idx % cols)
+			int tVal = Util.numFromString(itsTurn[ct.ordinal()]);
+			if(tVal > 0)
 			{
-			case 0:
-				pl = new PrintLine(pi);
-				break;
-			case 1:
-				pi.itsAlign = PrintItem.Align.CENTER;
-				pl.add(pi);
-				break;
-			case 2:
-				pi.itsAlign = PrintItem.Align.RIGHT;
-				pl.add(pi);
-				cPrint.itsPrinter.add(pl);
+				canTurn = true;
 				break;
 			}
 		}
-		// If we didn't end at the end of a line, add the line
-		if(idx % cols != (cols-1))
+		if(canTurn)
+		{
+			pi = new PrintItem("Turning vs. Undead", CharactrPrinter.itsGroupFont);
+			pl = new PrintLine(pi);
 			cPrint.itsPrinter.add(pl);
-
+			for(Turn ct : Turn.values())
+			{
+				idx = ct.ordinal();
+				txt = ct.itsName + ": " + itsTurn[idx];
+				pi = new PrintItem(txt, CharactrPrinter.itsLabelFont);
+				// print in 3 columns - left, center, right justified
+				switch(idx % cols)
+				{
+				case 0:
+					pl = new PrintLine(pi);
+					break;
+				case 1:
+					pi.itsAlign = PrintItem.Align.CENTER;
+					pl.add(pi);
+					break;
+				case 2:
+					pi.itsAlign = PrintItem.Align.RIGHT;
+					pl.add(pi);
+					cPrint.itsPrinter.add(pl);
+					break;
+				}
+			}
+			// If we didn't end at the end of a line, add the line
+			if(idx % cols != (cols-1))
+				cPrint.itsPrinter.add(pl);
+		}
 		cPrint.textWithLabel("Holy Symbol", itsHolySymbol);
 		cPrint.textList("Spells", itsSpells);
 	}
@@ -205,8 +219,13 @@ public class Cleric extends ClassInfo
 			if(sm != null)
 				itsAbils.addAll(sm.getSpells(itsLevel, this));
 		}
+		setTurn(itsLevel);
+	}
+
+	protected void setTurn(int lvl)
+	{
 		// prevent levels from under or overflowing the turning data
-		int lvl = (itsLevel > 0 ? itsLevel : 0);
+		lvl = (lvl > 0 ? lvl : 0);
 		if(lvl >= ourTurnLevels[0].length)
 			lvl = ourTurnLevels[0].length - 1;
 		// Set turn values
