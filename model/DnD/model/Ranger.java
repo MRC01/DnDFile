@@ -76,27 +76,27 @@ public class Ranger extends Fighter
 		return hp;
 	}
 
-	protected void _setLevel()
+	protected void _setLevel(int level)
 	{
-		super._setLevel();
-		if(itsLevel > 0)
+		super._setLevel(level);
+		if(level > 0)
 		{
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourRangerAbils));
 			// Add Druid spells (if any)
-			if(itsLevel >= ourSpellLevelDruid)
+			if(level >= ourSpellLevelDruid)
 			{ 
-				int				lvl = 1 + itsLevel - ourSpellLevelDruid;
+				int				lvl = 1 + level - ourSpellLevelDruid;
 				SpellManager	sm;
 				sm = SpellManager.get(this, "Ranger.Druid");
 				if(sm != null)
 					itsAbils.addAll(sm.getSpells(lvl, this, true));
 			}
 			// Add MagicUser spells (if any)
-			if(itsLevel >= ourSpellLevelMU)
+			if(level >= ourSpellLevelMU)
 			{ 
-				int				lvl = 1 + itsLevel - ourSpellLevelMU;
+				int				lvl = 1 + level - ourSpellLevelMU;
 				SpellManager	sm;
 				sm = SpellManager.get(this, "Ranger.MagicUser");
 				if(sm != null)

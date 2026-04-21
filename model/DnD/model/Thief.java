@@ -138,19 +138,19 @@ public class Thief extends ClassInfo
 		return hp;
 	}
 
-	protected void _setLevel()
+	protected void _setLevel(int level)
 	{
-		if(itsLevel > 0)
+		if(level > 0)
 		{
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.add(ourAbilPrefix + "Language: Thieves' Cant");
 			// Backstab damage: levels 1-4 double, 5-8 triple, etc.
-			int BSDam = (int)((itsLevel-1)/4) + 2;
+			int BSDam = (int)((level - 1) / 4) + 2;
 			itsBStab = "+4 To Hit, x" + BSDam + " Damage";
 		}
 		// intended to be set even for 0-level placeholders
-		setSkills();
+		setSkills(level);
 	}
 
 	// Thieves start with 20-120 gp (2d6 x 10)
@@ -161,10 +161,10 @@ public class Thief extends ClassInfo
 	}
 
 	// Set the skill percentages for this character adjusted for level, dexterity and race
-	protected void setSkills()
+	protected void setSkills(int level)
 	{
 		// prevent levels from under or overflowing the ability data
-		int	lvl = (itsLevel > 0 ? itsLevel : 0);
+		int	lvl = (level > 0 ? level : 0);
 		if(lvl > ourMaxSkillLevel)
 			lvl = ourMaxSkillLevel;
 		int dex = getDexInt();

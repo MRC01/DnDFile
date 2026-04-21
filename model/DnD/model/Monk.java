@@ -176,18 +176,18 @@ public class Monk extends ClassInfo
 		return hp;
 	}
 
-	protected void _setLevel()
+	protected void _setLevel(int level)
 	{
-		if(itsLevel > 0)
+		if(level > 0)
 		{
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourMonkAbils));
 		}
 		// Level-specific Monk abilities, intended to be set even for 0-level placeholders
-		setSkills(itsLevel);
-		setSpecAbils(itsLevel);
-		setFall(itsLevel);
+		setSkills(level);
+		setSpecAbils(level);
+		setFall(level);
 	}
 
 	protected void setFall(int lvl)

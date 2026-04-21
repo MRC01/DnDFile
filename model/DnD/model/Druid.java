@@ -63,31 +63,35 @@ public class Druid extends Cleric
 			itsXPBonus = 0;
 	}
 
-	protected void _setLevel()
+	protected void _setLevel(int level)
 	{
-		super._setLevel();
-		if(itsLevel > 0)
+		/* None of the Cleric _setLevel stuff applies to Druids,
+		 * and some of it conflicts with Druids.
+		 * so don't invoke the superclass version of this method.
+		 */
+		// super._setLevel(level);
+		if(level > 0)
 		{
 			if(Util.isBlank(itsHolySymbol))
 				itsHolySymbol = ourHolySymbol;
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourDruidAbils));
-			if(itsLevel >= ourLangBaseLevel)
+			if(level >= ourLangBaseLevel)
 				itsAbils.add(ourAbilPrefix + "Speak "
-						+ (1 + itsLevel - ourLangBaseLevel)
+						+ (1 + level - ourLangBaseLevel)
 						+ " woodland creature language"
-						+ (itsLevel > ourLangBaseLevel ? "s" : ""));
+						+ (level > ourLangBaseLevel ? "s" : ""));
 			// Add other abilities
-			if(itsLevel >= 3)
+			if(level >= 3)
 				itsAbils.addAll(Arrays.asList(ourSpecAbilsLvl3));
-			if(itsLevel >= 7)
+			if(level >= 7)
 				itsAbils.addAll(Arrays.asList(ourSpecAbilsLvl7));
 			// Add Druid spells
 			SpellManager	sm;
 			sm = SpellManager.get(this);
 			if(sm != null)
-				itsAbils.addAll(sm.getSpells(itsLevel, this, true));
+				itsAbils.addAll(sm.getSpells(level, this, true));
 		}
 		// Druids cannot turn the undead; set skill levels to 0
 		setTurn(0);

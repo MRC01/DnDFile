@@ -49,18 +49,18 @@ public class Paladin extends Fighter
 			itsXPBonus = 0;
 	}
 
-	protected void _setLevel()
+	protected void _setLevel(int level)
 	{
-		super._setLevel();
-		if(itsLevel > 0)
+		super._setLevel(level);
+		if(level > 0)
 		{
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourPaladinAbils));
 			// Add Cleric spells (if any)
-			if(itsLevel >= ourSpellLevel)
+			if(level >= ourSpellLevel)
 			{ 
-				int				lvl = 1 + itsLevel - ourSpellLevel;
+				int				lvl = 1 + level - ourSpellLevel;
 				SpellManager	sm;
 				sm = SpellManager.get(this);
 				if(sm != null)
