@@ -113,34 +113,37 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	// Subclasses override this to read their own raw data
 	protected void _read(StreamInput si) throws Exception { }
 
-	/* Generate and return new hit points for the given level
+	/* Generate and return new hit points up to the given level
 	 * Apply constitution bonuses (if any)
 	 */
 	protected int genHitPoints(int level)
 	{
-		int c,
-			hp;
+		int l, c, hp;
 
-		// Get the class-specific hit points
-		hp = _genHitPoints(level);
-		// Apply constitution bonuses
-		c = itsChar.itsAbilScores.get(AbilScore.Type.CON).getInt();
-		if(c > 14)
-			hp += 1;
-		if(c > 15)
-			hp += 1;
-		if(this instanceof Fighter)
+		hp = 0;
+		for(l = itsLevel + 1; l <= level; l++)
 		{
-			// Highest HP bonuses apply only to Fighter, Ranger, Paladin
-			if(c > 16)
+			// Get the class-specific hit points
+			hp += _genHitPoints(l);
+			// Apply constitution bonuses
+			c = itsChar.itsAbilScores.get(AbilScore.Type.CON).getInt();
+			if(c > 14)
 				hp += 1;
-			if(c > 17)
+			if(c > 15)
 				hp += 1;
+			if(this instanceof Fighter)
+			{
+				// Highest HP bonuses apply only to Fighter, Ranger, Paladin
+				if(c > 16)
+					hp += 1;
+				if(c > 17)
+					hp += 1;
+			}
 		}
 		return hp;
 	}
 	
-	// Subclasses override this to set hit points
+	// Subclasses override this to set hit points for a specific new level
 	protected int _genHitPoints(int level)
 	{
 		// Normal humans, by default, have 1-4 HP (level doesn't matter)
@@ -148,11 +151,11 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	}
 
 	// Set all save throws to the defaults for this character class and level
-	public void setSaveThrowDefaults()
+	public void setSaveThrowDefaults(int level)
 	{
-		setSaveThrowDefaults(false);
+		setSaveThrowDefaults(level, false);
 	}
-	public void setSaveThrowDefaults(boolean override)
+	public void setSaveThrowDefaults(int level, boolean override)
 	{
 		String	hk = Util.nameFromClass(getClass());
 		int		stData[][],
@@ -164,7 +167,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 			// The max is the count of levels, which is the highest level + 1
 			lvlMax = stData.length;
 			// Save throw arrays are zero-based; levels are 1-based
-			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
+			idx = (level <= lvlMax ? level : lvlMax);
 			idx -= 1;
 			for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
 				if(override || Util.isBlank(itsChar.itsSaveThrows[i]))
@@ -176,7 +179,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	}
 
 	// Return the requested save throw default for this character class and level
-	public int getSaveThrowDefault(SaveThrow st)
+	public int getSaveThrowDefault(SaveThrow st, int level)
 	{
 		int		rc = -1;
 		String	hk = Util.nameFromClass(getClass());
@@ -188,7 +191,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 			stData = SaveThrowManager.getSaveThrowDefaults().get(hk);
 			// The max is the count of levels, which is the highest level + 1
 			lvlMax = stData.length;
-			idx = (itsLevel <= lvlMax ? itsLevel : lvlMax);
+			idx = (level <= lvlMax ? level : lvlMax);
 			// Save throw arrays are zero-based; levels are 1-based
 			idx -= 1;
 			rc = stData[idx][st.ordinal()];
@@ -264,13 +267,11 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		return rc;
 	}
 
-	// Set all class info to defaults for its level
+	/* This method is called before applying the new level to the character.
+	 * This way, the subclasses can see both the old & new levels.
+	 * The old level is member itsLevel, the new is parameter level
+	 */
 	public void setLevel(int level)
-	{
-		itsLevel = level;
-		setLevel();
-	}
-	public void setLevel()
 	{
 		/* Level 0 is an empty placeholder class; don't set Save Throws.
 		 * Level > 0 means we are setting up a real character class, so set the Save Throws.
@@ -279,30 +280,28 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		 * This method is called when the "Level" button on PanelClassBasic is clicked.
 		 * 		but that means the user wants to override existing save throws.  
 		 */
-		if(itsLevel > 0)
+		if(level > 0)
 		{
-			// Save throws - always force override
-			setSaveThrowDefaults(true);
 			// Hit points - either replace or add
-			int hp, hpNew;
+			int		hp, hpNew;
+			hpNew = genHitPoints(level);
 			hp = Util.numFromString(itsChar.itsHitPts);
-			if(hp < 0)
+			if(hp >= 0)
 			{
-				// Hit points not defined - set them
-				itsChar.itsHitPts = Integer.valueOf(genHitPoints(itsLevel)).toString();
+				// Character already has hit points - add the new ones
+				hpNew += hp;
 			}
-			else
-			{
-				// Character already has hit points - add one more level
-				hpNew = genHitPoints(itsLevel);
-				itsChar.itsHitPts = Integer.valueOf(hp + hpNew).toString();
-			}
+			itsChar.itsHitPts = Integer.valueOf(hpNew).toString();
+			// Save throws - always force override
+			setSaveThrowDefaults(level, true);
 		}
-		_setLevel();
+		_setLevel(level);
+		// All changes for the new level are complete, so (finally) set it in the data
+		itsLevel = level;
 	}
 
 	// Subclass implementation of setLevel, by default does nothing
-	protected void _setLevel() { }
+	protected void _setLevel(int level) { }
 
 	// Computes the level for the given XPoints, returns 0 on error (unable to determine)
 	private int computeLevel() throws Exception

@@ -207,9 +207,9 @@ public class Cleric extends ClassInfo
 		return hp;
 	}
 
-	protected void _setLevel()
+	protected void _setLevel(int level)
 	{
-		if(itsLevel > 0)
+		if(level > 0)
 		{
 			// Delete all auto-generated class abilities and replace them with spell use
 			deleteAGClassAbils();
@@ -217,9 +217,9 @@ public class Cleric extends ClassInfo
 			SpellManager	sm;
 			sm = SpellManager.get(this);
 			if(sm != null)
-				itsAbils.addAll(sm.getSpells(itsLevel, this));
+				itsAbils.addAll(sm.getSpells(level, this));
 		}
-		setTurn(itsLevel);
+		setTurn(level);
 	}
 
 	protected void setTurn(int lvl)

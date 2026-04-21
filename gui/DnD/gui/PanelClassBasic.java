@@ -190,11 +190,11 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		}
 		else if(bc.equals(itsBLevel.getText()))
 		{
-			// Apply the values in the GUI to the fields
-			MainGui.get().applyAll();
-			if(itsClassPanel.itsData.itsLevel > 0)
+			// Get level directly from the GUI field
+			int lvl = Util.numFromString(itsFields[3].itsTF.getText());
+			if(lvl > 0 && lvl != itsClassPanel.itsData.itsLevel)
 			{
-				itsClassPanel.itsData.setLevel();
+				itsClassPanel.itsData.setLevel(lvl);
 				MainGui.get().revertAll();
 			}
 		}
