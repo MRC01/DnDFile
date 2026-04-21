@@ -319,7 +319,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		}
 		for(rc = 0, i = 1; i < xpLev.length; i++)
 		{
-			if(itsXPoints < xpLev[i])
+			if(itsXPoints <= xpLev[i])
 			{
 				rc = i;
 				break;
