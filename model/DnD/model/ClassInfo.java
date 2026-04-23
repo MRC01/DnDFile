@@ -154,11 +154,34 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		return Util.random(4);
 	}
 
-	// Set all save throws to the defaults for this character class and level
+	/* Set all save throws to the defaults for this character class and level
+	 * For each save throw, use the best (lowest) across all classes.
+	 */
 	public void setSaveThrowDefaults(int level)
 	{
 		setSaveThrowDefaults(level, false);
 	}
+	public void setSaveThrowDefaults(int level, boolean override)
+	{
+		for(SaveThrow st : SaveThrow.values())
+		{
+			int	idx, lvl, stVal, stMin;
+			idx = st.ordinal();
+			// Start with the save throw for this class
+			stMin = getSaveThrowDefault(st, level);
+			// If the character has other classes, compare across all of them
+			for(ClassInfo ci : itsChar.itsClasses)
+			{
+				lvl = (this.equals(ci) ? level : ci.itsLevel);
+				stVal = ci.getSaveThrowDefault(st, lvl);
+				if(stVal < stMin) stMin = stVal;
+			}
+			// Set the best save throw
+			if(override || Util.isBlank(itsChar.itsSaveThrows[idx]))
+				itsChar.itsSaveThrows[idx] = Integer.toString(stMin);
+		}
+	}
+/*
 	public void setSaveThrowDefaults(int level, boolean override)
 	{
 		String	hk = Util.nameFromClass(getClass());
@@ -177,11 +200,10 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 				if(override || Util.isBlank(itsChar.itsSaveThrows[i]))
 					itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
 		}
-		/* Don't set the character as dirty because this happens during initialization.
-		 * If the character actually is dirty, then whatever invoked this, will also set it dirty.
-		 */
+		// Don't set the character as dirty because this happens during other operations.
+		// If the character actually is dirty, then whatever invoked this, will also set it dirty.
 	}
-
+*/
 	// Return the requested save throw default for this character class and level
 	public int getSaveThrowDefault(SaveThrow st, int level)
 	{
