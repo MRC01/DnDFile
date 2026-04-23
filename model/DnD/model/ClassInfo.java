@@ -180,30 +180,10 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 			if(override || Util.isBlank(itsChar.itsSaveThrows[idx]))
 				itsChar.itsSaveThrows[idx] = Integer.toString(stMin);
 		}
-	}
-/*
-	public void setSaveThrowDefaults(int level, boolean override)
-	{
-		String	hk = Util.nameFromClass(getClass());
-		int		stData[][],
-				lvlMax,
-				idx;
-		if(SaveThrowManager.getSaveThrowDefaults().containsKey(hk))
-		{
-			stData = SaveThrowManager.getSaveThrowDefaults().get(hk);
-			// The max is the count of levels, which is the highest level + 1
-			lvlMax = stData.length;
-			// Save throw arrays are zero-based; levels are 1-based
-			idx = (level <= lvlMax ? level : lvlMax);
-			idx -= 1;
-			for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
-				if(override || Util.isBlank(itsChar.itsSaveThrows[i]))
-					itsChar.itsSaveThrows[i] = Integer.toString(stData[idx][i]);
-		}
 		// Don't set the character as dirty because this happens during other operations.
 		// If the character actually is dirty, then whatever invoked this, will also set it dirty.
 	}
-*/
+
 	// Return the requested save throw default for this character class and level
 	public int getSaveThrowDefault(SaveThrow st, int level)
 	{
