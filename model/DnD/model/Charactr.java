@@ -87,9 +87,24 @@ public class Charactr
 		}
 		return null;
 	}
-	
+
+	// returns how many classes this character has (could be multiclass)
+	public int getClassCount() { return getClassCount(false); }
+	public int getClassCount(boolean skipZero)
+	{
+		int rc = 0;
+		for(ClassInfo ci : itsClasses)
+			if(!skipZero)
+				rc += 1;
+			else if(ci.itsLevel > 0)
+					rc += 1;
+		return rc;
+	}
+
 	/* Create and return a new Character, generated randomly
-	 * Always 1st level (TODO: MRC: enable creation of higher level chars).
+	 * Always 1st level.
+	 * If you want a higher level character, then set the level after doing this.
+	 * Hit points & save throws will automatically be set correctly.
 	 */
 	public static Charactr newRandom()
 	{

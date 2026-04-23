@@ -118,9 +118,10 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	 */
 	protected int genHitPoints(int level)
 	{
-		int l, c, hp;
+		int l, c, clCnt, hp;
 
 		hp = 0;
+		clCnt = itsChar.getClassCount();
 		for(l = itsLevel + 1; l <= level; l++)
 		{
 			// Get the class-specific hit points
@@ -139,6 +140,9 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 				if(c > 17)
 					hp += 1;
 			}
+			// If multiclass, divide and round off (don't truncate)
+			if(clCnt > 1)
+				hp = (int)Math.round(((double)hp / (double)clCnt));
 		}
 		return hp;
 	}
