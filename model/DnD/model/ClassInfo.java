@@ -188,10 +188,18 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	public int getSaveThrowDefault(SaveThrow st, int level)
 	{
 		int		rc = -1;
-		String	hk = Util.nameFromClass(getClass());
+		String	hk;
 		int		stData[][],
 				lvlMax,
 				idx;
+		/* Search by user-defined name. If that doesn't work, try the class.
+		 * If that doesn't work, try the superclass.
+		 */
+		hk = itsName;
+		if(!SaveThrowManager.getSaveThrowDefaults().containsKey(hk))
+			hk = Util.nameFromClass(getClass());
+		if(!SaveThrowManager.getSaveThrowDefaults().containsKey(hk))
+			hk = Util.nameFromClass(getClass().getSuperclass());
 		if(SaveThrowManager.getSaveThrowDefaults().containsKey(hk))
 		{
 			stData = SaveThrowManager.getSaveThrowDefaults().get(hk);
@@ -300,6 +308,8 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 			itsChar.itsHitPts = Integer.valueOf(hpNew).toString();
 			// Save throws - always force override
 			setSaveThrowDefaults(level, true);
+			// The character is now dirty (if it wasn't already)
+			itsChar.setDirty();
 		}
 		_setLevel(level);
 		// All changes for the new level are complete, so (finally) set it in the data
