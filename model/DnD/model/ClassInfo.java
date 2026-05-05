@@ -118,14 +118,18 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	 */
 	protected int genHitPoints(int level)
 	{
-		int l, c, clCnt, hp;
+		int l, c, clCnt, hp, hpNew;
 
 		hp = 0;
 		clCnt = itsChar.getClassCount();
 		for(l = itsLevel + 1; l <= level; l++)
 		{
 			// Get the class-specific hit points
-			hp += _genHitPoints(l);
+			hpNew = _genHitPoints(l);
+			// If new HP are only 1, roll again. If you get another 1, you're stuck with it
+			if(hpNew == 1)
+				hpNew = _genHitPoints(l);
+			hp += hpNew;
 			// Apply constitution bonuses
 			c = itsChar.itsAbilScores.get(AbilScore.Type.CON).getInt();
 			if(c > 14)
