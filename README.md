@@ -7,6 +7,12 @@ DnD is a Java Swing application that manages AD&D characters.
 The program uses and requires JDK 1.6 or any later version.
 It runs on any computer having Java: Linux, Windows or Mac.
 
+**QUICK START**
+
+My website has info on this program and how to get started:
+
+https://mclements.net/blogWP/index.php/2026/04/22/dd-character-app/
+
 **WHY**
 
 Years ago I had been doing Java programming with advanced features like weak references and reflection.
@@ -34,7 +40,7 @@ With -font, X is the size of the font you want to use.
 X is an adjustment, + or -, which will grow or shrink the sizes of all the default fonts.
 Examples:
 	-font -1	makes all fonts 1 point smaller
-	-font +4		makes all fonts 4 points larger
+	-font +4	makes all fonts 4 points larger
 
 FILENAME is the path and filename of a character file to load on startup.
 
@@ -43,9 +49,7 @@ I've run and tested it on Linux and Windows, but it should work on Mac too.
 It is useful to create a file type for the "dnd" file extension
 (or whatever extension you want to use) and map it to this program.
 Launching Java from the Windows file extension mapper is not convenient,
-so I've included a simple CMD file to make it easier.
-The batch file takes one argument: the name of the file to load.
-A quick look at this simple batch file should make it self-evident.
+so I've included a simple shell script to make it easier.
 
 The program is small and easy to use.
 I've included a few sample characters to play with and get a feel for the program.
@@ -135,7 +139,7 @@ having to generate NPCs.
 So far, it does a lot but it's not complete.
 What it does: ability scores & adjustments, picking the best class based on scores,
 picking a compatible race, pick a gender and a name,
-equipment appropriate to the class, including weapons and armor.
+randomized equipment appropriate to the class, including weapons and armor.
 The rest must be done manually, but this saves a lot of time.
 
 I wrote this program long ago, back when Ant was commonly used.
@@ -145,17 +149,6 @@ It's easy to import into Eclipse and set up to use its Ant builder.
 This program uses 2 fonts when printing: Garamond and DejaVu Sans.
 Both are freely available.
 If you don't have them installed, the printouts won't look right.
-
-The app has 2 command-line parameters: -font N and -file FILE
-
-N is an integer that adjusts relative font size, positive or negative.
-Java Swing was made back when monitors were lower res with less DPI than they have today.
-Thus, its default font sizes are too small for modern monitors.
-Typically, "-font +4" works well, but you can use any size adjustment.
-
-FILE is the full path and filename of a character file to load on startup.
-This makes it possible to create desktop icon wrappers around this app,
-so you can double-click a file and have this app pop up and open it.
 
 The build requires Junit 4.8.2 (file junit-4.8.2.jar).
 It looks for an env var JUNIT_HOME for the directory to find it.
