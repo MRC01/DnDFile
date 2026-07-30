@@ -2,8 +2,7 @@ package DnD.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.LinkedList;
-
+import java.util.*;
 
 import DnD.model.ClassInfo;
 import DnD.model.MUBase;
@@ -15,7 +14,7 @@ import DnD.model.MagicUser;
  *  	PanelSpellList:		the list of spells
  *		PanelSpellDetail:	detail of a single spell from the list
  */
-public class PanelClassMUBase extends PanelClassInfo implements ActionListener
+public class PanelClassMUBase extends PanelClassInfo implements ActionListener, PanelWithSpellBook
 {
 	// This stops the Java compiler from complaining
 	private static final long serialVersionUID = 1;
@@ -64,7 +63,7 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 			lst.add(fm.itsTF);
 		lst.add(itsSpellDetail.itsButApply);
 		setFocusOrder(lst);
-}
+	}
 
 	// This tells my superclass what ClassInfo types I can handle
 	public Class<? extends ClassInfo> getDataClassBase()

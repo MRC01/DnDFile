@@ -18,13 +18,13 @@ public class PanelSpellDetail extends PanelBase implements ActionListener
 	static final int	kFieldLen = 15;
 
 	// GUI stuff
-	PanelClassMUBase	itsParent;
-	FieldMap[]		itsFields;
+	PanelWithSpellBook	itsParent;
+	FieldMap[]			itsFields;
 
 	// Other stuff
 	SpellBook.Spell		itsData;
 
-	public PanelSpellDetail(PanelClassMUBase pw) throws NoSuchFieldException
+	public PanelSpellDetail(PanelWithSpellBook pw) throws NoSuchFieldException
 	{
 		super();
 

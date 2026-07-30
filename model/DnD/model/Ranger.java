@@ -9,7 +9,7 @@ import DnD.util.Util;
 
 public class Ranger extends Fighter
 {
-	static final int ourSpellLevelDruid,
+	public static final int ourSpellLevelDruid,
 					ourSpellLevelMU;
 	static int[]	ourXPLevels;
 	static String[]	ourRangerAbils;
@@ -42,6 +42,9 @@ public class Ranger extends Fighter
 	{
 		super(ch, level);
 	}
+
+	// High level rangers can cast MU spells
+	public SpellBook	itsSpellBook;
 
 	public void setXPBonus()
 	{
@@ -114,5 +117,6 @@ public class Ranger extends Fighter
 	protected void _init()
 	{
 		super._init();
+		itsSpellBook = new SpellBook();
 	}
 }

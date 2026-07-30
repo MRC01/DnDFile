@@ -25,6 +25,7 @@ public abstract class MUBase extends ClassInfo
 
 	protected void _init()
 	{
+		super._init();
 		itsSpellBook = new SpellBook();
 	}
 

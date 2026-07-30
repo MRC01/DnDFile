@@ -20,14 +20,14 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 	protected static final SpellBook.Spell[] ourTemplateArray = new SpellBook.Spell[0];
 
 	// GUI stuff
-	PanelClassMUBase		itsParent;
+	PanelWithSpellBook			itsParent;
 	ListBox<SpellBook.Spell>	itsLB;
 	JButton					itsButAdd, itsButDel, itsButDown, itsButSort;
 
 	// Other stuff
 	java.util.List<SpellBook.Spell>	itsRawData;
 
-	public PanelSpellList(PanelClassMUBase pw, String title, java.util.List<SpellBook.Spell> data)
+	public PanelSpellList(PanelWithSpellBook pw, String title, java.util.List<SpellBook.Spell> data)
 	{
 		super();
 
