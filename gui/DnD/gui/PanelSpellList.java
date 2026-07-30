@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
 
-import DnD.model.MUBase;
-import DnD.model.Wealth;
+import DnD.model.SpellBook;
 
 /** This is the GUI panel for combat information
  */
@@ -18,17 +17,17 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 
 	protected static final int	kHeight = 10;
 
-	protected static final MUBase.Spell[] ourTemplateArray = new MUBase.Spell[0];
+	protected static final SpellBook.Spell[] ourTemplateArray = new SpellBook.Spell[0];
 
 	// GUI stuff
 	PanelClassMUBase		itsParent;
-	ListBox<MUBase.Spell>	itsLB;
+	ListBox<SpellBook.Spell>	itsLB;
 	JButton					itsButAdd, itsButDel, itsButDown, itsButSort;
 
 	// Other stuff
-	java.util.List<MUBase.Spell>	itsRawData;
+	java.util.List<SpellBook.Spell>	itsRawData;
 
-	public PanelSpellList(PanelClassMUBase pw, String title, java.util.List<MUBase.Spell> data)
+	public PanelSpellList(PanelClassMUBase pw, String title, java.util.List<SpellBook.Spell> data)
 	{
 		super();
 
@@ -48,7 +47,7 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 
 		// Scrollable listbox
-		itsLB = new ListBox<MUBase.Spell>();
+		itsLB = new ListBox<SpellBook.Spell>();
 		itsLB.setVisibleRowCount(kHeight);
 		itsLB.addListSelectionListener(this);
 		sp = new JScrollPane(itsLB);
@@ -75,7 +74,7 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 		setList(data);
 	}
 
-	public void setList(java.util.List<MUBase.Spell> data)
+	public void setList(java.util.List<SpellBook.Spell> data)
 	{
 		itsRawData = data;
 		refreshList();
@@ -119,7 +118,7 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 		}
 		else if(bc.equals(itsButDown.getText()))
 		{
-			MUBase.Spell	val;
+			SpellBook.Spell	val;
 
 			if(idx < 0)
 			{

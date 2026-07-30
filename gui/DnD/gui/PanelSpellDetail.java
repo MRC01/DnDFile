@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import DnD.model.MUBase;
+import DnD.model.SpellBook;
 
 /** This is the GUI panel for combat information
  */
@@ -13,7 +13,7 @@ public class PanelSpellDetail extends PanelBase implements ActionListener
 	// This stops the Java compiler from complaining
 	private static final long serialVersionUID = 1;
 
-	protected static final MUBase.Spell kEmptySpellItem = new MUBase.Spell();
+	protected static final SpellBook.Spell kEmptySpellItem = new SpellBook.Spell();
 
 	static final int	kFieldLen = 15;
 
@@ -22,7 +22,7 @@ public class PanelSpellDetail extends PanelBase implements ActionListener
 	FieldMap[]		itsFields;
 
 	// Other stuff
-	MUBase.Spell		itsData;
+	SpellBook.Spell		itsData;
 
 	public PanelSpellDetail(PanelClassMUBase pw) throws NoSuchFieldException
 	{
@@ -66,7 +66,7 @@ public class PanelSpellDetail extends PanelBase implements ActionListener
 	}
 
 	// Make this detail panel show the given spell
-	public void setData(MUBase.Spell sp)
+	public void setData(SpellBook.Spell sp)
 	{
 		itsData = (sp != null ? sp : kEmptySpellItem);
 		for(FieldMap fm : itsFields)

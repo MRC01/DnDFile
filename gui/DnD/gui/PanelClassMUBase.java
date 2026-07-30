@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import DnD.model.ClassInfo;
 import DnD.model.Fighter;
 import DnD.model.MUBase;
+import DnD.model.SpellBook;
 import DnD.model.Illusionist;
 import DnD.model.MagicUser;
 
@@ -107,9 +108,9 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 
 	public void _revertAll()
 	{
-		java.util.List<MUBase.Spell>	lst;
+		java.util.List<SpellBook.Spell>	lst;
 		int		idx;
-		MUBase.Spell	sp;
+		SpellBook.Spell	sp;
 
 		lst = ((MUBase)itsData).itsSpellBook.itsContents;
 		itsSpellList.setList(lst);
@@ -139,10 +140,10 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 	// PanelSpellList calls this to add a new spell
 	public void addSpell(int idx)
 	{
-		MUBase.Spell	sp;
+		SpellBook.Spell	sp;
 
 		// Create a new spell, add it to the list
-		sp = new MUBase.Spell();
+		sp = new SpellBook.Spell();
 		((MUBase)itsData).itsSpellBook.itsContents.add(idx, sp);
 		// The following refreshes the list and selects the item
 		// which causes it to be displayed in the detail pane
@@ -154,8 +155,8 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 	// PanelSpellList calls this to delete a spell
 	public void delSpell(int idx)
 	{
-		java.util.List<MUBase.Spell> lst = ((MUBase)itsData).itsSpellBook.itsContents;
-		MUBase.Spell	sp;
+		java.util.List<SpellBook.Spell> lst = ((MUBase)itsData).itsSpellBook.itsContents;
+		SpellBook.Spell	sp;
 
 		lst.remove(idx);
 		if(idx >= lst.size())
@@ -166,7 +167,7 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener
 	}
 
 	// PanelSpellDetail calls this when a spell is applied
-	public void applySpell(MUBase.Spell sp)
+	public void applySpell(SpellBook.Spell sp)
 	{
 		itsSpellList.refreshList();
 	}
