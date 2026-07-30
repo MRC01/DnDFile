@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import DnD.model.SpellBook;
 
-/** This is the GUI panel for combat information
+/** This is the GUI panel for a specific spell from a SpellBook (Magic User spells)
  */
 public class PanelSpellDetail extends PanelBase implements ActionListener
 {

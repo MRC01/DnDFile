@@ -8,7 +8,7 @@ import java.util.*;
 
 import DnD.model.SpellBook;
 
-/** This is the GUI panel for combat information
+/** This is the GUI panel for a list of Magic User spells (Spellbook)
  */
 public class PanelSpellList extends PanelBase implements ActionListener, ListSelectionListener
 {

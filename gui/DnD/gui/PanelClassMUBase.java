@@ -6,13 +6,11 @@ import java.util.LinkedList;
 
 
 import DnD.model.ClassInfo;
-import DnD.model.Fighter;
 import DnD.model.MUBase;
 import DnD.model.SpellBook;
-import DnD.model.Illusionist;
 import DnD.model.MagicUser;
 
-/** This is the GUI panel for basic magic user information (spellbooks)
+/** This is the GUI panel for magic user class information (Magic User or Illusionist)
  *  It creates, displays and coordinates 2 other panels:
  *  	PanelSpellList:		the list of spells
  *		PanelSpellDetail:	detail of a single spell from the list
