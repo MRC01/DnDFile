@@ -138,9 +138,13 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 		}
 		else if(bc.equals(itsButSort.getText()))
 		{
-			Collections.sort(itsRawData);
-			refreshList(0);
-			itsParent.pickSpell(0);
+			// Don't try to sort an empty list
+			if(itsRawData.size() > 0)
+			{
+				Collections.sort(itsRawData);
+				refreshList(0);
+				itsParent.pickSpell(0);
+			}
 		}
 	}
 

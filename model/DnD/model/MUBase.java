@@ -77,7 +77,7 @@ public abstract class MUBase extends ClassInfo
 	}
 
 	// read my raw data
-	protected void _read(StreamInput si) throws Exception
+	protected void _read(StreamInput si, int ver) throws Exception
 	{
 		short len = si.readShort();
 		for(short i = 0; i < len; i++)

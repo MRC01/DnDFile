@@ -3,11 +3,13 @@ package DnD.gui;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.event.*;
-import java.util.LinkedList;
+import java.util.*;
 
 import DnD.model.ClassInfo;
+import DnD.model.Cleric;
 import DnD.model.Fighter;
 import DnD.model.Ranger;
+import DnD.model.Paladin;
 import DnD.model.SpellBook;
 
 /** This is the GUI panel for the Fighter class
@@ -17,12 +19,15 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 	// This stops the Java compiler from complaining
 	private static final long serialVersionUID = 1;
 	
-	// Dummy spellbook for non-Rangers
-	protected static SpellBook	ourEmptySpellBook = new SpellBook();
+	// Dummy spellbooks for non-Rangers
+	protected static SpellBook		ourEmptySpellBook = new SpellBook();
+	protected static List<String>	ourEmptySpellList = new ArrayList<String>();
 
 	// GUI stuff
-	PanelSpellList		itsSpellList;
-	PanelSpellDetail	itsSpellDetail;
+	PanelListBox<String>	itsClericalSpells;
+	PanelSpellList			itsSpellBook;
+	PanelSpellDetail		itsSpellDetail;
+	FieldMap[]				itsFMTurn;
 
 	// any local stuff goes here
 	public PanelClassFighter(PanelRootData rootData) throws NoSuchFieldException, IllegalAccessException
@@ -33,37 +38,79 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 
 	protected void createGui(MainGui.GuiCfg guiCfg) throws NoSuchFieldException, IllegalAccessException
 	{
-		// summary list of spells
-		guiCfg.gc.gridwidth = 2;
-		guiCfg.gc.fill = GridBagConstraints.BOTH;
-		guiCfg.gc.weighty = 1.0;
-		guiCfg.gc.weightx = 1.0;
-		itsSpellList= new PanelSpellList(this, "Spells", ourEmptySpellBook.itsContents);
-		MainGui.addGui(guiCfg, itsSpellList);
-
-		// detail form for currently selected spell
+		// These are GUI elements that may be shown, or hidden
+		// Depending on the Fighter subclass (Ranger or Paladin)
+		itsClericalSpells = new PanelListBox<String>("Clerical Spells", ourEmptySpellList, String.class);
+		itsSpellBook= new PanelSpellList(this, "Spellbook", ourEmptySpellBook.itsContents);
 		itsSpellDetail = new PanelSpellDetail(this);
-		guiCfg.gc.weightx = 2.0;
-		guiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
-		MainGui.addGui(guiCfg, itsSpellDetail);
+		itsFMTurn = new FieldMap[Cleric.Turn.values().length];
+	}
 
-		// Control buttons
-		guiCfg.gc.fill = GridBagConstraints.NONE;
-		guiCfg.gc.anchor = GridBagConstraints.WEST;
-		guiCfg.gc.weightx = 0.0;
-		guiCfg.gc.weighty = 0.0;
-		guiCfg.gc.gridwidth = 1;
-		MainGui.addGui(guiCfg, itsButApply);
-		guiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
-		MainGui.addGui(guiCfg, itsButRevert);
+	protected void panelRangerToggle(boolean ef)
+	{
+		// Remove all optional GUI elements
+		MainGui.remGui(itsGuiCfg, itsClericalSpells);
+		MainGui.remGui(itsGuiCfg, itsSpellBook);
+		MainGui.remGui(itsGuiCfg, itsSpellDetail);
+		itsClericalSpells.setList(ourEmptySpellList, String.class);
+		itsSpellBook.setList(ourEmptySpellBook.itsContents);
+		if(ef)
+		{
+			if(itsData.itsLevel >= Ranger.ourSpellLevelDruid)
+			{
+				// Druid
+				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
+				itsGuiCfg.gc.weighty = 2.0;
+				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
+				MainGui.addGui(itsGuiCfg, itsClericalSpells);
+	
+				itsClericalSpells.setList(((Ranger)itsData).itsDruidSpells, String.class);
+			}
+			if(itsData.itsLevel >= Ranger.ourSpellLevelMU)
+			{
+				// summary list of spells
+				itsGuiCfg.gc.gridwidth = 2;
+				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
+				itsGuiCfg.gc.weighty = 1.0;
+				itsGuiCfg.gc.weightx = 1.0;
+				MainGui.addGui(itsGuiCfg, itsSpellBook);
+	
+				// detail form for currently selected spell
+				itsGuiCfg.gc.weightx = 2.0;
+				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
+				MainGui.addGui(itsGuiCfg, itsSpellDetail);
+	
+				itsSpellBook.setList(((Ranger)itsData).itsSpellBook.itsContents);
+			}
+		}
+	}
 
-		// set focus traversal order
-		java.util.List<Component> lst = new LinkedList<Component>();
-		lst.add(itsSpellList.itsButAdd);
-		for(FieldMap fm : itsSpellDetail.itsFields)
-			lst.add(fm.itsTF);
-		lst.add(itsSpellDetail.itsButApply);
-		setFocusOrder(lst);
+	protected void panelPaladinToggle(boolean ef)
+	{
+		// Remove all optional GUI elements
+		MainGui.remGui(itsGuiCfg, itsClericalSpells);
+		MainGui.remGui(itsGuiCfg, itsSpellBook);
+		MainGui.remGui(itsGuiCfg, itsSpellDetail);
+		itsClericalSpells.setList(ourEmptySpellList, String.class);
+		itsSpellBook.setList(ourEmptySpellBook.itsContents);
+		if(ef)
+		{
+			if(itsData.itsLevel >= Paladin.ourTurnLevel)
+			{
+				// Turning undead must be a panel, instead of individual fields
+				// This makes it easier to add & remove
+			}
+			if(itsData.itsLevel >= Paladin.ourSpellLevel)
+			{
+				// Cleric
+				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
+				itsGuiCfg.gc.weighty = 2.0;
+				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
+				MainGui.addGui(itsGuiCfg, itsClericalSpells);
+	
+				itsClericalSpells.setList(((Paladin)itsData).itsClericSpells, String.class);
+			}
+		}
 	}
 
 	/* Through this method, subclasses tell me what type of general ClassInfo they handle.
@@ -100,27 +147,22 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 	 */
 	protected void _revertAll()
 	{
-		ClassInfo	ci;
-		ci= MainGui.getChar().getClassData(Fighter.class);
-		if((ci instanceof Ranger) && (ci.itsLevel >= Ranger.ourSpellLevelMU))
+		// When updating the GUI, always remove first, then add
+		if(itsData instanceof Ranger)
 		{
-			itsSpellList.setList(((Ranger)ci).itsSpellBook.itsContents);
-			enableSpells(true);
+			panelPaladinToggle(false);
+			panelRangerToggle(true);
+		}
+		else if(itsData instanceof Paladin)
+		{
+			panelRangerToggle(false);
+			panelPaladinToggle(true);
 		}
 		else
 		{
-			itsSpellList.setList(ourEmptySpellBook.itsContents);
-			enableSpells(false);
+			panelRangerToggle(false);
+			panelPaladinToggle(false);
 		}
-	}
-
-	// Fully enable or disable the spells portion of the panel
-	protected void enableSpells(boolean ef)
-	{
-		itsSpellList.setEnabled(ef);
-		itsSpellList.enableAll(ef);
-		itsSpellDetail.setEnabled(ef);
-		itsSpellDetail.enableAll(ef);
 	}
 
 	// PanelSpellList calls this when a spell is selected
@@ -142,7 +184,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 		((Ranger)itsData).itsSpellBook.itsContents.add(idx, sp);
 		// The following refreshes the list and selects the item
 		// which causes it to be displayed in the detail pane
-		itsSpellList.refreshList(idx);
+		itsSpellBook.refreshList(idx);
 		// Display it in the detail pane
 		itsSpellDetail.setData(sp);
 	}
@@ -156,7 +198,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 		lst.remove(idx);
 		if(idx >= lst.size())
 			idx--;
-		itsSpellList.refreshList(idx);
+		itsSpellBook.refreshList(idx);
 		sp = (idx < 0 ? null : lst.get(idx));
 		itsSpellDetail.setData(sp);
 	}
@@ -164,7 +206,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 	// PanelSpellDetail calls this when a spell is applied
 	public void applySpell(SpellBook.Spell sp)
 	{
-		itsSpellList.refreshList();
+		itsSpellBook.refreshList();
 	}
 
 	// Returns the grid bag height of this panel

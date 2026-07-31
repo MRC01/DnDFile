@@ -96,7 +96,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 
 	// Type conversions are safe, so disable the compiler warning.
 	@SuppressWarnings("unchecked")
-	/* package */ void read(StreamInput si) throws Exception
+	/* package */ void read(StreamInput si, int ver) throws Exception
 	{
 		// Reinitialize
 		init(itsChar);
@@ -107,11 +107,11 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		itsXPBonus = si.readInt();
 		itsAbils = si.readList((Class<ArrayList<String>>)itsAbils.getClass(), String.class);
 		// delegate to subclass
-		_read(si);
+		_read(si, ver);
 	}
 
 	// Subclasses override this to read their own raw data
-	protected void _read(StreamInput si) throws Exception { }
+	protected void _read(StreamInput si, int ver) throws Exception { }
 
 	/* Generate and return new hit points up to the given level
 	 * Apply constitution bonuses (if any)

@@ -9,8 +9,10 @@ import DnD.util.*;
 
 public class CharactrStreamer
 {
-	// Version of this persistence format; increment when it changes
-	protected static final int	kVersion = 1;
+	// Version of this persistence format
+	// In July 2026, Ranger added a SpellBook for high level Ranger spells
+	//protected static final int	kVersion = 1;
+	protected static final int	kVersion = 2;
 
 	public Charactr	itsChar;
 	public File		itsFile;
@@ -39,9 +41,9 @@ public class CharactrStreamer
 	@SuppressWarnings("unchecked")
 	public Charactr read() throws Exception
 	{
-		FileInputStream		fis;
+		FileInputStream	fis;
 		StreamInput		si;
-		int			ver;
+		int				ver;
 
 		fis = new FileInputStream(itsFile);
 		try
@@ -52,12 +54,16 @@ public class CharactrStreamer
 			ver = si.readInt();
 			if(!checkVersion(ver))
 			{
-				// Different version of file - needs to be migrated
-				return null;
+				// Different version of file
+				if(ver <= 2)
+				{
+					/* Version 1-2
+						Ranger: add a SpellBook and list of cleric spells
+						Paladin: add cleric turning and a list of cleric spells
+					*/
+				}
 			}
-
 			itsChar = new Charactr();
-
 			try
 			{
 				itsChar.itsName = si.readUTF();
@@ -143,7 +149,7 @@ public class CharactrStreamer
 					ciCons = ciClass.getConstructor(Charactr.class);
 					ci = ciCons.newInstance(itsChar);
 					// Load this class
-					ci.read(si);
+					ci.read(si, ver);
 					// Add it to the character
 					itsChar.itsClasses.add(ci);
 				}

@@ -273,9 +273,14 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		if(!Util.isBlank(cName))
 			cName = "DnD.model." + cName;
 		newClass = itsClassPanel.createData(cName);
-		// The character can only have 1 instance of each class,
-		// so remove the existing class from the Character (if it was there)
-		MainGui.getChar().itsClasses.remove(itsClassPanel.itsData);
+		if(newClass != null)
+		{
+			// The character can only have 1 instance of each class,
+			// so remove the existing class from the Character (if it was there)
+			MainGui.getChar().itsClasses.remove(itsClassPanel.itsData);
+			// Don't add this new class to the Character - yet (it may be a 0-level placeholder)
+			//MainGui.getChar().itsClasses.add(newClass);
+		}
 		// assign and initialize the new class
 		itsClassPanel.itsData = newClass;
 		itsClassPanel.itsData.init(MainGui.getChar());

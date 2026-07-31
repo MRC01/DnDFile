@@ -5,15 +5,21 @@ package DnD.model;
 
 import java.util.*;
 
+import DnD.model.SpellBook.Spell;
+import DnD.util.StreamInput;
+import DnD.util.StreamOutput;
+
 public class Paladin extends Fighter
 {
-	static final int ourSpellLevel;
+	public static final int ourSpellLevel,
+					ourTurnLevel;
 	static int[]	ourXPLevels;
 	static String[]	ourPaladinAbils;
 
 	// Initialize static/final stuff
 	static
 	{
+		ourTurnLevel = 3;
 		ourSpellLevel = 9;
 		ourXPLevels = new int[]
 		{
@@ -39,6 +45,10 @@ public class Paladin extends Fighter
 	{
 		super(ch, level);
 	}
+
+	// High level paladins can cast Cleric spells and turn undead
+	public List<String>	itsClericSpells;
+	public String[]		itsTurn;
 
 	public void setXPBonus()
 	{
@@ -78,5 +88,25 @@ public class Paladin extends Fighter
 	protected void _init()
 	{
 		super._init();
+		itsClericSpells = new ArrayList<String>();
+	}
+
+	// persist my raw data
+	protected void _write(StreamOutput so) throws Exception
+	{
+		so.writeList(itsClericSpells);
+		so.writeArray(itsTurn, String.class);
+	}
+
+	// read my raw data
+	protected void _read(StreamInput si, int ver) throws Exception
+	{
+		if(ver < 2)
+		{
+			// Paladin spells & turning were added in version 2; nothing to read
+			return;
+		}
+		si.readList(itsClericSpells, String.class);
+		itsTurn = si.readArray(String.class);
 	}
 }

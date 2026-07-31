@@ -38,6 +38,9 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	// The parent panel (PanelRootData)
 	PanelRootData		itsRDPanel;
 
+	// The Gui Config
+	MainGui.GuiCfg		itsGuiCfg;
+
 	/* Instantiates and adds the GUI panel that all specific class have: the basic class info at the top.
 	 * Calls "createGui()" which subclasses override to add their own GUI elements.
 	 */
@@ -47,8 +50,8 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 
 		GridBagLayout		gb = new GridBagLayout();
 		GridBagConstraints	gc = new GridBagConstraints();
-		MainGui.GuiCfg		guiCfg = new MainGui.GuiCfg(this, gb, gc);
 
+		itsGuiCfg = new MainGui.GuiCfg(this, gb, gc);
 		itsRDPanel = rootData;
 		itsData = createData();
 		setLayout(gb);
@@ -60,12 +63,12 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		gc.weighty = 1.0;
 		gc.weightx = 1.0;
 		itsClassInfoPanel = new PanelClassBasic(this);
-		MainGui.addGui(guiCfg, itsClassInfoPanel);
+		MainGui.addGui(itsGuiCfg, itsClassInfoPanel);
 
 		// Let the specific subclass add its own GUI elements to the panel
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		gc.fill = GridBagConstraints.NONE;
-		createGui(guiCfg);
+		createGui(itsGuiCfg);
 
 		/* Apply & Revert buttons are created and handled by my PanelBase superclass.
 		 * I put them on the screen and set myself as the handler.
@@ -77,9 +80,9 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		gc.weightx = 0.0;
 		gc.weighty = 0.0;
 		gc.gridwidth = 1;
-		MainGui.addGui(guiCfg, itsButApply);
+		MainGui.addGui(itsGuiCfg, itsButApply);
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		MainGui.addGui(guiCfg, itsButRevert);
+		MainGui.addGui(itsGuiCfg, itsButRevert);
 
 		// set disabled (by default)
 		itsClassInfoPanel.enableAll(false);
@@ -180,6 +183,10 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		
 		// Delegate to subclass
 		_revertAll();
+
+		// Force GUI layout update (class panels may add or remove GUI elements)
+		validate();
+		repaint();
 	}
 
 	// Subclasses override this with their own local apply handling

@@ -72,7 +72,7 @@ public class Thief extends ClassInfo
 	}
 
 	// read my raw data
-	protected void _read(StreamInput si) throws Exception
+	protected void _read(StreamInput si, int ver) throws Exception
 	{
 		itsBStab = si.readUTF();
 		itsSkills = si.readArray(String.class);

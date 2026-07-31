@@ -118,7 +118,7 @@ public class Monk extends ClassInfo
 	}
 
 	// read my raw data
-	protected void _read(StreamInput si) throws Exception
+	protected void _read(StreamInput si, int ver) throws Exception
 	{
 		itsFall = si.readUTF();
 		si.readList(itsSpecAbils, String.class);

@@ -578,6 +578,10 @@ public class MainGui extends Container implements ActionListener
 		guiCfg.parent.add(item);
 	}
 
+	public static void remGui(GuiCfg guiCfg, Component item)
+	{
+		guiCfg.parent.remove(item);
+	}
 
 	protected static void addTextField(GuiCfg guiCfg, JLabel jl, JTextField jtf)
 	{

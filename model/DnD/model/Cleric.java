@@ -106,7 +106,7 @@ public class Cleric extends ClassInfo
 	}
 
 	// read my raw data
-	protected void _read(StreamInput si) throws Exception
+	protected void _read(StreamInput si, int ver) throws Exception
 	{
 		itsHolySymbol = si.readUTF();
 		si.readList(itsSpells, String.class);

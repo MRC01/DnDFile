@@ -5,7 +5,6 @@ import java.awt.event.*;
 
 import DnD.model.ClassInfo;
 import DnD.model.Cleric;
-import DnD.model.Fighter;
 
 /** This is the GUI panel for the Cleric class
  */

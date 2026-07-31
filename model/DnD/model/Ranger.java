@@ -3,8 +3,11 @@
 
 package DnD.model;
 
-import java.util.Arrays;
+import java.util.*;
 
+import DnD.model.SpellBook.Spell;
+import DnD.util.StreamInput;
+import DnD.util.StreamOutput;
 import DnD.util.Util;
 
 public class Ranger extends Fighter
@@ -43,8 +46,9 @@ public class Ranger extends Fighter
 		super(ch, level);
 	}
 
-	// High level rangers can cast MU spells
+	// High level rangers can cast MU & Druid spells
 	public SpellBook	itsSpellBook;
+	public List<String>	itsDruidSpells;
 
 	public void setXPBonus()
 	{
@@ -90,8 +94,9 @@ public class Ranger extends Fighter
 			// Add Druid spells (if any)
 			if(level >= ourSpellLevelDruid)
 			{ 
-				int				lvl = 1 + level - ourSpellLevelDruid;
+				int				lvl;
 				SpellManager	sm;
+				lvl = 1 + level - ourSpellLevelDruid;
 				sm = SpellManager.get(this, "Ranger.Druid");
 				if(sm != null)
 					itsAbils.addAll(sm.getSpells(lvl, this, true));
@@ -118,5 +123,50 @@ public class Ranger extends Fighter
 	{
 		super._init();
 		itsSpellBook = new SpellBook();
+		itsDruidSpells = new ArrayList<String>();
+	}
+
+	// read my raw data
+	protected void _read(StreamInput si, int ver) throws Exception
+	{
+		if(ver < 2)
+		{
+			// Ranger spells were added in version 2; nothing to read
+			return;
+		}
+		// Druid spells (simple list)
+		si.readList(itsDruidSpells, String.class);
+		// Magic User spells (SpellBook)
+		short len = si.readShort();
+		for(short i = 0; i < len; i++)
+		{
+			Spell sp = new Spell();
+
+			sp.itsName = si.readUTF();
+			sp.itsLevel = si.readInt();
+			sp.itsDesc = si.readUTF();
+			sp.itsInBook = si.readBoolean();
+			sp.itsMemorized = si.readBoolean();
+
+			itsSpellBook.itsContents.add(sp);
+		}
+	}
+
+	// persist my raw data
+	protected void _write(StreamOutput so) throws Exception
+	{
+		// Druid spells (simple list)
+		so.writeList(itsDruidSpells);
+		// Magic User spells (SpellBook)
+		int len = itsSpellBook.itsContents.size();
+		so.writeShort((short)len);
+		for(Spell sp : itsSpellBook.itsContents)
+		{
+			so.writeUTF(sp.itsName);
+			so.writeInt(sp.itsLevel);
+			so.writeUTF(sp.itsDesc);
+			so.writeBoolean(sp.itsInBook);
+			so.writeBoolean(sp.itsMemorized);
+		}
 	}
 }
