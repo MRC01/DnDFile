@@ -68,6 +68,8 @@ public class Paladin extends Fighter
 			// Delete all auto-generated class abilities and replace them
 			deleteAGClassAbils();
 			itsAbils.addAll(Arrays.asList(ourPaladinAbils));
+			if(level >= ourTurnLevel)
+				setTurn(level);
 			// Add Cleric spells (if any)
 			if(level >= ourSpellLevel)
 			{ 
@@ -78,6 +80,19 @@ public class Paladin extends Fighter
 					itsAbils.addAll(sm.getSpells(lvl, this, true));
 			}
 		}
+	}
+
+	// Paladins turn like Clerics 2 levels lower
+	protected void setTurn(int lvl)
+	{
+		int tLvl = lvl - 2;
+		if(tLvl < 0)
+			tLvl = 0;
+		if(tLvl >= Cleric.ourTurnLevels[0].length)
+			tLvl = Cleric.ourTurnLevels[0].length - 1;
+		// Set turn values
+		for(Turn t : Cleric.Turn.values())
+			itsTurn[t.ordinal()] = Cleric.ourTurnLevels[t.ordinal()][tLvl];
 	}
 
 	// Defines the XP level boundaries for this class

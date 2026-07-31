@@ -86,7 +86,6 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 				itsGuiCfg.gc.weighty = 2.0;
 				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 				MainGui.addGui(itsGuiCfg, itsClericalSpells);
-	
 				itsClericalSpells.setList(((Ranger)itsData).itsDruidSpells, String.class);
 			}
 			if(itsData.itsLevel >= Ranger.ourSpellLevelMU)
@@ -97,13 +96,12 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 				itsGuiCfg.gc.weighty = 1.0;
 				itsGuiCfg.gc.weightx = 1.0;
 				MainGui.addGui(itsGuiCfg, itsSpellBook);
+				itsSpellBook.setList(((Ranger)itsData).itsSpellBook.itsContents);
 	
 				// detail form for currently selected spell
 				itsGuiCfg.gc.weightx = 2.0;
 				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 				MainGui.addGui(itsGuiCfg, itsSpellDetail);
-	
-				itsSpellBook.setList(((Ranger)itsData).itsSpellBook.itsContents);
 			}
 		}
 	}
@@ -121,6 +119,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 				itsGuiCfg.gc.weighty = 1.0;
 				itsGuiCfg.gc.weightx = 1.0;
 				MainGui.addGui(itsGuiCfg, getTurnUndeadPanel());
+				getTurnUndeadPanel()._revertAll();
 			}
 			if(itsData.itsLevel >= Paladin.ourSpellLevel)
 			{
@@ -129,7 +128,6 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 				itsGuiCfg.gc.weighty = 2.0;
 				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 				MainGui.addGui(itsGuiCfg, itsClericalSpells);
-	
 				itsClericalSpells.setList(((Paladin)itsData).itsClericSpells, String.class);
 			}
 		}
