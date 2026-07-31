@@ -27,7 +27,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 	PanelListBox<String>	itsClericalSpells;
 	PanelSpellList			itsSpellBook;
 	PanelSpellDetail		itsSpellDetail;
-	FieldMap[]				itsFMTurn;
+	PanelTurnUndead			itsTurnPanel = null;
 
 	// any local stuff goes here
 	public PanelClassFighter(PanelRootData rootData) throws NoSuchFieldException, IllegalAccessException
@@ -43,17 +43,40 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 		itsClericalSpells = new PanelListBox<String>("Clerical Spells", ourEmptySpellList, String.class);
 		itsSpellBook= new PanelSpellList(this, "Spellbook", ourEmptySpellBook.itsContents);
 		itsSpellDetail = new PanelSpellDetail(this);
-		itsFMTurn = new FieldMap[Cleric.Turn.values().length];
 	}
 
-	protected void panelRangerToggle(boolean ef)
+	// PanelTurnUndead can't be created unless the character has the underlying fields.
+	protected PanelTurnUndead getTurnUndeadPanel()
+	{
+		if(itsTurnPanel != null)
+			return itsTurnPanel;
+		if(itsData instanceof Paladin)
+			try
+			{
+				itsTurnPanel = new PanelTurnUndead(this);
+			}
+			catch(Exception e)
+			{
+				itsTurnPanel = null;
+			}
+		return itsTurnPanel;
+	}
+
+	protected void remOptionalPanels()
 	{
 		// Remove all optional GUI elements
 		MainGui.remGui(itsGuiCfg, itsClericalSpells);
 		MainGui.remGui(itsGuiCfg, itsSpellBook);
 		MainGui.remGui(itsGuiCfg, itsSpellDetail);
+		if(itsTurnPanel != null)
+			MainGui.remGui(itsGuiCfg, itsTurnPanel);
 		itsClericalSpells.setList(ourEmptySpellList, String.class);
 		itsSpellBook.setList(ourEmptySpellBook.itsContents);
+	}
+
+	protected void panelRangerToggle(boolean ef)
+	{
+		remOptionalPanels();
 		if(ef)
 		{
 			if(itsData.itsLevel >= Ranger.ourSpellLevelDruid)
@@ -87,22 +110,21 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 
 	protected void panelPaladinToggle(boolean ef)
 	{
-		// Remove all optional GUI elements
-		MainGui.remGui(itsGuiCfg, itsClericalSpells);
-		MainGui.remGui(itsGuiCfg, itsSpellBook);
-		MainGui.remGui(itsGuiCfg, itsSpellDetail);
-		itsClericalSpells.setList(ourEmptySpellList, String.class);
-		itsSpellBook.setList(ourEmptySpellBook.itsContents);
+		remOptionalPanels();
 		if(ef)
 		{
 			if(itsData.itsLevel >= Paladin.ourTurnLevel)
 			{
-				// Turning undead must be a panel, instead of individual fields
-				// This makes it easier to add & remove
+				// Turning undead
+				itsGuiCfg.gc.gridwidth = 2;
+				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
+				itsGuiCfg.gc.weighty = 1.0;
+				itsGuiCfg.gc.weightx = 1.0;
+				MainGui.addGui(itsGuiCfg, getTurnUndeadPanel());
 			}
 			if(itsData.itsLevel >= Paladin.ourSpellLevel)
 			{
-				// Cleric
+				// Cleric spells
 				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
 				itsGuiCfg.gc.weighty = 2.0;
 				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;

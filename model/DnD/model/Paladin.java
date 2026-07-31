@@ -5,6 +5,7 @@ package DnD.model;
 
 import java.util.*;
 
+import DnD.model.Cleric.Turn;
 import DnD.model.SpellBook.Spell;
 import DnD.util.StreamInput;
 import DnD.util.StreamOutput;
@@ -88,6 +89,7 @@ public class Paladin extends Fighter
 	protected void _init()
 	{
 		super._init();
+		itsTurn = new String[Cleric.Turn.values().length];
 		itsClericSpells = new ArrayList<String>();
 	}
 
