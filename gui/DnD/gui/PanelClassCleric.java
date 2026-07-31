@@ -14,10 +14,9 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	private static final long serialVersionUID = 1;
 
 	// Other stuff
-	FieldMap[]		itsFMTurn;
 	FieldMap		itsFMHolySymbol;
-	PanelListBox<String>	itsLBSpells;
-	int			itsTurnCount;
+	PanelTurnUndead	itsTurnPanel;
+	PanelListBox<String> itsLBSpells;
 
 	public PanelClassCleric(PanelRootData rootData) throws NoSuchFieldException, IllegalAccessException
 	{
@@ -26,31 +25,21 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	}
 
 	// Add my own GUI elements to the panel
-	protected void createGui(MainGui.GuiCfg guiCfg)
+	protected void createGui(MainGui.GuiCfg guiCfg) throws NoSuchFieldException
 	{
-		// Field maps for turning undead
-		itsTurnCount = Cleric.Turn.values().length;
-		itsFMTurn = new FieldMap[itsTurnCount];
-		guiCfg.fldLen = 5;
-		guiCfg.gc.weighty = 0.0;
-		guiCfg.gc.weightx = 1.0;
-		guiCfg.gc.fill = GridBagConstraints.HORIZONTAL;
-		for(Cleric.Turn ct : Cleric.Turn.values())
-		{
-			int idx = ct.ordinal();
-			// put 4 across each row
-			if(idx % 4 == 3)
-				guiCfg.newRow = true;
-			else
-				guiCfg.newRow = false;
-			itsFMTurn[idx] = addFieldMap(itsData, "itsTurn", idx, guiCfg, ct.itsName);
-		}
-		
 		// holy symbol
-		guiCfg.newRow = true;
 		guiCfg.fldLen = 20;
 		itsFMHolySymbol = addFieldMap(itsData, "itsHolySymbol", guiCfg, "Holy Symbol");
-		
+		guiCfg.newRow = true;
+
+		// panel for turning undead
+		guiCfg.gc.gridwidth = 2;
+		guiCfg.gc.fill = GridBagConstraints.BOTH;
+		guiCfg.gc.weighty = 1.0;
+		guiCfg.gc.weightx = 1.0;
+		itsTurnPanel = new PanelTurnUndead(this);
+		MainGui.addGui(guiCfg, itsTurnPanel);
+
 		// Spells
 		guiCfg.gc.fill = GridBagConstraints.BOTH;
 		guiCfg.gc.weighty = 2.0;
@@ -91,9 +80,7 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	{
 		Cleric	cleric = (Cleric)itsData;
 		
-		// field maps
-		for(FieldMap fm : itsFMTurn)
-			fm.setParent(cleric);
+		itsTurnPanel._resetAll();
 		itsFMHolySymbol.setParent(cleric);
 		
 		// list box (spells)
@@ -104,8 +91,7 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	{
 		try
 		{
-			for(FieldMap fm : itsFMTurn)
-				fm.apply();
+			itsTurnPanel._applyAll();
 			itsFMHolySymbol.apply();
 		}
 		catch(Exception e)
@@ -120,8 +106,7 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 		{
 			Cleric	cleric = (Cleric)itsData;
 
-			for(FieldMap fm : itsFMTurn)
-				fm.revert();
+			itsTurnPanel._revertAll();
 			itsFMHolySymbol.revert();
 			// list box (spells)
 			itsLBSpells.setList(cleric.itsSpells, String.class);
@@ -135,8 +120,7 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	public void enableAll(boolean ef)
 	{
 		itsLBSpells.enableAll(ef);
-		for(FieldMap fm : itsFMTurn)
-			fm.itsTF.setEnabled(ef);
+		itsTurnPanel.enableAll(ef);
 		itsFMHolySymbol.itsTF.setEnabled(ef);
 	}
 
