@@ -74,15 +74,15 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		 * I put them on the screen and set myself as the handler.
 		 * The actual handler becomes the subclass of myself (PanelClassFighter, etc.).
 		 * That subclass must delegate the applyAll() or revertAll() call to myself via super().
-		 */
 		gc.fill = GridBagConstraints.NONE;
-		gc.anchor = GridBagConstraints.WEST;
+		gc.anchor = GridBagConstraints.SOUTHWEST;
 		gc.weightx = 0.0;
 		gc.weighty = 0.0;
 		gc.gridwidth = 1;
 		MainGui.addGui(itsGuiCfg, itsButApply);
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(itsGuiCfg, itsButRevert);
+		 */
 
 		// set disabled (by default)
 		itsClassInfoPanel.enableAll(false);

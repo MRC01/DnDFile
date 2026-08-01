@@ -41,7 +41,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 		// These are GUI elements that may be shown, or hidden
 		// Depending on the Fighter subclass (Ranger or Paladin)
 		itsClericalSpells = new PanelListBox<String>("Clerical Spells", ourEmptySpellList, String.class);
-		itsSpellBook= new PanelSpellList(this, "Spellbook", ourEmptySpellBook.itsContents);
+		itsSpellBook = new PanelSpellList(this, "Spellbook", ourEmptySpellBook.itsContents);
 		itsSpellDetail = new PanelSpellDetail(this);
 	}
 

@@ -29,7 +29,7 @@ public class PanelClassMonk extends PanelClassInfo implements ActionListener
 	// Add my own GUI elements to the panel
 	protected void createGui(MainGui.GuiCfg guiCfg)
 	{
-		// Field maps for turning undead
+		// Field maps for Monk skills
 		itsSkillCount = Monk.Skill.values().length;
 		itsFMSkills = new FieldMap[itsSkillCount];
 		guiCfg.fldLen = 5;
