@@ -20,7 +20,7 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 	static final int	kFieldLen = 10;
 
 	// GUI stuff
-	PanelClassInfo		itsClassPanel;
+	PanelClassInfo	itsClassPanel;
 	JCheckBox		itsCBEnable;
 	FieldMap[]		itsFields;
 	FieldMap		itsFMXPAdd;

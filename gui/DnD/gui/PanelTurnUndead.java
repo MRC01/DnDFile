@@ -49,6 +49,16 @@ public class PanelTurnUndead extends PanelBase implements ActionListener
 		}
 	}
 
+	public void enableAll(boolean ef)
+	{
+		// delegate to PanelBase
+		super.enableAll(ef);
+
+		// set my controls
+		for(FieldMap fm : itsFields)
+			fm.itsTF.setEnabled(ef);
+	}
+
 	public void _resetAll() throws Exception
 	{
 		// field maps

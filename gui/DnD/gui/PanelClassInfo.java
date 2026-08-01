@@ -65,15 +65,11 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		itsClassInfoPanel = new PanelClassBasic(this);
 		MainGui.addGui(itsGuiCfg, itsClassInfoPanel);
 
-		// Let the specific subclass add its own GUI elements to the panel
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		gc.fill = GridBagConstraints.NONE;
-		createGui(itsGuiCfg);
-
 		/* Apply & Revert buttons are created and handled by my PanelBase superclass.
 		 * I put them on the screen and set myself as the handler.
 		 * The actual handler becomes the subclass of myself (PanelClassFighter, etc.).
 		 * That subclass must delegate the applyAll() or revertAll() call to myself via super().
+		 */
 		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.SOUTHWEST;
 		gc.weightx = 0.0;
@@ -82,7 +78,11 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		MainGui.addGui(itsGuiCfg, itsButApply);
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(itsGuiCfg, itsButRevert);
-		 */
+
+		// Let the specific subclass add its own GUI elements to the panel
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		gc.fill = GridBagConstraints.NONE;
+		createGui(itsGuiCfg);
 
 		// set disabled (by default)
 		itsClassInfoPanel.enableAll(false);
@@ -128,6 +128,13 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 			MainGui.get().errBox("Could Not Create ClassInfo", e);
 		}
 		return rc;
+	}
+
+	// Enable/disable all controls in this panel
+	public void enableAll(boolean ef)
+	{
+		super.enableAll(ef);
+		itsClassInfoPanel.enableAll(ef);
 	}
 
 	// Subclasses override this with their own local reset handling

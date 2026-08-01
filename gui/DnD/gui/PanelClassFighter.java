@@ -162,6 +162,16 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 		return rc;
 	}
 
+	// Enable/disable all controls in this panel
+	public void enableAll(boolean ef)
+	{
+		itsClericalSpells.enableAll(ef);
+		itsSpellBook.enableAll(ef);
+		itsSpellDetail.enableAll(ef);
+		if(getTurnUndeadPanel() != null)
+			getTurnUndeadPanel().enableAll(ef);
+	}
+
 	/* Whenever this panel reverts to the underlying class,
 	 * enable the SpellBook only if it's a Ranger of appropriate level.
 	 */
