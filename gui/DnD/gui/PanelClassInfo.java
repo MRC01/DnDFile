@@ -134,6 +134,10 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	public void enableAll(boolean ef)
 	{
 		super.enableAll(ef);
+		/* Delegate to my PanelClassBasic.
+		 * NOTE: invoke its local method _enableAll(), not enableAll(),
+		 * 	to avoid infinite recursion.
+		 */
 		itsClassInfoPanel._enableAll(ef);
 	}
 

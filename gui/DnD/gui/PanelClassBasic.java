@@ -233,6 +233,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		}
 	}
 
+	/* Handle the "enabled" checkbox.
+	 * Delegate to my superclass, and my parent PanelClassInfo.
+	 */
 	public void enableAll(boolean ef)
 	{
 		// delegate to PanelBase
@@ -245,7 +248,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		itsClassPanel.enableAll(ef);
 	}
 
-	// local version of enableAll, handles only my panel controls
+	/* Local version of enableAll, handles only my panel controls
+	 * This is called from my parent PanelClassInfo, to avoid recursion.
+	 */
 	public void _enableAll(boolean ef)
 	{
 		// delegate to listbox panel
