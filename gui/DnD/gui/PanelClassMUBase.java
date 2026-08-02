@@ -46,16 +46,6 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener, 
 		guiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(guiCfg, itsSpellDetail);
 
-		// Control buttons
-		guiCfg.gc.fill = GridBagConstraints.NONE;
-		guiCfg.gc.anchor = GridBagConstraints.WEST;
-		guiCfg.gc.weightx = 0.0;
-		guiCfg.gc.weighty = 0.0;
-		guiCfg.gc.gridwidth = 1;
-		MainGui.addGui(guiCfg, itsButApply);
-		guiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
-		MainGui.addGui(guiCfg, itsButRevert);
-
 		// set focus traversal order
 		java.util.List<Component> lst = new LinkedList<Component>();
 		lst.add(itsSpellList.itsButAdd);

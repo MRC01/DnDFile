@@ -70,8 +70,8 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		 * The actual handler becomes the subclass of myself (PanelClassFighter, etc.).
 		 * That subclass must delegate the applyAll() or revertAll() call to myself via super().
 		 */
+		itsGuiCfg.newRow = true;
 		gc.fill = GridBagConstraints.NONE;
-		gc.anchor = GridBagConstraints.SOUTHWEST;
 		gc.weightx = 0.0;
 		gc.weighty = 0.0;
 		gc.gridwidth = 1;
@@ -79,9 +79,10 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(itsGuiCfg, itsButRevert);
 
-		// Let the specific subclass add its own GUI elements to the panel
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		gc.fill = GridBagConstraints.NONE;
+		/* Let the specific subclass add its own GUI elements to the panel
+		 * Note: this must be last, because subclasses can add & remove items from the panel GUI.
+		 */
+		itsGuiCfg.newRow = true;
 		createGui(itsGuiCfg);
 
 		// set disabled (by default)
