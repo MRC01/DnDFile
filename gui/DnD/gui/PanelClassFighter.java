@@ -165,6 +165,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 	// Enable/disable all controls in this panel
 	public void enableAll(boolean ef)
 	{
+		super.enableAll(ef);
 		itsClericalSpells.enableAll(ef);
 		itsSpellBook.enableAll(ef);
 		itsSpellDetail.enableAll(ef);

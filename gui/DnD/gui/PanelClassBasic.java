@@ -238,6 +238,16 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		// delegate to PanelBase
 		super.enableAll(ef);
 
+		// delegate to my own controls
+		_enableAll(ef);
+
+		// delegate to parent
+		itsClassPanel.enableAll(ef);
+	}
+
+	// local version of enableAll, handles only my panel controls
+	public void _enableAll(boolean ef)
+	{
 		// delegate to listbox panel
 		itsLBAbils.enableAll(ef);
 
@@ -252,9 +262,6 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		itsBXPAdd.setEnabled(ef);
 		itsTFXPAdd.setEnabled(ef);
 		itsBLevel.setEnabled(ef);
-
-		// delegate to parent
-		itsClassPanel.enableAll(ef);
 
 		// Tell the root panel so it can set the tab text color
 		itsClassPanel.itsRDPanel.enableTab(itsClassPanel, ef);

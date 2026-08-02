@@ -134,7 +134,7 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	public void enableAll(boolean ef)
 	{
 		super.enableAll(ef);
-		itsClassInfoPanel.enableAll(ef);
+		itsClassInfoPanel._enableAll(ef);
 	}
 
 	// Subclasses override this with their own local reset handling
@@ -176,6 +176,7 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		revertAll();
 		// enable/disable this class info as appropriate
 		boolean		hasClass = (tmp != null);
+		enableAll(hasClass);
 		itsClassInfoPanel.itsCBEnable.setSelected(hasClass);
 		itsClassInfoPanel.enableAll(hasClass);
 	}

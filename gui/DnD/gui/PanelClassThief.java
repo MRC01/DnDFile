@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import DnD.model.ClassInfo;
-import DnD.model.Fighter;
-import DnD.model.MUBase;
-import DnD.model.MagicUser;
 import DnD.model.Thief;
 
 /** This is the GUI panel for the Thief class
@@ -121,6 +118,7 @@ public class PanelClassThief extends PanelClassInfo implements ActionListener
 
 	public void enableAll(boolean ef)
 	{
+		super.enableAll(ef);
 		for(FieldMap fm : itsFMSkills)
 			fm.itsTF.setEnabled(ef);
 		itsFMBStab.itsTF.setEnabled(ef);

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import DnD.model.ClassInfo;
-import DnD.model.Fighter;
 import DnD.model.Monk;
 
 /** This is the GUI panel for the Monk class
@@ -122,6 +121,7 @@ public class PanelClassMonk extends PanelClassInfo implements ActionListener
 
 	public void enableAll(boolean ef)
 	{
+		super.enableAll(ef);
 		itsLBAbils.enableAll(ef);
 		for(FieldMap fm : itsFMSkills)
 			fm.itsTF.setEnabled(ef);

@@ -134,6 +134,7 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 
 	public void enableAll(boolean ef)
 	{
+		super.enableAll(ef);
 		itsLBSpells.enableAll(ef);
 		itsTurnPanel.enableAll(ef);
 		itsFMHolySymbol.itsTF.setEnabled(ef);

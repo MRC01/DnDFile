@@ -121,6 +121,7 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener, 
 
 	public void enableAll(boolean ef)
 	{
+		super.enableAll(ef);
 		itsSpellList.enableAll(ef);
 		itsSpellDetail.enableAll(ef);
 	}
