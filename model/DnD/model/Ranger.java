@@ -5,7 +5,10 @@ package DnD.model;
 
 import java.util.*;
 
+import DnD.model.Cleric.Turn;
 import DnD.model.SpellBook.Spell;
+import DnD.util.PrintItem;
+import DnD.util.PrintLine;
 import DnD.util.StreamInput;
 import DnD.util.StreamOutput;
 import DnD.util.Util;
@@ -168,5 +171,13 @@ public class Ranger extends Fighter
 			so.writeBoolean(sp.itsInBook);
 			so.writeBoolean(sp.itsMemorized);
 		}
+	}
+
+	protected void _print(CharactrPrinter cPrint)
+	{
+		if(itsLevel >= ourSpellLevelDruid)
+			cPrint.textList("Spells", itsDruidSpells);
+		if(itsLevel >= ourSpellLevelMU)
+			MUBase.printSpellBook(cPrint, itsSpellBook);
 	}
 }

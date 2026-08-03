@@ -96,6 +96,11 @@ public abstract class MUBase extends ClassInfo
 
 	protected void _print(CharactrPrinter cPrint)
 	{
+		printSpellBook(cPrint, itsSpellBook);
+	}
+
+	/* package */ static void printSpellBook(CharactrPrinter cPrint, SpellBook sBook)
+	{
 		PrintItem	pi;
 		PrintLine	pl;
 
@@ -103,7 +108,7 @@ public abstract class MUBase extends ClassInfo
 		pl = new PrintLine(pi);
 		cPrint.itsPrinter.add(pl);
 
-		for(Spell sp : itsSpellBook.itsContents)
+		for(Spell sp : sBook.itsContents)
 		{
 			String		indent = "        ";
 			StringBuffer	sb;

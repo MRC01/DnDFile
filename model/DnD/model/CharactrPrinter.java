@@ -13,9 +13,9 @@ public class CharactrPrinter implements Printable
 	// Fonts etc. used for printing
 	public static Font
 			itsNameFont = new Font("Garamond", Font.BOLD, 20),
-			itsGroupFont = new Font("Garamond", Font.BOLD, 13),
-			itsLabelFont = new Font("DejaVu Sans", Font.BOLD, 9),
-			itsTextFont = new Font("DejaVu Sans", Font.PLAIN, 9);
+			itsGroupFont = new Font("Garamond", Font.BOLD, 12),
+			itsLabelFont = new Font("DejaVu Sans", Font.BOLD, 8),
+			itsTextFont = new Font("DejaVu Sans", Font.PLAIN, 8);
 
 	// These constants are (re)defined at runtime
 	static int	TOP_OFFSET = 0,

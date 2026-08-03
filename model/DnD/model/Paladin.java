@@ -7,8 +7,11 @@ import java.util.*;
 
 import DnD.model.Cleric.Turn;
 import DnD.model.SpellBook.Spell;
+import DnD.util.PrintItem;
+import DnD.util.PrintLine;
 import DnD.util.StreamInput;
 import DnD.util.StreamOutput;
+import DnD.util.Util;
 
 public class Paladin extends Fighter
 {
@@ -125,5 +128,13 @@ public class Paladin extends Fighter
 		}
 		si.readList(itsClericSpells, String.class);
 		itsTurn = si.readArray(String.class);
+	}
+
+	protected void _print(CharactrPrinter cPrint)
+	{
+		if(itsLevel >= ourTurnLevel)
+			Cleric.printTurnUndead(cPrint, itsTurn);
+		if(itsLevel >= ourSpellLevel)
+			cPrint.textList("Spells", itsClericSpells);
 	}
 }

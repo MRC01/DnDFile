@@ -115,11 +115,6 @@ public class Cleric extends ClassInfo
 
 	protected void _print(CharactrPrinter cPrint)
 	{
-		PrintItem	pi;
-		PrintLine	pl;
-		String		txt;
-		int		cols = 3,
-				idx = 0;
 		boolean	canTurn;
 
 		// Don't print turn ability unless this character can actually do it.
@@ -135,38 +130,47 @@ public class Cleric extends ClassInfo
 			}
 		}
 		if(canTurn)
-		{
-			pi = new PrintItem("Turning vs. Undead", CharactrPrinter.itsGroupFont);
-			pl = new PrintLine(pi);
-			cPrint.itsPrinter.add(pl);
-			for(Turn ct : Turn.values())
-			{
-				idx = ct.ordinal();
-				txt = ct.itsName + ": " + itsTurn[idx];
-				pi = new PrintItem(txt, CharactrPrinter.itsLabelFont);
-				// print in 3 columns - left, center, right justified
-				switch(idx % cols)
-				{
-				case 0:
-					pl = new PrintLine(pi);
-					break;
-				case 1:
-					pi.itsAlign = PrintItem.Align.CENTER;
-					pl.add(pi);
-					break;
-				case 2:
-					pi.itsAlign = PrintItem.Align.RIGHT;
-					pl.add(pi);
-					cPrint.itsPrinter.add(pl);
-					break;
-				}
-			}
-			// If we didn't end at the end of a line, add the line
-			if(idx % cols != (cols-1))
-				cPrint.itsPrinter.add(pl);
-		}
+			printTurnUndead(cPrint, itsTurn);
 		cPrint.textWithLabel("Holy Symbol", itsHolySymbol);
 		cPrint.textList("Spells", itsSpells);
+	}
+
+	/* package */ static void printTurnUndead(CharactrPrinter cPrint, String[] t)
+	{
+		PrintItem	pi;
+		PrintLine	pl;
+		String		txt;
+		int		cols = 3,
+				idx = 0;
+
+		pi = new PrintItem("Turning vs. Undead", CharactrPrinter.itsGroupFont);
+		pl = new PrintLine(pi);
+		cPrint.itsPrinter.add(pl);
+		for(Turn ct : Turn.values())
+		{
+			idx = ct.ordinal();
+			txt = ct.itsName + ": " + t[idx];
+			pi = new PrintItem(txt, CharactrPrinter.itsLabelFont);
+			// print in 3 columns - left, center, right justified
+			switch(idx % cols)
+			{
+			case 0:
+				pl = new PrintLine(pi);
+				break;
+			case 1:
+				pi.itsAlign = PrintItem.Align.CENTER;
+				pl.add(pi);
+				break;
+			case 2:
+				pi.itsAlign = PrintItem.Align.RIGHT;
+				pl.add(pi);
+				cPrint.itsPrinter.add(pl);
+				break;
+			}
+		}
+		// If we didn't end at the end of a line, add the line
+		if(idx % cols != (cols-1))
+			cPrint.itsPrinter.add(pl);
 	}
 
 	public void setXPBonus()

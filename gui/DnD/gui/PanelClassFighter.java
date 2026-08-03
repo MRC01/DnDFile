@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.util.*;
 
 import DnD.model.ClassInfo;
-import DnD.model.Cleric;
 import DnD.model.Fighter;
 import DnD.model.Ranger;
 import DnD.model.Paladin;
