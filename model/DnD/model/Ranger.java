@@ -31,7 +31,7 @@ public class Ranger extends Fighter
 		};
 		ourRangerAbils = new String[]
 		{
-			ourAbilPrefix + "+1 per level TH giant class creatures",
+			ourAbilPrefix + "+1 D (melee) per level, giant creatures",
 			ourAbilPrefix + "Surprise others 1-3 on d6",
 			ourAbilPrefix + "Surprised by others 1 on d6",
 			ourAbilPrefix + "Tracking: outdoors 90%; PH p24",
