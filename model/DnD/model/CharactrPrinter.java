@@ -23,6 +23,9 @@ public class CharactrPrinter implements Printable
 				SIDE_OFFSET = 0,
 				INDENT, LINE_GROUP, LINE_LABEL, LINE_TEXT;
 
+	// Used for page margin & size position calculations
+	static double	ourPointsPerInch = 72.0;
+
 	enum Mode
 	{
 		INIT, PRINTING, DONE, EXIT
@@ -51,11 +54,22 @@ public class CharactrPrinter implements Printable
 	// Called by the DnD program
 	public void print()
 	{
+		PageFormat	pgFmt;
+		Paper		pgPap;
 		// Generate the data for the print job (print everything to the PrintBatch)
 		doPrint();
 
+		// Get the printer job and set default margins to 0.25 inch
 		PrinterJob printJob = PrinterJob.getPrinterJob();
-		printJob.setPrintable(this);
+		pgFmt = printJob.defaultPage();
+		pgPap = pgFmt.getPaper();
+		pgPap.setImageableArea(
+				ourPointsPerInch * 0.25,
+				ourPointsPerInch * 0.25,
+				ourPointsPerInch * 8.0,
+				ourPointsPerInch * 10.5);  
+		pgFmt.setPaper(pgPap);
+		printJob.setPrintable(this, pgFmt);
 		if(printJob.printDialog())
 		{
 			try
