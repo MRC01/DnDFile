@@ -59,15 +59,21 @@ public class CharactrPrinter implements Printable
 		// Generate the data for the print job (print everything to the PrintBatch)
 		doPrint();
 
-		// Get the printer job and set default margins to 0.25 inch
+		/* Get the printer job and set default margins
+		 * Assume 8.5x11 paper and we want 0.25 inch margins all around.
+		 * These are defaults that work for most character sheets and printers.
+		 * They can be overridden by users.
+		*/
 		PrinterJob printJob = PrinterJob.getPrinterJob();
 		pgFmt = printJob.defaultPage();
 		pgPap = pgFmt.getPaper();
 		pgPap.setImageableArea(
+				// X,Y of upper left corner of start print position
 				ourPointsPerInch * 0.25,
 				ourPointsPerInch * 0.25,
+				// Size of page printable area from the start position
 				ourPointsPerInch * 8.0,
-				ourPointsPerInch * 10.5);  
+				ourPointsPerInch * 10.5);
 		pgFmt.setPaper(pgPap);
 		printJob.setPrintable(this, pgFmt);
 		if(printJob.printDialog())
