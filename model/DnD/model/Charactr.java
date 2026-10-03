@@ -21,7 +21,7 @@ public class Charactr
 		itsPlaceOrig, itsDescrip, itsReligion,
 		itsAlign, itsSleep,
 		itsMove,
-		itsSurp, itsHandAtt, itsArmCls, itsHitPts;
+		itsSurp, itsHandAtt, itsArmCls, itsHitPts, itsThac0;
 	/* The index of each Save Throw in this array matches
 	 * the ClassInfo.SaveThrow enum ordinal.
 	 */
@@ -31,7 +31,7 @@ public class Charactr
 	public Item		itsEquip;
 	public Race		itsRace;
 	public Wealth	itsWealth;
-	/* Known classes: Cleric, Fighter, Thief, Monk, MUBase (MagicUser, Illusionist)
+	/* Known classes: Cleric, Fighter, Thief, Monk, MUBase (and subclasses)
 	   At most one of each can be had.
 	*/
 	public List<ClassInfo>	itsClasses;

@@ -221,7 +221,7 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 	{
 		PrintItem	pi;
 		PrintLine	pl;
-		String		txt;
+		String		xp, xpBon;
 		StringBuffer	sb;
 
 		sb = new StringBuffer();
@@ -230,10 +230,9 @@ public abstract class ClassInfo implements Comparable<ClassInfo>
 		pl = new PrintLine(pi);
 		cPrint.itsPrinter.add(pl);
 
-		txt = Integer.valueOf(itsXPoints).toString();
-		cPrint.textWithLabel("XPoints", txt);
-		txt = Integer.valueOf(itsXPBonus).toString() + "%";
-		cPrint.textWithLabel("XP Bonus", txt);
+		xp = Integer.valueOf(itsXPoints).toString();
+		xpBon = Integer.valueOf(itsXPBonus).toString() + "%";
+		cPrint.textDualLeftRight("XPoints", xp, "XP Bonus", xpBon);
 		cPrint.textList("Class Abilities", itsAbils);
 
 		_print(cPrint);

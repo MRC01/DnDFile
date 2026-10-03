@@ -38,6 +38,7 @@ public class PanelCombatBasic extends PanelBase implements ActionListener
 		{
 			addFieldMap("itsArmCls", guiCfg, "Armor Class"),
 			addFieldMap("itsHitPts", guiCfg, "Hit Points"),
+			addFieldMap("itsThac0", guiCfg, "THAC0"),
 			addFieldMap("itsMove", guiCfg, "Move Rate"),
 			addFieldMap("itsHandAtt", guiCfg, "Hand Att"),
 			addFieldMap("itsSurp", guiCfg, "Surprise")
