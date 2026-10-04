@@ -26,6 +26,9 @@ public class CharactrPrinter implements Printable
 	// Used for page margin & size position calculations
 	static double	ourPointsPerInch = 72.0;
 
+	// Characters that are skinny in proportional fonts
+	static final String SKINNYCHARS = " .,;:1/()[]{}'";
+
 	enum Mode
 	{
 		INIT, PRINTING, DONE, EXIT
@@ -195,18 +198,15 @@ public class CharactrPrinter implements Printable
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
 
-		textWithLabel("Race", itsChar.itsRace.getName());
-		textWithLabel("Gender", itsChar.itsGender);
+		textDualLeftRight("Race", itsChar.itsRace.getName(), "Height", itsChar.itsHeight);
+		textDualLeftRight("Gender", itsChar.itsGender, "Weight", itsChar.itsWeight);
+		textDualLeftRight("Age", itsChar.itsAge, "Sleep Factor", itsChar.itsSleep);
 		textWithLabel("Armor", itsChar.itsArmor);
 		textWithLabel("Clothing", itsChar.itsClothing);
-		textWithLabel("Height", itsChar.itsHeight);
-		textWithLabel("Weight", itsChar.itsWeight);
-		textWithLabel("Age", itsChar.itsAge);
 		textWithLabel("Alignment", itsChar.itsAlign);
 		textWithLabel("Place Origin", itsChar.itsPlaceOrig);
 		textWithLabel("Description", itsChar.itsDescrip);
 		textWithLabel("Religion", itsChar.itsReligion);
-		textWithLabel("Sleep Factor", itsChar.itsSleep);
 		textList("Race Abilities", itsChar.itsRace.itsAbilities);
 		textList("Languages", itsChar.itsLangs);
 		textList("Secondary Skills", itsChar.itsSecSkills);
@@ -230,9 +230,8 @@ public class CharactrPrinter implements Printable
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
 
-		textWithLabel("Armor Class", itsChar.itsArmCls);
-		textWithLabel("Hit Points", itsChar.itsHitPts);
-		textWithLabel("Move Rate", itsChar.itsMove);
+		textDualLeftRight("Armor Class", itsChar.itsArmCls, "THAC0", itsChar.itsThac0);
+		textDualLeftRight("Hit Points", itsChar.itsHitPts, "Move Rate", itsChar.itsMove);
 		textWithLabel("Surprise", itsChar.itsSurp);
 		textWithLabel("Hand Attacks", itsChar.itsHandAtt);
 
@@ -378,14 +377,10 @@ public class CharactrPrinter implements Printable
 		pi = new PrintItem(txt, itsGroupFont, PrintItem.Align.CENTER, true);
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
-		textWithLabel("Armor Class", pet.itsAC);
-		textWithLabel("Hit Dice", pet.itsHD);
-		textWithLabel("Hit Points", pet.itsHP);
-		textWithLabel("Attacks", pet.itsAttacks);
-		textWithLabel("Damage", pet.itsDamage);
-		textWithLabel("Move", pet.itsMove);
-		textWithLabel("Size", pet.itsSize);
-		textWithLabel("Weight", pet.itsWeight);
+		textDualLeftRight("Armor Class", pet.itsAC, "Move", pet.itsMove);
+		textDualLeftRight("Hit Dice", pet.itsHD, "Attacks", pet.itsAttacks);
+		textDualLeftRight("Hit Points", pet.itsHP, "Damage", pet.itsDamage);
+		textDualLeftRight("Size", pet.itsSize, "Weight", pet.itsWeight);
 		textWithLabel("Descrip", pet.itsDescrip);
 		textWithLabel("Abilities", pet.itsAbilities);
 	}
@@ -408,6 +403,39 @@ public class CharactrPrinter implements Printable
 		pl = new PrintLine(pi);
 		pi = new PrintItem(txt, (emphasize ? itsLabelFont : itsTextFont));
 		pl.add(pi);
+		itsPrinter.add(pl);
+	}
+
+	// Print 2 fields on the same line: one left, one right
+	public void textDualLeftRight(String lbl1, String text1, String lbl2, String text2)
+	{
+		PrintItem		pi;
+		PrintLine		pl;
+		StringBuffer	sb;
+
+		// First field, left justified
+		sb = new StringBuffer(lbl1).append(": ");
+		pi = new PrintItem(sb.toString(), itsLabelFont);
+		pl = new PrintLine(pi);
+		pi = new PrintItem(text1, itsTextFont);
+		pl.add(pi);
+
+		// Second field, right justified
+		sb = new StringBuffer(lbl2).append(": ");
+		// Add room at the end to fit the text
+		for(int i = 0; i < text2.length(); i++)
+		{
+			// single space for narrow characters, otherwise 2 spaces
+			if(SKINNYCHARS.contains(text2.substring(i, i+1)))
+				sb.append(" ");
+			else
+				sb.append("  ");
+		}
+		pi = new PrintItem(sb.toString(), itsLabelFont, PrintItem.Align.RIGHT, false);
+		pl.add(pi);
+		pi = new PrintItem(text2, itsTextFont, PrintItem.Align.RIGHT, false);
+		pl.add(pi);
+
 		itsPrinter.add(pl);
 	}
 

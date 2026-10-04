@@ -10,9 +10,9 @@ import DnD.util.*;
 public class CharactrStreamer
 {
 	// Version of this persistence format
-	// In July 2026, Ranger added a SpellBook for high level Ranger spells
-	//protected static final int	kVersion = 1;
-	protected static final int	kVersion = 2;
+	// In July 2026, Ranger added a SpellBook for high level Ranger spells (version 2)
+	// In Oct 2026, added THAC0 to combat info for all characters (version 3)
+	protected static final int	kVersion = 3;
 
 	public Charactr	itsChar;
 	public File		itsFile;
@@ -54,13 +54,16 @@ public class CharactrStreamer
 			ver = si.readInt();
 			if(!checkVersion(ver))
 			{
-				// Different version of file
+				// Different versions of file
 				if(ver <= 2)
 				{
-					/* Version 1-2
+					/* Version 1 to 2
 						Ranger: add a SpellBook and list of cleric spells
 						Paladin: add cleric turning and a list of cleric spells
 					*/
+					/* Version 2 to 3
+					 * Added THAC0 (itsThac0) to all characters
+					 */
 				}
 			}
 			itsChar = new Charactr();
@@ -84,6 +87,8 @@ public class CharactrStreamer
 				itsChar.itsHandAtt = si.readUTF();
 				itsChar.itsArmCls = si.readUTF();
 				itsChar.itsHitPts = si.readUTF();
+				if(ver >= 3)
+					itsChar.itsThac0 = si.readUTF();
 
 				for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
 					itsChar.itsSaveThrows[i] = si.readUTF();
@@ -199,6 +204,7 @@ public class CharactrStreamer
 			so.writeUTF(itsChar.itsHandAtt);
 			so.writeUTF(itsChar.itsArmCls);
 			so.writeUTF(itsChar.itsHitPts);
+			so.writeUTF(itsChar.itsThac0);
 
 			for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
 				so.writeUTF(itsChar.itsSaveThrows[i]);

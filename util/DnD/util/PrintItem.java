@@ -46,7 +46,7 @@ public class PrintItem
 		return itsComputedSize.height;
 	}
 
-	// Returns the height of the text as drawn on the graphics
+	// Returns the width of the text as drawn on the graphics
 	public int getWidth(Graphics2D g)
 	{
 		if(itsComputedSize == null)
