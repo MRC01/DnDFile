@@ -26,6 +26,9 @@ public class CharactrPrinter implements Printable
 	// Used for page margin & size position calculations
 	static double	ourPointsPerInch = 72.0;
 
+	// Characters that are skinny in proportional fonts
+	static final String SKINNYCHARS = " .,;:1/()[]{}'";
+
 	enum Mode
 	{
 		INIT, PRINTING, DONE, EXIT
@@ -421,8 +424,13 @@ public class CharactrPrinter implements Printable
 		sb = new StringBuffer(lbl2).append(": ");
 		// Add room at the end to fit the text
 		for(int i = 0; i < text2.length(); i++)
-			if(text2.charAt(i) != ' ')
+		{
+			// single space for narrow characters, otherwise 2 spaces
+			if(SKINNYCHARS.contains(text2.substring(i, i+1)))
+				sb.append(" ");
+			else
 				sb.append("  ");
+		}
 		pi = new PrintItem(sb.toString(), itsLabelFont, PrintItem.Align.RIGHT, false);
 		pl.add(pi);
 		pi = new PrintItem(text2, itsTextFont, PrintItem.Align.RIGHT, false);
