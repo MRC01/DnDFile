@@ -130,18 +130,6 @@ You can load, save, edit, etc.
 
 **DEVELOPMENT**
 
-One area still under development is generating new characters.
-I plan for this to be a full one-click experience for characters of any type,
-including full equipment lists appropriate to the race & class,
-intelligently randomized.
-This feature would greatly reduce my workload as a dungeon master,
-having to generate NPCs.
-So far, it does a lot but it's not complete.
-What it does: ability scores & adjustments, picking the best class based on scores,
-picking a compatible race, pick a gender and a name,
-randomized equipment appropriate to the class, including weapons and armor.
-The rest must be done manually, but this saves a lot of time.
-
 I wrote this program long ago, back when Ant was commonly used.
 So it's built with Ant, not Maven.
 It's easy to import into Eclipse and set up to use its Ant builder.
