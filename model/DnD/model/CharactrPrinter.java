@@ -27,7 +27,7 @@ public class CharactrPrinter implements Printable
 	static double	ourPointsPerInch = 72.0;
 
 	// Characters that are skinny in proportional fonts
-	static final String SKINNYCHARS = " .,;:1/()[]{}'";
+	static final String SKINNYCHARS = " .,;:/()[]{}iIl'";
 
 	enum Mode
 	{
