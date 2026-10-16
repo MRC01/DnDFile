@@ -26,9 +26,6 @@ public class CharactrPrinter implements Printable
 	// Used for page margin & size position calculations
 	static double	ourPointsPerInch = 72.0;
 
-	// Characters that are skinny in proportional fonts
-	static final String SKINNYCHARS = " .,;:/()[]{}iIl'";
-
 	enum Mode
 	{
 		INIT, PRINTING, DONE, EXIT
@@ -208,8 +205,8 @@ public class CharactrPrinter implements Printable
 		textWithLabel("Description", itsChar.itsDescrip);
 		textWithLabel("Religion", itsChar.itsReligion);
 		textList("Race Abilities", itsChar.itsRace.itsAbilities);
-		textList("Languages", itsChar.itsLangs);
-		textList("Secondary Skills", itsChar.itsSecSkills);
+		textList("Languages", itsChar.itsLangs, true);
+		textList("Secondary Skills", itsChar.itsSecSkills, true);
 	}
 
 	protected void printCombat()
@@ -243,7 +240,7 @@ public class CharactrPrinter implements Printable
 			textWithLabel(indent + stLabels[i], itsChar.itsSaveThrows[i]);
 
 		textList("Combat Adjustments", itsChar.itsCombatAdj);
-		textList("Weapon Proficiencies", itsChar.itsWeapProf);
+		textList("Weapon Proficiencies", itsChar.itsWeapProf, true);
 	}
 
 	protected void printEquip()
@@ -377,10 +374,10 @@ public class CharactrPrinter implements Printable
 		pi = new PrintItem(txt, itsGroupFont, PrintItem.Align.CENTER, true);
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
-		textDualLeftRight("Armor Class", pet.itsAC, "Move", pet.itsMove);
-		textDualLeftRight("Hit Dice", pet.itsHD, "Attacks", pet.itsAttacks);
-		textDualLeftRight("Hit Points", pet.itsHP, "Damage", pet.itsDamage);
-		textDualLeftRight("Size", pet.itsSize, "Weight", pet.itsWeight);
+		textDualLeftRight("Armor Class", pet.itsAC, "Size", pet.itsSize);
+		textDualLeftRight("Hit Dice", pet.itsHD, "Weight", pet.itsWeight);
+		textDualLeftRight("Hit Points", pet.itsHP, "Move", pet.itsMove);
+		textDualLeftRight("Attacks", pet.itsAttacks, "Damage", pet.itsDamage);
 		textWithLabel("Descrip", pet.itsDescrip);
 		textWithLabel("Abilities", pet.itsAbilities);
 	}
@@ -409,7 +406,7 @@ public class CharactrPrinter implements Printable
 	// Print 2 fields on the same line: one left, one right
 	public void textDualLeftRight(String lbl1, String text1, String lbl2, String text2)
 	{
-		PrintItem		pi;
+		PrintItem		pi, pi2;
 		PrintLine		pl;
 		StringBuffer	sb;
 
@@ -422,30 +419,26 @@ public class CharactrPrinter implements Printable
 
 		// Second field, right justified
 		sb = new StringBuffer(lbl2).append(": ");
-		// Add room at the end to fit the text
-		for(int i = 0; i < text2.length(); i++)
-		{
-			// single space for narrow characters, otherwise 2 spaces
-			if(SKINNYCHARS.contains(text2.substring(i, i+1)))
-				sb.append(" ");
-			else
-				sb.append("  ");
-		}
 		pi = new PrintItem(sb.toString(), itsLabelFont, PrintItem.Align.RIGHT, false);
+		pi2 = new PrintItem(text2, itsTextFont, PrintItem.Align.RIGHT, false);
+		pi.itsOffset = pi2;
 		pl.add(pi);
-		pi = new PrintItem(text2, itsTextFont, PrintItem.Align.RIGHT, false);
-		pl.add(pi);
-
+		pl.add(pi2);
 		itsPrinter.add(pl);
 	}
 
 	// Creates and queues a labeled (titled) list of items (string)
 	public void textList(String lbl, java.util.List<String> lst)
 	{
+		textList(lbl, lst, false);
+	}
+	public void textList(String lbl, java.util.List<String> lst, boolean twoCols)
+	{
 		PrintItem		pi;
 		PrintLine		pl;
+		int				idx;
 		String			myLabel,
-					indent = "        ";
+						indent = "        ";
 
 		// Draw the label / list title
 		myLabel = lbl + ": ";
@@ -458,15 +451,38 @@ public class CharactrPrinter implements Printable
 			pi = new PrintItem("None", itsTextFont);
 			pl.add(pi);
 			itsPrinter.add(pl);
-
 		}
 		else
 		{
 			itsPrinter.add(pl);
+			idx = -1;
 			for(String item : lst)
 			{
+				idx++;
 				pi = new PrintItem(indent + item, itsTextFont);
-				pl = new PrintLine(pi);
+				if(twoCols)
+				{
+					switch(idx % 2)
+					{
+					case 0: // column 1 - left justified
+						pl = new PrintLine(pi);
+						break;
+					case 1: // column 2 - right justified
+						pi.itsAlign = PrintItem.Align.RIGHT;
+						pl.add(pi);
+						itsPrinter.add(pl);
+						break;
+					}
+				}
+				else
+				{
+					pl = new PrintLine(pi);
+					itsPrinter.add(pl);
+				}
+			}
+			if(twoCols && (idx % 2 != 1))
+			{
+				// If we didn't end at the end of a line, add the line
 				itsPrinter.add(pl);
 			}
 		}

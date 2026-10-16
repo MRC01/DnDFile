@@ -5,6 +5,7 @@ package DnD.model;
 
 import java.util.*;
 
+import DnD.model.Thief.Skill;
 import DnD.util.PrintItem;
 import DnD.util.PrintLine;
 import DnD.util.StreamInput;
@@ -127,9 +128,8 @@ public class Monk extends ClassInfo
 
 	protected void _print(CharactrPrinter cPrint)
 	{
-		PrintItem	pi;
+		PrintItem	pi, pi2;
 		PrintLine	pl;
-		String		txt;
 		int			cols = 2,
 					idx = 0;
 
@@ -138,17 +138,22 @@ public class Monk extends ClassInfo
 		for(Skill sk : Skill.values())
 		{
 			idx = sk.ordinal();
-			txt = sk.itsName + ": " + itsSkills[idx];
-			pi = new PrintItem(txt, CharactrPrinter.itsLabelFont);
+			pi = new PrintItem(sk.itsName + ": ", CharactrPrinter.itsLabelFont);
+			pi2 = new PrintItem(itsSkills[idx], CharactrPrinter.itsTextFont);
 			// print in 2 columns - left, right justified
 			switch(idx % cols)
 			{
 			case 0:
 				pl = new PrintLine(pi);
+				pl.add(pi2);
 				break;
 			case 1:
+				// column 2 - right justify it
 				pi.itsAlign = PrintItem.Align.RIGHT;
+				pi2.itsAlign = PrintItem.Align.RIGHT;
+				pi.itsOffset = pi2;
 				pl.add(pi);
+				pl.add(pi2);
 				cPrint.itsPrinter.add(pl);
 				break;
 			}

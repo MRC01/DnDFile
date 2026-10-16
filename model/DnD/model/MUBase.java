@@ -122,11 +122,13 @@ public abstract class MUBase extends ClassInfo
 
 			// spell details, right justified
 			sb = new StringBuffer();
-			sb.append("In Book: ");
-			sb.append(sp.itsInBook ? "Yes" : "No");
-			sb.append("; ");
+			sb.append(sp.itsInBook ? "" : "Not ");
+			sb.append("In Book");
 			if(sp.itsMemorized)
-				sb.append("Memorized");
+			{
+				sb.append("; ");
+				sb.append("Mem");
+			}
 			pi = new PrintItem(sb.toString(), CharactrPrinter.itsTextFont, PrintItem.Align.RIGHT, false);
 			pl.add(pi);
 			cPrint.itsPrinter.add(pl);

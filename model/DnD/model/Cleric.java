@@ -137,9 +137,8 @@ public class Cleric extends ClassInfo
 
 	/* package */ static void printTurnUndead(CharactrPrinter cPrint, String[] t)
 	{
-		PrintItem	pi;
+		PrintItem	pi, pi2;
 		PrintLine	pl;
-		String		txt;
 		int		cols = 3,
 				idx = 0;
 
@@ -149,21 +148,32 @@ public class Cleric extends ClassInfo
 		for(Turn ct : Turn.values())
 		{
 			idx = ct.ordinal();
-			txt = ct.itsName + ": " + t[idx];
-			pi = new PrintItem(txt, CharactrPrinter.itsLabelFont);
+			pi = new PrintItem(ct.itsName + ": ", CharactrPrinter.itsLabelFont);
+			pi2 = new PrintItem(t[idx], CharactrPrinter.itsTextFont);
 			// print in 3 columns - left, center, right justified
 			switch(idx % cols)
 			{
 			case 0:
+				// column 1: start the line
 				pl = new PrintLine(pi);
+				pl.add(pi2);
 				break;
 			case 1:
+				// column 2: center
 				pi.itsAlign = PrintItem.Align.CENTER;
+				pi2.itsAlign = PrintItem.Align.CENTER;
+				pi.itsOffset = pi2;
+				pi2.itsRevOffset = pi;
 				pl.add(pi);
+				pl.add(pi2);
 				break;
 			case 2:
+				// column 3: right justify and complete the line
 				pi.itsAlign = PrintItem.Align.RIGHT;
+				pi2.itsAlign = PrintItem.Align.RIGHT;
+				pi.itsOffset = pi2;
 				pl.add(pi);
+				pl.add(pi2);
 				cPrint.itsPrinter.add(pl);
 				break;
 			}

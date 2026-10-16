@@ -13,6 +13,8 @@ public class PrintItem
 	public Align		itsAlign;
 	public boolean		itsWithLine;
 	public Dimension	itsComputedSize;
+	public PrintItem	itsOffset;		// This item is shifted by the width of the offset items
+	public PrintItem	itsRevOffset;
 
 	public PrintItem(String str, Font fnt)
 	{
@@ -34,6 +36,8 @@ public class PrintItem
 		itsText = (str == null ? "" : str);
 		itsFont = fnt;
 		itsAlign = al;
+		itsOffset = null;
+		itsRevOffset = null;
 		itsWithLine = withLine;
 		itsComputedSize = null;
 	}
@@ -78,7 +82,7 @@ public class PrintItem
 	// prints the text and returns the length it occupies
 	public int print(Graphics2D g, int xStart, int xPos, int yPos, int xEnd)
 	{
-		int	x = xPos;
+		int	x;
 
 		g.setFont(itsFont);
 		// Draw the text
@@ -89,6 +93,11 @@ public class PrintItem
 			break;
 		case RIGHT:
 			x = rightXPos(xStart, xEnd, g);
+			break;
+		default:
+			x = xPos;
+			if(itsOffset != null)
+				x -= itsOffset.getWidth(g);
 			break;
 		}
 		g.drawString(itsText, x, yPos);
@@ -111,18 +120,30 @@ public class PrintItem
 	protected int centerXPos(int xStart, int xEnd, Graphics2D g)
 	{
 		double	span;
-		int	halfSpan, halfWidth;
+		int		halfSpan, halfWidth,
+				rc;
 
 		span = xEnd - xStart;
 		halfSpan = (int)Math.round(span / 2.0);
-		halfWidth = (int)Math.round(getSize(g).getWidth() / 2.0);
-		return xStart + halfSpan - halfWidth;
+		halfWidth = (int)Math.round(getWidth(g) / 2.0);
+		// Calculate the center
+		rc = xStart + halfSpan - halfWidth;
+		// Adjust for offset (if any)
+		if(itsOffset != null)
+			rc -= (int)Math.round(itsOffset.getWidth(g) / 2.0);
+		if(itsRevOffset != null)
+			rc += (int)Math.round(itsRevOffset.getWidth(g) / 2.0);
+		return rc;
 	}
 
 	// return the xPos to start the text so it is right justified at xEnd
 	protected int rightXPos(int xStart, int xEnd, Graphics2D g)
 	{
-		return xEnd - getSize(g).width;
-	}
+		int		rc;
 
+		rc = xEnd - getSize(g).width;
+		if(itsOffset != null)
+			rc -= itsOffset.getWidth(g);
+		return rc;
+	}
 }
