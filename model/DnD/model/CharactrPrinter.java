@@ -196,14 +196,13 @@ public class CharactrPrinter implements Printable
 		itsPrinter.add(pl);
 
 		textDualLeftRight("Race", itsChar.itsRace.getName(), "Height", itsChar.itsHeight);
-		textDualLeftRight("Gender", itsChar.itsGender, "Weight", itsChar.itsWeight);
-		textDualLeftRight("Age", itsChar.itsAge, "Sleep Factor", itsChar.itsSleep);
+		textDualLeftRight("Alignment", itsChar.itsAlign, "Weight", itsChar.itsWeight);
+		textDualLeftRight("Religion", itsChar.itsReligion, "Age", itsChar.itsAge);
+		textDualLeftRight("Sleep Factor", itsChar.itsSleep, "Gender", itsChar.itsGender);
 		textWithLabel("Armor", itsChar.itsArmor);
 		textWithLabel("Clothing", itsChar.itsClothing);
-		textWithLabel("Alignment", itsChar.itsAlign);
 		textWithLabel("Place Origin", itsChar.itsPlaceOrig);
 		textWithLabel("Description", itsChar.itsDescrip);
-		textWithLabel("Religion", itsChar.itsReligion);
 		textList("Race Abilities", itsChar.itsRace.itsAbilities);
 		textList("Languages", itsChar.itsLangs, true);
 		textList("Secondary Skills", itsChar.itsSecSkills, true);
@@ -213,15 +212,7 @@ public class CharactrPrinter implements Printable
 	{
 		PrintItem	pi;
 		PrintLine	pl;
-		String		indent = "        ",
-				stLabels[] =
-				{
-					"Para/Poi/DM",
-					"Petr/Poly",
-					"Rod/Staff/Wand",
-					"Breath Weap",
-					"Spell"
-				};
+		String		indent = "        ";
 
 		pi = new PrintItem("Combat Info", itsGroupFont, PrintItem.Align.CENTER, true);
 		pl = new PrintLine(pi);
@@ -236,8 +227,11 @@ public class CharactrPrinter implements Printable
 		pl = new PrintLine(pi);
 		itsPrinter.add(pl);
 
-		for(int i = 0; i < SaveThrowManager.ourSaveThrowCount; i++)
-			textWithLabel(indent + stLabels[i], itsChar.itsSaveThrows[i]);
+		textDualLeftRight(indent + ClassInfo.SaveThrow.values()[0].itsName, itsChar.itsSaveThrows[0]
+				, ClassInfo.SaveThrow.values()[3].itsName, itsChar.itsSaveThrows[3]);
+		textDualLeftRight(indent + ClassInfo.SaveThrow.values()[1].itsName, itsChar.itsSaveThrows[1]
+				, ClassInfo.SaveThrow.values()[4].itsName, itsChar.itsSaveThrows[4]);
+		textWithLabel(indent + ClassInfo.SaveThrow.values()[2].itsName, itsChar.itsSaveThrows[2]);
 
 		textList("Combat Adjustments", itsChar.itsCombatAdj);
 		textList("Weapon Proficiencies", itsChar.itsWeapProf, true);
