@@ -173,15 +173,19 @@ public class CharactrPrinter implements Printable
 
 		for(AbilScore ab : itsChar.itsAbilScores.itsAbilScores)
 		{
+			/* If value is blank, skip entirely
+			 * This is mainly for Comeliness, which was added in Unearthed Arcana,
+			 * and is often ignored / unused.
+			 */
+			if(Util.isBlank(ab.itsVal))
+				continue;
 			// Score name & value
 			txt = ab.itsType.itsName + ": " + ab.itsVal + "; ";
 			pi = new PrintItem(txt, itsGroupFont);
 			pl = new PrintLine(pi);
-
 			// Score adjustment
 			pi = new PrintItem(ab.itsAdjust, itsTextFont);
 			pl.add(pi);
-
 			itsPrinter.add(pl);
 		}
 	}
