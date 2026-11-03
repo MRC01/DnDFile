@@ -113,7 +113,11 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener, 
 	{
 		super.enableAll(ef);
 		itsSpellList.enableAll(ef);
-		itsSpellDetail.enableAll(ef);
+		// Enable the spell detail only if a spell in the list is selected
+		if(ef && (itsSpellList.getSelectedIndex() >= 0))
+			itsSpellDetail.enableAll(true);
+		else
+			itsSpellDetail.enableAll(false);
 	}
 
 	// PanelSpellList calls this when a spell is selected

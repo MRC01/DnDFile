@@ -153,6 +153,11 @@ public class PanelSpellList extends PanelBase implements ActionListener, ListSel
 		refreshList(-1);
 	}
 
+	public int getSelectedIndex()
+	{
+		return itsLB.getSelectedIndex();
+	}
+
 	@SuppressWarnings("unchecked")
 	/* package */ void refreshList(int idx)
 	{

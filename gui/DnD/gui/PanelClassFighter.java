@@ -166,8 +166,14 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 	{
 		super.enableAll(ef);
 		itsClericalSpells.enableAll(ef);
+
 		itsSpellBook.enableAll(ef);
-		itsSpellDetail.enableAll(ef);
+		// Enable the spell detail only if a spell in the list is selected
+		if(ef && (itsSpellBook.getSelectedIndex() >= 0))
+			itsSpellDetail.enableAll(true);
+		else
+			itsSpellDetail.enableAll(false);
+
 		if(getTurnUndeadPanel() != null)
 			getTurnUndeadPanel().enableAll(ef);
 	}
