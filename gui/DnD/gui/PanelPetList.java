@@ -6,9 +6,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import DnD.model.Pet;
-import DnD.model.Wealth;
 
-/** This is the GUI panel for the list of wealth, a sub-panel of PanelPet
+/** This is the GUI panel for the list of pets, a sub-panel of PanelPet
  */
 public class PanelPetList extends PanelBase implements ActionListener, ListSelectionListener
 {

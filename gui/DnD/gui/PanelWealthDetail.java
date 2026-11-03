@@ -24,7 +24,7 @@ public class PanelWealthDetail extends PanelBase implements ActionListener
 	FieldMap[]		itsFields;
 	JPanel			itsBGPanel;
 	ButtonGroup		itsBGType;
-	JRadioButton[]		itsRBType;
+	JRadioButton[]	itsRBType;
 
 	// Other stuff
 	int			itsWealthTypeCount;
@@ -104,10 +104,30 @@ public class PanelWealthDetail extends PanelBase implements ActionListener
 		return itsWealthTypeCount + 1;
 	}
 
+	public void enableAll(boolean ef)
+	{
+		super.enableAll(ef);
+		for(FieldMap fm : itsFields)
+			fm.setEnabled(ef);
+		itsBGPanel.setEnabled(ef);
+		for(JRadioButton rb : itsRBType)
+			rb.setEnabled(ef);
+	}
+
 	// Tie this detail panel to the given wealth item
 	public void setData(Wealth.WealthItem wi)
 	{
-		itsData = (wi != null ? wi : kEmptyWealthItem);
+		if(wi == null)
+		{
+			// No list item is selected; disable this detail panel
+			itsData = kEmptyWealthItem;
+			enableAll(false);
+		}
+		else
+		{
+			itsData = wi;
+			enableAll(true);
+		}
 		for(FieldMap fm : itsFields)
 		{
 			try

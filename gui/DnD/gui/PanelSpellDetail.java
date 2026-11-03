@@ -68,7 +68,16 @@ public class PanelSpellDetail extends PanelBase implements ActionListener
 	// Make this detail panel show the given spell
 	public void setData(SpellBook.Spell sp)
 	{
-		itsData = (sp != null ? sp : kEmptySpellItem);
+		if(sp == null)
+		{
+			itsData = kEmptySpellItem;
+			enableAll(false);
+		}
+		else
+		{
+			itsData = sp;
+			enableAll(true);
+		}
 		for(FieldMap fm : itsFields)
 		{
 			try
@@ -116,17 +125,9 @@ public class PanelSpellDetail extends PanelBase implements ActionListener
 
 	public void enableAll(boolean ef)
 	{
-		try
-		{
-			for(FieldMap fm : itsFields)
-				fm.itsTF.setEnabled(ef);
-		}
-		catch(Exception e)
-		{
-			MainGui.get().errBox("Failed to enable fields", e);
-		}
-		itsButApply.setEnabled(ef);
-		itsButRevert.setEnabled(ef);
+		super.enableAll(ef);
+		for(FieldMap fm : itsFields)
+			fm.setEnabled(ef);
 	}
 
 	// Returns the grid bag height of this panel

@@ -14,6 +14,7 @@ public class FieldMap
 	protected static Integer	INTEGER_ZERO = Integer.valueOf(0);
 
 	public JTextField	itsTF;
+	public JLabel		itsLabel;
 	public Field		itsData;
 	public int			itsIndex;
 	public Object		itsParent;
@@ -38,11 +39,27 @@ public class FieldMap
 
 	public FieldMap(FieldMapCfg cfg) throws NoSuchFieldException, IllegalAccessException
 	{
+		init(cfg, null);
+	}
+	public FieldMap(FieldMapCfg cfg, JLabel jl) throws NoSuchFieldException, IllegalAccessException
+	{
+		init(cfg, jl);
+	}
+	protected void init(FieldMapCfg cfg, JLabel jl) throws NoSuchFieldException, IllegalAccessException
+	{
 		itsTF = cfg.guiField;
 		itsParent = cfg.dataParentObj;
 		itsData = getParent().getClass().getField(cfg.dataFieldName);
 		itsIndex = cfg.dataFieldIndex;
+		itsLabel = jl;
 		revert();
+	}
+
+	public void setEnabled(boolean ef)
+	{
+		itsTF.setEnabled(ef);
+		if(itsLabel != null)
+			itsLabel.setEnabled(ef);
 	}
 
 	public void apply() throws IllegalAccessException

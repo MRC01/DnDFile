@@ -70,10 +70,27 @@ public class PanelPetDetail extends PanelBase implements ActionListener
 		MainGui.addGui(guiCfg, itsButRevert);
 	}
 
+	public void enableAll(boolean ef)
+	{
+		super.enableAll(ef);
+		for(FieldMap fm : itsFields)
+			fm.setEnabled(ef);
+	}
+
 	// Make this detail panel show the given pet
 	public void setData(Pet pet)
 	{
-		itsData = (pet != null ? pet : kEmptyPet);
+		if(pet == null)
+		{
+			// No list item is selected; disable this detail panel
+			itsData = kEmptyPet;
+			enableAll(false);
+		}
+		else
+		{
+			itsData = pet;
+			enableAll(true);
+		}
 		for(FieldMap fm : itsFields)
 		{
 			try

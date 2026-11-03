@@ -615,7 +615,7 @@ public class MainGui extends Container implements ActionListener
 		// create the field map
 		try
 		{
-			rc = new FieldMap(fmCfg);
+			rc = new FieldMap(fmCfg, jl);
 			addTextField(guiCfg, jl, fmCfg.guiField);
 		}
 		catch(Exception e)
