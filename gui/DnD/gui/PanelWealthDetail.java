@@ -47,7 +47,7 @@ public class PanelWealthDetail extends PanelBase implements ActionListener
 		gc.fill = GridBagConstraints.NONE;
 		gc.weighty = 1.0;
 		gc.weightx = 1.0;
-		gc.anchor = GridBagConstraints.WEST;
+		gc.anchor = GridBagConstraints.NORTHWEST;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 
 		// radio buttons for wealth type
@@ -70,8 +70,8 @@ public class PanelWealthDetail extends PanelBase implements ActionListener
 			MainGui.addGui(guiCfg, itsRBType[i]);
 			itsRBTypes.put(itsRBType[i].getModel(), wt);
 		}
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.anchor = GridBagConstraints.WEST;
+		gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.NORTHWEST;
 		gc.gridwidth = 1;
 		gc.gridheight = itsWealthTypeCount + 1;
 		guiCfg.parent = this;

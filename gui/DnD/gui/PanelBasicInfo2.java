@@ -20,7 +20,7 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 	JPanel			itsBGPanel;
 	ButtonGroup		itsBGType;
 	JRadioButton[]		itsRBType;
-	PanelListBox<String>	itsLangList, itsSkillList, itsRaceAbils;
+	PanelListBox<String>	itsLangList, itsSkillList, itsRaceAbils, itsNoteList;
 	JButton			itsBRaceSet;
 
 	// Other stuff
@@ -73,15 +73,15 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 			MainGui.addGui(guiCfg, itsRBType[i]);
 			itsRBTypes.put(itsRBType[i].getModel(), rt);
 		}
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.anchor = GridBagConstraints.WEST;
+		gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.NORTHWEST;
 		gc.gridwidth = 1;
 		gc.gridheight = itsRaceTypeCount + 1;
 		guiCfg.parent = this;
 		MainGui.addGui(guiCfg, itsBGPanel);
 
 		// Race abilities
-		gc.gridwidth = 4;
+		gc.gridwidth = 2;
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weighty = 1.0;
 		itsRaceAbils = new PanelListBox<String>("Race Abilities",
@@ -93,10 +93,16 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 				MainGui.getChar().itsLangs, String.class);
 		MainGui.addGui(guiCfg, itsLangList);
 		// Secondary Skills
-		gc.gridwidth = GridBagConstraints.REMAINDER;
+		gc.gridwidth = 2;
+		gc.fill = GridBagConstraints.BOTH;
 		itsSkillList = new PanelListBox<String>("Secondary Skills",
 				MainGui.getChar().itsSecSkills, String.class);
 		MainGui.addGui(guiCfg, itsSkillList);
+		// Character notes
+		gc.gridwidth = GridBagConstraints.REMAINDER;
+		itsNoteList = new PanelListBox<String>("Notes",
+				MainGui.getChar().itsNotes, String.class);
+		MainGui.addGui(guiCfg, itsNoteList);
 
 		// Control buttons
 		gc.fill = GridBagConstraints.NONE;
@@ -158,5 +164,6 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 		itsRaceAbils.setList(chr.itsRace.itsAbilities, String.class);
 		itsLangList.setList(chr.itsLangs, String.class);
 		itsSkillList.setList(chr.itsSecSkills, String.class);
+		itsNoteList.setList(chr.itsNotes, String.class);
 	}
 }

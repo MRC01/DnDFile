@@ -27,7 +27,7 @@ public class Charactr
 	 */
 	public String	itsSaveThrows[];
 	public AbilScoreSet	itsAbilScores;
-	public List<String>	itsWeapProf, itsCombatAdj, itsLangs, itsSecSkills;
+	public List<String>	itsWeapProf, itsCombatAdj, itsLangs, itsSecSkills, itsNotes;
 	public Item		itsEquip;
 	public Race		itsRace;
 	public Wealth	itsWealth;
@@ -50,6 +50,7 @@ public class Charactr
 		itsPets = new ArrayList<Pet>();
 		itsLangs = new ArrayList<String>();
 		itsSecSkills = new ArrayList<String>();
+		itsNotes = new ArrayList<String>();
 		itsWealth = new Wealth();
 		setClean();
 	}

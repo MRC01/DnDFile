@@ -210,6 +210,8 @@ public class CharactrPrinter implements Printable
 		textList("Race Abilities", itsChar.itsRace.itsAbilities);
 		textList("Languages", itsChar.itsLangs, true);
 		textList("Secondary Skills", itsChar.itsSecSkills, true);
+		if(!Util.isBlank(itsChar.itsNotes))
+			textList("Notes", itsChar.itsNotes);
 	}
 
 	protected void printCombat()

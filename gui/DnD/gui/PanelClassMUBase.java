@@ -33,7 +33,7 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener, 
 	protected void createGui(MainGui.GuiCfg guiCfg) throws NoSuchFieldException, IllegalAccessException
 	{
 		// summary list of spells
-		guiCfg.gc.gridwidth = 2;
+		guiCfg.gc.gridwidth = 1;
 		guiCfg.gc.fill = GridBagConstraints.BOTH;
 		guiCfg.gc.weighty = 1.0;
 		guiCfg.gc.weightx = 1.0;

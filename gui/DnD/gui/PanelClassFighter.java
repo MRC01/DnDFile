@@ -82,7 +82,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 			{
 				// Druid
 				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
-				itsGuiCfg.gc.weighty = 2.0;
+				itsGuiCfg.gc.weighty = 1.0;
 				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 				MainGui.addGui(itsGuiCfg, itsClericalSpells);
 				itsClericalSpells.setList(((Ranger)itsData).itsDruidSpells, String.class);
@@ -90,7 +90,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 			if(itsData.itsLevel >= Ranger.ourSpellLevelMU)
 			{
 				// summary list of spells
-				itsGuiCfg.gc.gridwidth = 2;
+				itsGuiCfg.gc.gridwidth = 1;
 				itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
 				itsGuiCfg.gc.weighty = 1.0;
 				itsGuiCfg.gc.weightx = 1.0;

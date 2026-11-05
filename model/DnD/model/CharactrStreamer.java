@@ -12,7 +12,8 @@ public class CharactrStreamer
 	// Version of this persistence format
 	// In July 2026, Ranger added a SpellBook for high level Ranger spells (version 2)
 	// In Oct 2026, added THAC0 to combat info for all characters (version 3)
-	protected static final int	kVersion = 3;
+	// In Nov 2026, added itsNotes to Charactr (version 4)
+	protected static final int	kVersion = 4;
 
 	public Charactr	itsChar;
 	public File		itsFile;
@@ -60,9 +61,10 @@ public class CharactrStreamer
 					/* Version 1 to 2
 						Ranger: add a SpellBook and list of cleric spells
 						Paladin: add cleric turning and a list of cleric spells
-					*/
-					/* Version 2 to 3
-					 * Added THAC0 (itsThac0) to all characters
+					   Version 2 to 3
+					   Added THAC0 (itsThac0) to all characters
+					   Version 3 to 4
+					   Added itsNotes to all characters
 					 */
 				}
 			}
@@ -104,6 +106,8 @@ public class CharactrStreamer
 				si.readList(itsChar.itsCombatAdj, String.class);
 				si.readList(itsChar.itsLangs, String.class);
 				si.readList(itsChar.itsSecSkills, String.class);
+				if(ver >= 4)
+					si.readList(itsChar.itsNotes, String.class);
 
 				itsChar.itsEquip = readEquipItem(si);
 
@@ -220,6 +224,7 @@ public class CharactrStreamer
 			so.writeList(itsChar.itsCombatAdj);
 			so.writeList(itsChar.itsLangs);
 			so.writeList(itsChar.itsSecSkills);
+			so.writeList(itsChar.itsNotes);
 
 			writeEquipItem(so, itsChar.itsEquip);
 
