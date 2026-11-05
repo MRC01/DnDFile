@@ -48,7 +48,7 @@ public class PanelPet extends PanelBase implements ActionListener
 
 		// detail form for currently selected pet
 		itsPetDetail = new PanelPetDetail(this);
-		gc.weightx = 2.0;
+		gc.weightx = 6.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(guiCfg, itsPetDetail);
 

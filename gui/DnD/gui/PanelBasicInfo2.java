@@ -19,7 +19,7 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 	// GUI stuff
 	JPanel			itsBGPanel;
 	ButtonGroup		itsBGType;
-	JRadioButton[]		itsRBType;
+	JRadioButton[]	itsRBType;
 	PanelListBox<String>	itsLangList, itsSkillList, itsRaceAbils, itsNoteList;
 	JButton			itsBRaceSet;
 
@@ -37,7 +37,6 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 		MainGui.GuiCfg		guiCfg = new MainGui.GuiCfg(this, gb, gc);
 
 		setLayout(gb);
-		gc.fill = GridBagConstraints.NONE;
 		gc.weighty = 0.0;
 		gc.weightx = 0.0;
 
@@ -52,8 +51,6 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 		MainGui.addGui(guiCfg, itsBRaceSet);
 
 		// radio buttons for race
-		gc.weighty = 1.0;
-		gc.weightx = 1.0;
 		itsRBTypes = new HashMap<ButtonModel, Race.Type>();
 		itsRaceTypeCount = Race.Type.values().length;
 		itsBGType = new ButtonGroup();
@@ -61,7 +58,6 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 		itsBGPanel = new JPanel();
 		itsBGPanel.setLayout(gb);
 		itsBGPanel.setBorder(BorderFactory.createTitledBorder("Race"));
-		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.WEST;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		guiCfg.parent = itsBGPanel;
@@ -73,7 +69,6 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 			MainGui.addGui(guiCfg, itsRBType[i]);
 			itsRBTypes.put(itsRBType[i].getModel(), rt);
 		}
-		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		gc.gridwidth = 1;
 		gc.gridheight = itsRaceTypeCount + 1;
@@ -81,20 +76,22 @@ public class PanelBasicInfo2 extends PanelBase implements ActionListener
 		MainGui.addGui(guiCfg, itsBGPanel);
 
 		// Race abilities
-		gc.gridwidth = 2;
+		gc.gridwidth = GridBagConstraints.REMAINDER;
 		gc.fill = GridBagConstraints.BOTH;
+		gc.weightx = 2.0;
 		gc.weighty = 1.0;
 		itsRaceAbils = new PanelListBox<String>("Race Abilities",
 				MainGui.getChar().itsRace.itsAbilities, String.class);
 		MainGui.addGui(guiCfg, itsRaceAbils);
 		// Languages
-		gc.gridwidth = GridBagConstraints.REMAINDER;
+		gc.gridwidth = 2;
+		gc.weightx = 0.0;
 		itsLangList = new PanelListBox<String>("Languages",
 				MainGui.getChar().itsLangs, String.class);
 		MainGui.addGui(guiCfg, itsLangList);
 		// Secondary Skills
-		gc.gridwidth = 2;
-		gc.fill = GridBagConstraints.BOTH;
+		gc.gridwidth = GridBagConstraints.REMAINDER;
+		gc.weightx = 2.0;
 		itsSkillList = new PanelListBox<String>("Secondary Skills",
 				MainGui.getChar().itsSecSkills, String.class);
 		MainGui.addGui(guiCfg, itsSkillList);

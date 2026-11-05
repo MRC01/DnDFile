@@ -49,7 +49,7 @@ public class PanelWealth extends PanelBase implements ActionListener
 
 		// detail form for currently selected wealth item
 		itsWealthDetail = new PanelWealthDetail(this);
-		gc.weightx = 2.0;
+		gc.weightx = 4.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(guiCfg, itsWealthDetail);
 

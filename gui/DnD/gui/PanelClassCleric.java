@@ -49,11 +49,12 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 			itsGuiCfg.gc.gridwidth = 2;
 			itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
 			itsGuiCfg.gc.weighty = 1.0;
-			itsGuiCfg.gc.weightx = 1.0;
+			itsGuiCfg.gc.weightx = 0.0;
 			MainGui.addGui(itsGuiCfg, itsTurnPanel);
 		}
 		// Spells
 		itsGuiCfg.gc.fill = GridBagConstraints.BOTH;
+		itsGuiCfg.gc.weightx = 2.0;
 		itsGuiCfg.gc.weighty = 2.0;
 		itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(itsGuiCfg, itsLBSpells);

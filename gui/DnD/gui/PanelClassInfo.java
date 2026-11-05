@@ -59,7 +59,7 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 		// basic class info
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		gc.fill = GridBagConstraints.NONE;
+		gc.fill = GridBagConstraints.BOTH;
 		gc.weighty = 1.0;
 		gc.weightx = 1.0;
 		itsClassInfoPanel = new PanelClassBasic(this);

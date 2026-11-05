@@ -48,6 +48,7 @@ public class PanelCombatInfo extends PanelBase implements ActionListener
 				MainGui.getChar().itsWeapProf, String.class);
 		MainGui.addGui(guiCfg, itsWeapProf);
 		// other adjustments
+		gc.weightx = 4.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		itsCombatAdj = new PanelListBox<String>("Combat Adjustments",
 				MainGui.getChar().itsCombatAdj, String.class);

@@ -42,7 +42,7 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener, 
 
 		// detail form for currently selected spell
 		itsSpellDetail = new PanelSpellDetail(this);
-		guiCfg.gc.weightx = 2.0;
+		guiCfg.gc.weightx = 8.0;
 		guiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 		MainGui.addGui(guiCfg, itsSpellDetail);
 

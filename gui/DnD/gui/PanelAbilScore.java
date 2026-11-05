@@ -54,13 +54,15 @@ public class PanelAbilScore extends PanelBase implements ActionListener
 			jbAdj = MainGui.newButton(ab.itsName, this);
 			jbAdj.setForeground(Color.RED);
 
-			gc.weightx = 1.0;
+			gc.weightx = 0.0;
 			gc.gridwidth = 1;
 			gc.anchor = GridBagConstraints.EAST;
 			MainGui.addGui(guiCfg, jbAdj);
 			gc.anchor = GridBagConstraints.WEST;
 			gc.gridwidth = 2;
 			MainGui.addGui(guiCfg, jtfVal);
+			gc.weightx = 2.0;
+			gc.gridwidth = 4;
 			gc.gridwidth = GridBagConstraints.REMAINDER;
 			MainGui.addGui(guiCfg, jtfAdj);
 

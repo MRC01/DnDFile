@@ -98,7 +98,7 @@ public class PanelClassFighter extends PanelClassInfo implements ActionListener,
 				itsSpellBook.setList(((Ranger)itsData).itsSpellBook.itsContents);
 	
 				// detail form for currently selected spell
-				itsGuiCfg.gc.weightx = 2.0;
+				itsGuiCfg.gc.weightx = 8.0;
 				itsGuiCfg.gc.gridwidth = GridBagConstraints.REMAINDER;
 				MainGui.addGui(itsGuiCfg, itsSpellDetail);
 			}

@@ -47,9 +47,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		// list of class abilities (usually empty)
 		gc.fill = GridBagConstraints.BOTH;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		gc.weighty = 0.0;
-		gc.weightx = 1.0;
-		gc.gridheight = 6;
+		gc.weighty = 4.0;
+		gc.weightx = 4.0;
+		gc.gridheight = 7;
 		gc.gridwidth = 2;
 		itsLBAbils = new PanelListBox<String>("Class Abilities", itsClassPanel.itsData.itsAbils, String.class);
 		MainGui.addGui(guiCfg, itsLBAbils);
@@ -75,8 +75,6 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 
 		// fields for level and experience points
 		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.weighty = 0.0;
-		gc.weightx = 1.0;
 		gc.gridheight = 1;
 		gc.gridwidth = 1;
 		guiCfg.fldLen = kFieldLen;
@@ -93,13 +91,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		fmCfg.dataFieldName = "itsXPBonus";
 		fmCfg.guiField = itsTFXPBonus;
 		itsFields[2] = new FieldMap(fmCfg);
-		gc.weighty = 0.0;
-		gc.weightx = 0.0;
-		gc.gridheight = 1;
 		gc.gridwidth = 1;
 		gc.anchor = GridBagConstraints.EAST;
 		MainGui.addGui(guiCfg, itsBXPBonus);
-		gc.weightx = 1.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		gc.anchor = GridBagConstraints.WEST;
 		MainGui.addGui(guiCfg, itsTFXPBonus);
@@ -114,11 +108,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		fmCfg.dataFieldName = "itsXPToAdd";
 		fmCfg.guiField = itsTFXPAdd;
 		itsFMXPAdd = new FieldMap(fmCfg);
-		gc.weightx = 0.0;
 		gc.gridwidth = 1;
 		gc.anchor = GridBagConstraints.EAST;
 		MainGui.addGui(guiCfg, itsBXPAdd);
-		gc.weightx = 1.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		gc.anchor = GridBagConstraints.WEST;
 		MainGui.addGui(guiCfg, itsTFXPAdd);
@@ -133,11 +125,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		fmCfg.dataFieldName = "itsLevel";
 		fmCfg.guiField = itsTFLevel;
 		itsFields[3] = new FieldMap(fmCfg);
-		gc.weightx = 0.0;
 		gc.gridwidth = 1;
 		gc.anchor = GridBagConstraints.EAST;
 		MainGui.addGui(guiCfg, itsBLevel);
-		gc.weightx = 1.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		gc.anchor = GridBagConstraints.WEST;
 		MainGui.addGui(guiCfg, itsTFLevel);
