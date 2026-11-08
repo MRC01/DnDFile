@@ -4,7 +4,7 @@ Dungeons &amp; Dragons Character App
 **WHAT**
 
 DnD is a Java Swing application that manages AD&D characters.
-The program uses and requires JDK 1.6 or any later version.
+The program uses and requires JDK 1.11 or any later version.
 It runs on any computer having Java: Linux, Windows or Mac.
 
 **QUICK START**
