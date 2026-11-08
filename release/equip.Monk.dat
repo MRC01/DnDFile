@@ -1,0 +1,37 @@
+AC	F10 H5 R10
+AR	None
+CL	Robe, brown, knee length
+WP	Hand Axe
+Clothing
+	Robe; brown, knee length
+	Boots; low, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Belt Pouch; large
+			thieves' tools
+		Hand Axes (1 on each side)
+Backpack
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel
+
+AC	F10 H5 R10
+AR	None
+CL	Robe, brown, knee length
+WP	Dagger
+Clothing
+	Robe; brown, knee length
+	Boots; high, soft
+	Belt
+		Belt Pouch; small
+			coins in hand
+		Belt Pouch; large
+			thieves' tools
+		Daggers (1 on each side)
+Backpack
+	Bota bag; 1 gallon
+	Rations; 1 week, standard
+	Sleeping roll; tied to bottom
+	Tinder box; flint and steel
