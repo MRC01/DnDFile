@@ -13,6 +13,13 @@ My website has info on this program and how to get started:
 
 https://mclements.net/blogWP/index.php/2026/04/22/dd-character-app/
 
+If you aren't able, or don't want, to build the app:
+
+The release directory has all files needed to run this app,
+built with JDK 1.11, which is the earliest version of Java that can run this app.
+Since Java 1.11 came out in 2018, any computer running Java probably has a more recent version.
+And since Java binaries are backward compatible, this means the binary will work on most computers.
+
 **WHY**
 
 Years ago I had been doing Java programming with advanced features like weak references and reflection.
