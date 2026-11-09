@@ -62,12 +62,13 @@ public class PanelClassMUBase extends PanelClassInfo implements ActionListener, 
 	}
 
 	// This tells my superclass my specific data model class
+	@SuppressWarnings("unchecked")
 	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		Class<? extends ClassInfo> rc = null;
 		try
 		{
-			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameFromHint(cNameHint));
 			if(!MUBase.class.isAssignableFrom(rc))
 				throw new ClassCastException(cNameHint + "is not a type of Magic User");
 		}

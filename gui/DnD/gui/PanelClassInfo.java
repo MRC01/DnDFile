@@ -29,8 +29,11 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	// This stops the Java compiler from complaining
 	private static final long serialVersionUID = 1;
 
+	// optional classname delimiter to indicate custom spell type suffix
+	private static final String kSpellTypeSuffixDelim = "-";
+
 	// its model data - the specific character class (fighter, cleric, etc.)
-	ClassInfo		itsData;
+	ClassInfo			itsData;
 
 	// The basic class info panel (every specific class has one)
 	PanelClassBasic		itsClassInfoPanel;
@@ -102,6 +105,22 @@ public abstract class PanelClassInfo extends PanelBase implements ActionListener
 	 * Note: this is a specific subclass.
 	 */
 	public abstract Class<? extends ClassInfo> getDataClassSub(String cNameHint);
+
+	/* Extract a class name from a class name hint.
+	 * Usually, they are the same.
+	 * However, dot notation can be used: className.spellType
+	 * This is for subclasses that use different spells, like Druid for Bard spells
+	 */
+	/* package */ static String cNameFromHint(String cNameHint)
+	{
+		if(cNameHint == null)
+			return null;
+
+		if(cNameHint.contains(kSpellTypeSuffixDelim))
+			return cNameHint.substring(0, cNameHint.indexOf(kSpellTypeSuffixDelim));
+
+		return cNameHint;
+	}
 
 	// Create and return working data for my class
 	public ClassInfo createData()

@@ -61,12 +61,13 @@ public class PanelClassThief extends PanelClassInfo implements ActionListener
 	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
 	 * Note: this is a specific subclass.
 	 */
+	@SuppressWarnings("unchecked")
 	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		Class<? extends ClassInfo> rc = null;
 		try
 		{
-			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameFromHint(cNameHint));
 			if(!Thief.class.isAssignableFrom(rc))
 				throw new ClassCastException(cNameHint + "is not a type of Thief");
 		}

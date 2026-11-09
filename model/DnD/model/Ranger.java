@@ -100,7 +100,7 @@ public class Ranger extends Fighter
 				int				lvl;
 				SpellManager	sm;
 				lvl = 1 + level - ourSpellLevelDruid;
-				sm = SpellManager.get(this, "Ranger.Druid");
+				sm = SpellManager.get(this, "Ranger-Druid");
 				if(sm != null)
 					itsAbils.addAll(sm.getSpells(lvl, this, true));
 			}
@@ -109,7 +109,7 @@ public class Ranger extends Fighter
 			{ 
 				int				lvl = 1 + level - ourSpellLevelMU;
 				SpellManager	sm;
-				sm = SpellManager.get(this, "Ranger.MagicUser");
+				sm = SpellManager.get(this, "Ranger-MagicUser");
 				if(sm != null)
 					itsAbils.addAll(sm.getSpells(lvl, this));
 			}

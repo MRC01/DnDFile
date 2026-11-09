@@ -271,7 +271,7 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		 * Pick it directly from the GUI field so the data doesn't have to be applied.
 		 * This user-defined name is just a hint, it doesn't have to exist.
 		*/
-		cName = itsFields[0].itsTF.getText();
+		cName = PanelClassInfo.cNameFromHint(itsFields[0].itsTF.getText());
 		if(!Util.isBlank(cName))
 			cName = "DnD.model." + cName;
 		newClass = itsClassPanel.createData(cName);

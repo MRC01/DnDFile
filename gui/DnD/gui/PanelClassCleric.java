@@ -70,13 +70,14 @@ public class PanelClassCleric extends PanelClassInfo implements ActionListener
 	/* Through this method, subclasses tell me what type of ClassInfo to instantiate.
 	 * Note: this is a specific subclass.
 	 */
+	@SuppressWarnings("unchecked")
 	public Class<? extends ClassInfo> getDataClassSub(String cNameHint)
 	{
 		Class<? extends ClassInfo> rc = null;
 		try
 		{
 			// Try to get a class for the ClassInfo name
-			rc = (Class<? extends ClassInfo>)Class.forName(cNameHint);
+			rc = (Class<? extends ClassInfo>)Class.forName(cNameFromHint(cNameHint));
 			if(!Cleric.class.isAssignableFrom(rc))
 				throw new ClassCastException(cNameHint + "is not a type of Cleric");
 		}
