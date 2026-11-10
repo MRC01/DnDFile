@@ -265,13 +265,14 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 	// Reset/initialize the ClassInfo for this panel
 	void initClass()
 	{
-		String		cName;
+		String		cNameField, cName;
 		ClassInfo	newClass;
 		/* First, pick what type of Class we will use from the ClassName field.
 		 * Pick it directly from the GUI field so the data doesn't have to be applied.
 		 * This user-defined name is just a hint, it doesn't have to exist.
 		*/
-		cName = PanelClassInfo.cNameFromHint(itsFields[0].itsTF.getText());
+		cNameField = itsFields[0].itsTF.getText();
+		cName = PanelClassInfo.cNameFromHint(cNameField);
 		if(!Util.isBlank(cName))
 			cName = "DnD.model." + cName;
 		newClass = itsClassPanel.createData(cName);
@@ -290,6 +291,9 @@ public class PanelClassBasic extends PanelBase implements ActionListener
 		try
 		{
 			itsClassPanel.resetAll(itsClassPanel.itsData);
+			// Set the classname field back to the value we fetched above.
+			// This avoids overriding a user-defined custom entry.
+			itsFields[0].itsTF.setText(cNameField);
 		}
 		catch(Exception e)
 		{
